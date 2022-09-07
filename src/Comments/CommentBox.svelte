@@ -32,6 +32,7 @@
         />
       {/if}
       <!-- Generates Replies -->
+      <div class="reply-box">
       {#each comment.replies as reply (reply.id)}
         <!-- Checks for user reply -->
         {#if reply.user.username === $currentUser[0].username}
@@ -57,7 +58,8 @@
             isCurrentUser={false}
           />
         {/if}
-      {/each}
+      {/each} 
+    </div>
 
       <!-- If There Are No Replies -->
     {:else}
