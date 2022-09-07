@@ -1,6 +1,6 @@
 import { writable } from "svelte/store";
 
-let currentUser = writable([
+export let currentUser = writable([
   {
     image: {
       png: "./images/avatars/image-juliusomo.png",
@@ -10,7 +10,7 @@ let currentUser = writable([
   },
 ]);
 
-let comments = writable([
+export const comments = writable([
   {
     id: 1,
     content:
@@ -74,4 +74,3 @@ let comments = writable([
   },
 ]);
 
-export default {comments, currentUser};
