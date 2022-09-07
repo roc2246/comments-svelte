@@ -1,6 +1,6 @@
 import { writable } from "svelte/store";
 
-export let currentUser = writable([
+export const currentUser = writable([
   {
     image: {
       png: "./images/avatars/image-juliusomo.png",
