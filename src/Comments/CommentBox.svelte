@@ -7,8 +7,6 @@
   {#each $comments as comment (comment.id)}
     <!-- If There Are Replies -->
     {#if comment.replies.length !== 0}
-      <!-- Checks for user comment -->
-      {#if comment.user.username === $currentUser[0].username}
         <Comment
           id={comment.id}
           commentOrReply="comment comment---you"
@@ -17,25 +15,10 @@
           userImage={comment.user.image.png}
           createdAt={comment.createdAt}
           content={comment.content}
-          isCurrentUser={true}
+          isCurrentUser={comment.user.username === $currentUser[0].username}
         />
-      {:else}
-        <Comment
-          id={comment.id}
-          commentOrReply="comment"
-          score={comment.score}
-          username={comment.user.username}
-          userImage={comment.user.image.png}
-          createdAt={comment.createdAt}
-          content={comment.content}
-          isCurrentUser={false}
-        />
-      {/if}
-      <!-- Generates Replies -->
       <div class="reply-box">
       {#each comment.replies as reply (reply.id)}
-        <!-- Checks for user reply -->
-        {#if reply.user.username === $currentUser[0].username}
           <Comment
             id={reply.id}
             commentOrReply="comment reply reply--you"
@@ -44,20 +27,8 @@
             userImage={reply.user.image.png}
             createdAt={reply.createdAt}
             content={reply.content}
-            isCurrentUser={true}
+            isCurrentUser={reply.user.username === $currentUser[0].username}
           />
-        {:else}
-          <Comment
-            id={reply.id}
-            commentOrReply="comment reply"
-            score={reply.score}
-            username={reply.user.username}
-            userImage={reply.user.image.png}
-            createdAt={reply.createdAt}
-            content={reply.content}
-            isCurrentUser={false}
-          />
-        {/if}
       {/each} 
     </div>
 
