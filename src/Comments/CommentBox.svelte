@@ -7,6 +7,7 @@
   {#each $comments as comment (comment.id)}
     <!-- If There Are Replies -->
     {#if comment.replies.length !== 0}
+      <!-- Checks for user comment -->
         <Comment
           id={comment.id}
           commentOrReply="comment comment---you"
@@ -35,7 +36,6 @@
       <!-- If There Are No Replies -->
     {:else}
       <!-- Checks for user comment -->
-      {#if comment.user.username === $currentUser[0].username}
         <Comment
           id={comment.id}
           commentOrReply="comment comment---you"
@@ -44,20 +44,8 @@
           userImage={comment.user.image.png}
           createdAt={comment.createdAt}
           content={comment.content}
-          isCurrentUser={true}
+          isCurrentUser={comment.user.username === $currentUser[0].username}
         />
-      {:else}
-        <Comment
-          id={comment.id}
-          commentOrReply="comment"
-          score={comment.score}
-          username={comment.user.username}
-          userImage={comment.user.image.png}
-          createdAt={comment.createdAt}
-          content={comment.content}
-          isCurrentUser={false}
-        />
-      {/if}
     {/if}
   {/each}
 </section>
