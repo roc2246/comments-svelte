@@ -1,4 +1,6 @@
 <script>
+// import Form from '../Components/Form.svelte'
+
   export let commentOrReply;
 
   export let id;
@@ -9,6 +11,9 @@
   export let content;
 
   export let isCurrentUser;
+
+  let showReplyForm = false;
+  let showEditForm = false;
 </script>
 
 <div class={commentOrReply}>
@@ -32,17 +37,21 @@
   <span class="comment__post-date">{createdAt}</span>
   <div class="comment_CRUD">
     {#if isCurrentUser === true}
-      <div class="comment__CRUD--reply">
+      <div class="comment__CRUD--edit"  on:click={()=> !showEditForm ? showEditForm=true : showEditForm=false}>
         <img src="images/icon-edit.svg" alt="edit" /> Edit
       </div>
-      <div class="comment__CRUD--reply">
+      <div class="comment__CRUD--delete">
         <img src="images/icon-delete.svg" alt="delete" /> Delete
       </div>
     {:else}
-      <div class="comment__CRUD--reply">
+      <div class="comment__CRUD--reply" on:click={()=> !showReplyForm ? showReplyForm=true : showReplyForm=false}>
         <img src="images/icon-reply.svg" alt="reply" /> Reply
       </div>
     {/if}
   </div>
+  {#if showEditForm}
+  <p>TEST</p>
+  {:else}
   <p class="comment__content">{content}</p>
+{/if}
 </div>
