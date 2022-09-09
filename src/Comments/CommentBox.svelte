@@ -27,7 +27,7 @@
             username={reply.user.username}
             userImage={reply.user.image.png}
             createdAt={reply.createdAt}
-            content={reply.content}
+            content={"@"+reply.replyingTo + " " + reply.content}
             isCurrentUser={reply.user.username === $currentUser[0].username}
           />
       {/each} 

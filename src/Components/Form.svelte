@@ -1,6 +1,7 @@
 <script>
-  import { currentUser } from "../comment-store";
+  import {currentUser} from "../comments-store";
   export let formMode;
+  export let content = null
 </script>
 
 <form on:submit|preventDefault>
@@ -12,7 +13,9 @@
   {:else if formMode === "new-comment"}
     <textarea name="" id="" cols="30" rows="10"> Add a comment... </textarea>
   {:else if formMode === "edit-content"}
-    <textarea name="" id="" cols="30" rows="10"> <slot/> </textarea>
+    <textarea name="" id="" cols="30" rows="10">
+     {content}
+    </textarea>
   {/if}
   <button>Submit</button>
 </form>

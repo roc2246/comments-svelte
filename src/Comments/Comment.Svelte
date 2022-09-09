@@ -1,5 +1,5 @@
 <script>
-// import Form from '../Components/Form.svelte'
+import Form from '../Components/Form.svelte'
 
   export let commentOrReply;
 
@@ -50,7 +50,7 @@
     {/if}
   </div>
   {#if showEditForm}
-  <p>TEST</p>
+  <Form formMode='edit-content' {content}/>
   {:else}
   <p class="comment__content">{content}</p>
 {/if}
