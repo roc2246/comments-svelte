@@ -10,7 +10,7 @@
       <!-- Checks for user comment -->
         <Comment
           id={comment.id}
-          commentOrReply="comment comment---you"
+          commentOrReply="comment"
           score={comment.score}
           username={comment.user.username}
           userImage={comment.user.image.png}
@@ -22,7 +22,7 @@
       {#each comment.replies as reply (reply.id)}
           <Comment
             id={reply.id}
-            commentOrReply="comment reply reply--you"
+            commentOrReply="comment reply"
             score={reply.score}
             username={reply.user.username}
             userImage={reply.user.image.png}
@@ -38,7 +38,7 @@
       <!-- Checks for user comment -->
         <Comment
           id={comment.id}
-          commentOrReply="comment comment---you"
+          commentOrReply="comment"
           score={comment.score}
           username={comment.user.username}
           userImage={comment.user.image.png}
