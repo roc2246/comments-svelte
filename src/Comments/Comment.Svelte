@@ -1,5 +1,5 @@
 <script>
-import Form from '../Components/Form.svelte'
+  import Form from "../Components/Form.svelte";
 
   export let commentOrReply;
 
@@ -9,6 +9,7 @@ import Form from '../Components/Form.svelte'
   export let userImage;
   export let createdAt;
   export let content;
+  export let replyTo = null;
 
   export let isCurrentUser;
 
@@ -37,21 +38,34 @@ import Form from '../Components/Form.svelte'
   <span class="comment__post-date">{createdAt}</span>
   <div class="comment_CRUD">
     {#if isCurrentUser === true}
-      <div class="comment__CRUD--edit"  on:click={()=> !showEditForm ? showEditForm=true : showEditForm=false}>
+      <div
+        class="comment__CRUD--edit"
+        on:click={() =>
+          !showEditForm ? (showEditForm = true) : (showEditForm = false)}
+      >
         <img src="images/icon-edit.svg" alt="edit" /> Edit
       </div>
       <div class="comment__CRUD--delete">
         <img src="images/icon-delete.svg" alt="delete" /> Delete
       </div>
     {:else}
-      <div class="comment__CRUD--reply" on:click={()=> !showReplyForm ? showReplyForm=true : showReplyForm=false}>
+      <div
+        class="comment__CRUD--reply"
+        on:click={() =>
+          !showReplyForm ? (showReplyForm = true) : (showReplyForm = false)}
+      >
         <img src="images/icon-reply.svg" alt="reply" /> Reply
       </div>
     {/if}
   </div>
   {#if showEditForm}
-  <Form formMode='edit-content' {content}/>
+    <Form formMode="edit-content" {replyTo} {content} />
   {:else}
-  <p class="comment__content">{content}</p>
-{/if}
+    <p class="comment__content">
+      {#if replyTo !== null}
+        <span class="reply-to">@{replyTo}</span>
+      {/if}
+      {content}
+    </p>
+  {/if}
 </div>
