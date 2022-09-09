@@ -14,9 +14,15 @@
   {:else if formMode === "new-comment"}
     <textarea name="" id="" cols="30" rows="10"> Add a comment... </textarea>
   {:else if formMode === "edit-content"}
+    {#if replyTo !== null}
     <textarea name="" id="" cols="30" rows="10">
      @{replyTo} {content}
     </textarea>
+    {:else}
+    <textarea name="" id="" cols="30" rows="10">
+      {content}
+     </textarea>
+    {/if}
   {/if}
   <button>Submit</button>
 </form>
