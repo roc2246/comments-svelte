@@ -9,9 +9,17 @@
   let commentText = "Add a comment...";
 
   const addData = (text, commentID) => {
+    const generateID = () => {
+          
+          let id = $comments.length + 1;
+          for(let i = 0; i<$comments.length; i++){
+            id = id + $comments[i].replies.length
+          }
+          return id;
+        }
     comments.update((comment) => {
       const newData = {
-        id: 9,
+        id: generateID(),
         content: text,
         createdAt: "DATE",
         score: 0,
@@ -25,17 +33,20 @@
       };
 
       if (text === commentText) {
-        commentID = null
+        commentID = null;
         newData.replies = [];
         comment = [...comment, newData];
       }
 
       if (text === replyText) {
-        console.log(commentID - 1)
         newData.replyingTo = comment[commentID - 1].user.username;
-        comment[commentID - 1].replies = [...comment[commentID - 1].replies, newData];
+        comment[commentID - 1].replies = [
+          ...comment[commentID - 1].replies,
+          newData,
+        ];
       }
 
+      console.log(newData)
       return [...comment];
     });
   };
@@ -62,8 +73,10 @@
     {/if}
   {/if}
   {#if formMode === "new-comment"}
-  <button on:click={() => addData(commentText)}>Submit</button>
-  {:else if formMode = "new-reply"}
-  <button on:click={() => addData(replyText, Object.values({id})[0])}>Submit</button>
+    <button on:click={() => addData(commentText)}>Submit</button>
+  {:else if (formMode = "new-reply")}
+    <button on:click={() => addData(replyText, Object.values({ id })[0])}
+      >Submit</button
+    >
   {/if}
 </form>
