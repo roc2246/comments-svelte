@@ -1,16 +1,17 @@
 <script>
   import { currentUser, comments } from "../comments-store";
   export let formMode;
+  export let id = null;
   export let content = null;
   export let replyTo = null;
 
   let replyText = "Add a reply...";
   let commentText = "Add a comment...";
 
-  const addData = (text) => {
+  const addData = (text, commentID) => {
     comments.update((comment) => {
       const newData = {
-        id: comment.length + 1,
+        id: 9,
         content: text,
         createdAt: "DATE",
         score: 0,
@@ -24,13 +25,15 @@
       };
 
       if (text === commentText) {
+        commentID = null
         newData.replies = [];
         comment = [...comment, newData];
       }
 
       if (text === replyText) {
-        newData.replyingTo = comment[0].user.username;
-        comment[0].replies = [...comment[0].replies, newData];
+        console.log(commentID - 1)
+        newData.replyingTo = comment[commentID - 1].user.username;
+        comment[commentID - 1].replies = [...comment[commentID - 1].replies, newData];
       }
 
       return [...comment];
@@ -43,6 +46,7 @@
     <img src={$currentUser[0].image.png} alt={$currentUser[0].username} />
   {/if}
   {#if formMode === "new-reply"}
+  <span class="comment-id">{id}</span>
     <textarea name="" id="" cols="30" rows="10" bind:value={replyText} />
   {:else if formMode === "new-comment"}
     <textarea name="" id="" cols="30" rows="10" bind:value={commentText} />
@@ -61,6 +65,6 @@
   {#if formMode === "new-comment"}
   <button on:click={() => addData(commentText)}>Submit</button>
   {:else if formMode = "new-reply"}
-  <button on:click={() => addData(replyText)}>Submit</button>
+  <button on:click={() => addData(replyText, Object.values({id})[0])}>Submit</button>
   {/if}
 </form>

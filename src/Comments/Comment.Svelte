@@ -70,5 +70,5 @@
   {/if}
 </div>
 {#if showReplyForm}
-<Form formMode="new-reply"/>
+<Form id={id} formMode="new-reply"/>
 {/if}
