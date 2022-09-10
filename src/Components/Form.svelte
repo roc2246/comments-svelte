@@ -4,54 +4,38 @@
   export let content = null;
   export let replyTo = null;
 
-  let replyText =  "Add a reply..." 
-  let commentText =  "Add a comment..." 
+  let replyText = "Add a reply...";
+  let commentText = "Add a comment...";
 
   const addData = (text) => {
     comments.update((comment) => {
       const newData = {
-        id: comment[0].replies.length + 1,
+        id: comment.length + 1,
         content: text,
         createdAt: "DATE",
         score: 0,
-        replyingTo: $comments[0].user.username,
         user: {
           image: {
             png: $currentUser[0].image.png,
             webp: $currentUser[0].image.webp,
           },
           username: $currentUser[0].username,
-        }
+        },
       };
 
-      comment[0].replies = [...comment[0].replies, newData]
+      if (text === commentText) {
+        newData.replies = [];
+        comment = [...comment, newData];
+      }
 
-    return [...comment]
+      if (text === replyText) {
+        newData.replyingTo = comment[0].user.username;
+        comment[0].replies = [...comment[0].replies, newData];
+      }
+
+      return [...comment];
     });
   };
-
-  // const addData = (text) => {
-  //   comments.update((comment) => {
-  //     const newData = {
-  //       id: comment.length + 1,
-  //       content: text,
-  //       createdAt: "DATE",
-  //       score: 0,
-  //       user: {
-  //         image: {
-  //           png: $currentUser[0].image.png,
-  //           webp: $currentUser[0].image.webp,
-  //         },
-  //         username: $currentUser[0].username,
-  //       },
-  //       replies: []
-  //     };
-
-  //     comment = [...comment, newData]
-  //   return [...comment]
-  //   });
-  // };
-  $: console.log($comments)
 </script>
 
 <form on:submit|preventDefault>
@@ -59,9 +43,9 @@
     <img src={$currentUser[0].image.png} alt={$currentUser[0].username} />
   {/if}
   {#if formMode === "new-reply"}
-    <textarea name="" id="" cols="30" rows="10" bind:value={replyText}></textarea>
+    <textarea name="" id="" cols="30" rows="10" bind:value={replyText} />
   {:else if formMode === "new-comment"}
-    <textarea name="" id="" cols="30" rows="10" bind:value={commentText}></textarea>
+    <textarea name="" id="" cols="30" rows="10" bind:value={commentText} />
   {:else if formMode === "edit-content"}
     {#if replyTo !== null}
       <textarea name="" id="" cols="30" rows="10">
@@ -74,5 +58,9 @@
       </textarea>
     {/if}
   {/if}
-  <button on:click={()=> addData(commentText)}>Submit</button>
+  {#if formMode === "new-comment"}
+  <button on:click={() => addData(commentText)}>Submit</button>
+  {:else if formMode = "new-reply"}
+  <button on:click={() => addData(replyText)}>Submit</button>
+  {/if}
 </form>
