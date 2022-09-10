@@ -1,8 +1,31 @@
 <script>
-  import {currentUser} from "../comments-store";
+  import { currentUser, comments } from "../comments-store";
   export let formMode;
-  export let content = null
-  export let replyTo = null
+  export let content = null;
+  export let replyTo = null;
+
+  const addData = () => {
+    comments.update((comment) => {
+      const newData = {
+        id: comment.length + 1,
+        content: "",
+        createdAt: "DATE",
+        score: 0,
+        user: {
+          image: {
+            png: $currentUser[0].image.png,
+            webp: $currentUser[0].image.webp,
+          },
+          username: $currentUser[0].username,
+        },
+        replies: []
+      };
+
+      comment = [...comment, newData]
+      console.log(comment)
+    return [...comment]
+    });
+  };
 </script>
 
 <form on:submit|preventDefault>
@@ -15,14 +38,15 @@
     <textarea name="" id="" cols="30" rows="10"> Add a comment... </textarea>
   {:else if formMode === "edit-content"}
     {#if replyTo !== null}
-    <textarea name="" id="" cols="30" rows="10">
-     @{replyTo} {content}
-    </textarea>
+      <textarea name="" id="" cols="30" rows="10">
+        @{replyTo}
+        {content}
+      </textarea>
     {:else}
-    <textarea name="" id="" cols="30" rows="10">
-      {content}
-     </textarea>
+      <textarea name="" id="" cols="30" rows="10">
+        {content}
+      </textarea>
     {/if}
   {/if}
-  <button>Submit</button>
+  <button on:click={()=> addData()}>Submit</button>
 </form>
