@@ -69,3 +69,6 @@
     </p>
   {/if}
 </div>
+{#if showReplyForm}
+<Form formMode="new-reply"/>
+{/if}
