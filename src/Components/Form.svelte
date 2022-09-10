@@ -4,11 +4,14 @@
   export let content = null;
   export let replyTo = null;
 
-  const addData = () => {
+  let replyText =  "Add a reply..." 
+  let commentText =  "Add a comment..." 
+
+  const addData = (text) => {
     comments.update((comment) => {
       const newData = {
         id: comment.length + 1,
-        content: "",
+        content: text,
         createdAt: "DATE",
         score: 0,
         user: {
@@ -22,10 +25,10 @@
       };
 
       comment = [...comment, newData]
-      console.log(comment)
     return [...comment]
     });
   };
+  $: console.log(commentText)
 </script>
 
 <form on:submit|preventDefault>
@@ -33,9 +36,9 @@
     <img src={$currentUser[0].image.png} alt={$currentUser[0].username} />
   {/if}
   {#if formMode === "new-reply"}
-    <textarea name="" id="" cols="30" rows="10"> Add a reply... </textarea>
+    <textarea name="" id="" cols="30" rows="10" bind:value={replyText}></textarea>
   {:else if formMode === "new-comment"}
-    <textarea name="" id="" cols="30" rows="10"> Add a comment... </textarea>
+    <textarea name="" id="" cols="30" rows="10" bind:value={commentText}></textarea>
   {:else if formMode === "edit-content"}
     {#if replyTo !== null}
       <textarea name="" id="" cols="30" rows="10">
@@ -48,5 +51,5 @@
       </textarea>
     {/if}
   {/if}
-  <button on:click={()=> addData()}>Submit</button>
+  <button on:click={()=> addData(commentText)}>Submit</button>
 </form>
