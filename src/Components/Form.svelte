@@ -10,25 +10,48 @@
   const addData = (text) => {
     comments.update((comment) => {
       const newData = {
-        id: comment.length + 1,
+        id: comment[0].replies.length + 1,
         content: text,
         createdAt: "DATE",
         score: 0,
+        replyingTo: $comments[0].user.username,
         user: {
           image: {
             png: $currentUser[0].image.png,
             webp: $currentUser[0].image.webp,
           },
           username: $currentUser[0].username,
-        },
-        replies: []
+        }
       };
 
-      comment = [...comment, newData]
+      comment[0].replies = [...comment[0].replies, newData]
+
     return [...comment]
     });
   };
-  $: console.log(commentText)
+
+  // const addData = (text) => {
+  //   comments.update((comment) => {
+  //     const newData = {
+  //       id: comment.length + 1,
+  //       content: text,
+  //       createdAt: "DATE",
+  //       score: 0,
+  //       user: {
+  //         image: {
+  //           png: $currentUser[0].image.png,
+  //           webp: $currentUser[0].image.webp,
+  //         },
+  //         username: $currentUser[0].username,
+  //       },
+  //       replies: []
+  //     };
+
+  //     comment = [...comment, newData]
+  //   return [...comment]
+  //   });
+  // };
+  $: console.log($comments)
 </script>
 
 <form on:submit|preventDefault>
