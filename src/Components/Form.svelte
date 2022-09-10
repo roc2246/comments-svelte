@@ -46,7 +46,6 @@
     <img src={$currentUser[0].image.png} alt={$currentUser[0].username} />
   {/if}
   {#if formMode === "new-reply"}
-  <span class="comment-id">{id}</span>
     <textarea name="" id="" cols="30" rows="10" bind:value={replyText} />
   {:else if formMode === "new-comment"}
     <textarea name="" id="" cols="30" rows="10" bind:value={commentText} />
