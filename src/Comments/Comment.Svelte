@@ -14,6 +14,8 @@
 
   export let isCurrentUser;
 
+  let formID = -1
+
   let showReplyForm = false;
   let showEditForm = false;
 </script>
@@ -60,7 +62,8 @@
     {/if}
   </div>
   {#if showEditForm}
-    <Form formMode="edit-content" {replyTo} {content}  id={commentID}/>
+  {commentID}
+    <Form formMode="edit-content" replyTo={replyTo} content={content}  id={replyTo !== null ? replyID : commentID}/>
   {:else}
     <p class="comment__content">
       {#if replyTo !== null}

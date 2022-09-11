@@ -54,8 +54,16 @@
   };
 
   const updateData = (id, text) => {
-    $comments[id - 1].content = text;
-    console.log(id);
+    let index;
+    if (text === content) {
+      index = $comments.findIndex((comment) => comment.id === id);
+      $comments[index].content = text;
+      // console.log(updated);
+    } else if (text === editReplyTxt) {
+      updated = $comments.find((comment) => comment.id === id);
+      // updated.replies.content = text;
+      console.log(updated);
+    }
     return [...$comments];
   };
 </script>
