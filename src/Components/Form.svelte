@@ -56,11 +56,10 @@
   const updateData = (id, text) => {
    
       $comments[id - 1].content = text
-      console.log($comments[id - 1].content)
+      console.log(id)
       return [...$comments];
 
 }
-$: console.log(replyText)
 </script>
 
 <form on:submit|preventDefault>
@@ -83,10 +82,10 @@ $: console.log(replyText)
   {:else if formMode === "edit-content"}
     {#if replyTo !== null}
       <textarea name="" id="" cols="30" rows="10" bind:value={editReplyTxt} />
-      <button on:click={() => updateData(Object.values({ id })[0], Object.values({ editReplyTxt })[0])}>Submit</button>
+      <button on:click={() => updateData(id ,  editReplyTxt)}>Submit</button>
     {:else}
       <textarea name="" id="" cols="30" rows="10" bind:value={content} />
-      <button on:click={() => updateData()}>Submit</button>
+      <button on:click={() => updateData(id, content)}>Submit</button>
     {/if}
   {/if}
 </form>
