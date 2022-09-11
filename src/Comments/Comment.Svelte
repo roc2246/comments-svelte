@@ -71,5 +71,5 @@
   {/if}
 </div>
 {#if showReplyForm}
-<Form id={commentID} formMode="new-reply"/>
+<Form id={commentID} username={username} formMode="new-reply"/>
 {/if}
