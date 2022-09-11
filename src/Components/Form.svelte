@@ -6,7 +6,7 @@
   export let replyTo = null;
   export let username = null;
 
-  let editReplyTxt = "@" +replyTo + " " + content
+  let editReplyTxt = "@" + replyTo + " " + content;
 
   let replyText = "Add a reply...";
   let commentText = "Add a comment...";
@@ -54,12 +54,10 @@
   };
 
   const updateData = (id, text) => {
-   
-      $comments[id - 1].content = text
-      console.log(id)
-      return [...$comments];
-
-}
+    $comments[id - 1].content = text;
+    console.log(id);
+    return [...$comments];
+  };
 </script>
 
 <form on:submit|preventDefault>
@@ -68,21 +66,14 @@
   {/if}
   {#if formMode === "new-reply"}
     <textarea name="" id="" cols="30" rows="10" bind:value={replyText} />
-    <button
-      on:click={() =>
-        addData(
-          replyText,
-          Object.values({ id })[0],
-          Object.values({ username })[0]
-        )}>Submit</button
-    >
+    <button on:click={() => addData(replyText, id, username)}>Submit</button>
   {:else if formMode === "new-comment"}
     <textarea name="" id="" cols="30" rows="10" bind:value={commentText} />
     <button on:click={() => addData(commentText)}>Submit</button>
   {:else if formMode === "edit-content"}
     {#if replyTo !== null}
       <textarea name="" id="" cols="30" rows="10" bind:value={editReplyTxt} />
-      <button on:click={() => updateData(id ,  editReplyTxt)}>Submit</button>
+      <button on:click={() => updateData(id, editReplyTxt)}>Submit</button>
     {:else}
       <textarea name="" id="" cols="30" rows="10" bind:value={content} />
       <button on:click={() => updateData(id, content)}>Submit</button>
