@@ -3,7 +3,8 @@
 
   export let commentOrReply;
 
-  export let id;
+  export let commentID = null;
+  export let replyID = null; 
   export let score;
   export let username;
   export let userImage;
@@ -18,7 +19,7 @@
 </script>
 
 <div class={commentOrReply}>
-  <span class="comment__id" style="display:none;">{id}</span>
+  <span class="comment__id" style="display:none;">{commentOrReply === "comment reply" ? replyID : commentID}</span>
   <form action="" class="comment__vote">
     <div class="comment__vote--upvote">
       <img src="images/icon-plus.svg" alt="upvote" />
@@ -70,5 +71,5 @@
   {/if}
 </div>
 {#if showReplyForm}
-<Form id={id} formMode="new-reply"/>
+<Form id={commentID} formMode="new-reply"/>
 {/if}

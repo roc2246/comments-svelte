@@ -10,7 +10,6 @@
 
   const addData = (text, commentID) => {
     const generateID = () => {
-          
           let id = $comments.length + 1;
           for(let i = 0; i<$comments.length; i++){
             id = id + $comments[i].replies.length
@@ -39,6 +38,7 @@
       }
 
       if (text === replyText) {
+        console.log(Object.values(comment).includes(1))
         newData.replyingTo = comment[commentID - 1].user.username;
         comment[commentID - 1].replies = [
           ...comment[commentID - 1].replies,

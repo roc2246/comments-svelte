@@ -6,7 +6,7 @@
 <section id="comment-box">
   {#each $comments as comment (comment.id)}
     <Comment
-      id={comment.id}
+      commentID={comment.id}
       commentOrReply="comment"
       score={comment.score}
       username={comment.user.username}
@@ -20,7 +20,8 @@
       <div class="reply-box">
         {#each comment.replies as reply (reply.id)}
           <Comment
-            id={reply.id}
+          commentID={comment.id}
+            replyID={reply.id}
             commentOrReply="comment reply"
             score={reply.score}
             username={reply.user.username}
