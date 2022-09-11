@@ -20,12 +20,12 @@
 
 <div class={commentOrReply}>
   <span class="comment__id" style="display:none;">{commentOrReply === "comment reply" ? replyID : commentID}</span>
-  <form action="" class="comment__vote">
-    <div class="comment__vote--upvote">
+  <form on:submit|preventDefault class="comment__vote">
+    <div class="comment__vote--upvote" on:click={()=> {score++}}>
       <img src="images/icon-plus.svg" alt="upvote" />
     </div>
     <span class="comment__vote--score">{score}</span>
-    <div class="comment__vote--downvote">
+    <div class="comment__vote--downvote" on:click={()=> {score--}}>
       <img src="images/icon-minus.svg" alt="downvote" />
     </div>
   </form>
