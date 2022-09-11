@@ -11,12 +11,12 @@
 
   const addData = (text, commentID, username) => {
     const generateID = () => {
-          let id = $comments.length + 1;
-          for(let i = 0; i<$comments.length; i++){
-            id = id + $comments[i].replies.length
-          }
-          return id;
-        }
+      let id = $comments.length + 1;
+      for (let i = 0; i < $comments.length; i++) {
+        id = id + $comments[i].replies.length;
+      }
+      return id;
+    };
     comments.update((comment) => {
       const newData = {
         id: generateID(),
@@ -34,13 +34,12 @@
 
       if (text === commentText) {
         commentID = null;
-        username = null
+        username = null;
         newData.replies = [];
         comment = [...comment, newData];
       }
 
       if (text === replyText) {
-        console.log(comment[commentID - 1].user.username)
         newData.replyingTo = username;
         comment[commentID - 1].replies = [
           ...comment[commentID - 1].replies,
@@ -48,9 +47,13 @@
         ];
       }
 
-      console.log(newData)
+      console.log(newData);
       return [...comment];
     });
+  };
+
+  const updateData = () => {
+    console.log("TEST");
   };
 </script>
 
@@ -60,25 +63,28 @@
   {/if}
   {#if formMode === "new-reply"}
     <textarea name="" id="" cols="30" rows="10" bind:value={replyText} />
+    <button
+      on:click={() =>
+        addData(
+          replyText,
+          Object.values({ id })[0],
+          Object.values({ username })[0]
+        )}>Submit</button
+    >
   {:else if formMode === "new-comment"}
     <textarea name="" id="" cols="30" rows="10" bind:value={commentText} />
+    <button on:click={() => addData(commentText)}>Submit</button>
   {:else if formMode === "edit-content"}
+    {formMode}
     {#if replyTo !== null}
       <textarea name="" id="" cols="30" rows="10">
         @{replyTo}
         {content}
       </textarea>
+      <button on:click={() => updateData()}>Submit</button>
     {:else}
-      <textarea name="" id="" cols="30" rows="10">
-        {content}
-      </textarea>
+      <textarea name="" id="" cols="30" rows="10" bind:value={content} />
+      <button on:click={() => updateData()}>Submit</button>
     {/if}
-  {/if}
-  {#if formMode === "new-comment"}
-    <button on:click={() => addData(commentText)}>Submit</button>
-  {:else if (formMode = "new-reply")}
-    <button on:click={() => addData(replyText, Object.values({ id })[0], Object.values({ username })[0])}
-      >Submit</button
-    >
   {/if}
 </form>
