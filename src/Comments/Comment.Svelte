@@ -60,7 +60,7 @@
     {/if}
   </div>
   {#if showEditForm}
-    <Form formMode="edit-content" {replyTo} {content} />
+    <Form formMode="edit-content" {replyTo} {content}  id={commentID}/>
   {:else}
     <p class="comment__content">
       {#if replyTo !== null}

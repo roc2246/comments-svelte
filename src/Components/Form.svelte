@@ -6,6 +6,8 @@
   export let replyTo = null;
   export let username = null;
 
+  let editReplyTxt = "@" +replyTo + " " + content
+
   let replyText = "Add a reply...";
   let commentText = "Add a comment...";
 
@@ -47,14 +49,18 @@
         ];
       }
 
-      console.log(newData);
       return [...comment];
     });
   };
 
-  const updateData = () => {
-    console.log("TEST");
-  };
+  const updateData = (id, text) => {
+   
+      $comments[id - 1].content = text
+      console.log($comments[id - 1].content)
+      return [...$comments];
+
+}
+$: console.log(replyText)
 </script>
 
 <form on:submit|preventDefault>
@@ -75,13 +81,9 @@
     <textarea name="" id="" cols="30" rows="10" bind:value={commentText} />
     <button on:click={() => addData(commentText)}>Submit</button>
   {:else if formMode === "edit-content"}
-    {formMode}
     {#if replyTo !== null}
-      <textarea name="" id="" cols="30" rows="10">
-        @{replyTo}
-        {content}
-      </textarea>
-      <button on:click={() => updateData()}>Submit</button>
+      <textarea name="" id="" cols="30" rows="10" bind:value={editReplyTxt} />
+      <button on:click={() => updateData(Object.values({ id })[0], Object.values({ editReplyTxt })[0])}>Submit</button>
     {:else}
       <textarea name="" id="" cols="30" rows="10" bind:value={content} />
       <button on:click={() => updateData()}>Submit</button>
