@@ -54,15 +54,32 @@
   };
 
   const updateData = (id, text) => {
-    let index;
     if (text === content) {
-      index = $comments.findIndex((comment) => comment.id === id);
+      let index = $comments.findIndex((comment) => comment.id === id);
       $comments[index].content = text;
-      // console.log(updated);
+      console.log(index);
     } else if (text === editReplyTxt) {
-      updated = $comments.find((comment) => comment.id === id);
-      // updated.replies.content = text;
-      console.log(updated);
+      //Retrieves reply index
+      const getReplyIndex = () => {
+        for (let comment of $comments) {
+          for (let reply of comment.replies) {
+            if (reply.id === id) {
+              let replyIndex = comment.replies.findIndex(
+                (reply) => reply.id === id
+              );
+              return replyIndex;
+            }
+          }
+        }
+      };
+      let replyIndex = getReplyIndex();
+
+      let commentIndex = $comments.findIndex(
+        (comment) =>
+          comment.replies.length !== 0 && comment.replies[replyIndex].id === id
+      );
+
+      $comments[commentIndex].replies[replyIndex].content = text
     }
     return [...$comments];
   };
