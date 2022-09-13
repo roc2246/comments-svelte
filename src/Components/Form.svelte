@@ -26,14 +26,26 @@
     }
   };
 
-  const addData = (text, commentID, username) => {
-    const generateID = () => {
+  // Retrieves comment index
+  const getCommentIndex = () => {
+    let replyIndex = getReplyIndex()
+   let commentIndex = $comments.findIndex(
+        (comment) =>
+          comment.replies.length !== 0 && comment.replies[replyIndex].id === id
+      );
+      return  commentIndex;
+  }
+
+  // Creates new id for comment or reply
+  const generateID = () => {
       let id = $comments.length + 1;
       for (let i = 0; i < $comments.length; i++) {
         id = id + $comments[i].replies.length;
       }
       return id;
     };
+
+  const addData = (text, commentID, username) => {
     comments.update((comment) => {
       const newData = {
         id: generateID(),
@@ -75,11 +87,7 @@
       console.log(index);
     } else if (text === editReplyTxt) {
       let replyIndex = getReplyIndex();
-
-      let commentIndex = $comments.findIndex(
-        (comment) =>
-          comment.replies.length !== 0 && comment.replies[replyIndex].id === id
-      );
+      let commentIndex = getCommentIndex();
 
       $comments[commentIndex].replies[replyIndex].content = text;
     }
@@ -87,11 +95,7 @@
   };
 
   const deleteComment = (id) => {
-    let replyIndex = getReplyIndex();
-    let commentIndex = $comments.findIndex(
-      (comment) =>
-        comment.replies.length !== 0 && comment.replies[replyIndex].id === id
-    );
+    let commentIndex = getCommentIndex()
     const replyResults = $comments[commentIndex].replies.filter(reply=>reply.id !==id )
     console.log(replyResults)
     $comments[commentIndex].replies = replyResults
