@@ -1,5 +1,6 @@
 <script>
   import { currentUser, comments } from "../comments-store";
+
   export let formMode;
   export let id = null;
   export let content = null;
@@ -79,8 +80,14 @@
           comment.replies.length !== 0 && comment.replies[replyIndex].id === id
       );
 
-      $comments[commentIndex].replies[replyIndex].content = text
+      $comments[commentIndex].replies[replyIndex].content = text;
     }
+    return [...$comments];
+  };
+
+  const deleteComment = (id) => {
+    const results = $comments.filter((comment) => comment.id !== id);
+    $comments = results;
     return [...$comments];
   };
 </script>
@@ -105,3 +112,13 @@
     {/if}
   {/if}
 </form>
+
+{#if formMode === "delete"}
+  <section id="delete">
+    <form action="" on:submit|preventDefault>
+      <h1>DELETE</h1>
+      <button type="button" on:click={deleteComment(id)}>YES</button>
+      <button type="button">NO</button>
+    </form>
+  </section>
+{/if}

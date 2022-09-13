@@ -14,10 +14,9 @@
 
   export let isCurrentUser;
 
-  let formID = -1
-
   let showReplyForm = false;
   let showEditForm = false;
+  let showDeleteForm = false;
 </script>
 
 <div class={commentOrReply}>
@@ -48,7 +47,9 @@
       >
         <img src="images/icon-edit.svg" alt="edit" /> Edit
       </div>
-      <div class="comment__CRUD--delete">
+      <div class="comment__CRUD--delete"  on:click={() =>
+        !showDeleteForm ? (showDeleteForm = true) : (showDeleteForm = false)}
+    >
         <img src="images/icon-delete.svg" alt="delete" /> Delete
       </div>
     {:else}
@@ -74,4 +75,7 @@
 </div>
 {#if showReplyForm}
 <Form id={commentID} username={username} formMode="new-reply"/>
+{/if}
+{#if showDeleteForm}
+<Form formMode="delete"  id={commentID}/>
 {/if}
