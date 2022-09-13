@@ -12,6 +12,20 @@
   let replyText = "Add a reply...";
   let commentText = "Add a comment...";
 
+  //Retrieves reply index
+  const getReplyIndex = () => {
+    for (let comment of $comments) {
+      for (let reply of comment.replies) {
+        if (reply.id === id) {
+          let replyIndex = comment.replies.findIndex(
+            (reply) => reply.id === id
+          );
+          return replyIndex;
+        }
+      }
+    }
+  };
+
   const addData = (text, commentID, username) => {
     const generateID = () => {
       let id = $comments.length + 1;
@@ -60,19 +74,6 @@
       $comments[index].content = text;
       console.log(index);
     } else if (text === editReplyTxt) {
-      //Retrieves reply index
-      const getReplyIndex = () => {
-        for (let comment of $comments) {
-          for (let reply of comment.replies) {
-            if (reply.id === id) {
-              let replyIndex = comment.replies.findIndex(
-                (reply) => reply.id === id
-              );
-              return replyIndex;
-            }
-          }
-        }
-      };
       let replyIndex = getReplyIndex();
 
       let commentIndex = $comments.findIndex(
@@ -86,8 +87,18 @@
   };
 
   const deleteComment = (id) => {
-    const results = $comments.filter((comment) => comment.id !== id);
-    $comments = results;
+    let replyIndex = getReplyIndex();
+    let commentIndex = $comments.findIndex(
+      (comment) =>
+        comment.replies.length !== 0 && comment.replies[replyIndex].id === id
+    );
+    const replyResults = $comments[commentIndex].replies.filter(reply=>reply.id !==id )
+    console.log(replyResults)
+    $comments[commentIndex].replies = replyResults
+
+    // const results = $comments.filter((comment) => comment.id !== id);
+    // $comments = results;
+
     return [...$comments];
   };
 </script>

@@ -77,5 +77,5 @@
 <Form id={commentID} username={username} formMode="new-reply"/>
 {/if}
 {#if showDeleteForm}
-<Form formMode="delete"  id={commentID}/>
+<Form formMode="delete"  id={commentOrReply === 'comment' ? commentID : replyID}/>
 {/if}
