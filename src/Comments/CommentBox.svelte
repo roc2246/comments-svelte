@@ -18,21 +18,47 @@
     <!-- If There Are Replies -->
     {#if comment.replies.length !== 0}
       <div class="reply-box">
-        {#each comment.replies as reply (reply.id)}
-          <Comment
-          commentID={comment.id}
-            replyID={reply.id}
-            commentOrReply="comment reply"
-            score={reply.score}
-            username={reply.user.username}
-            userImage={reply.user.image.png}
-            createdAt={reply.createdAt}
-            replyTo={reply.replyingTo}
-            content={reply.content}
-            isCurrentUser={reply.user.username === $currentUser[0].username}
-          />
-        {/each}
+        <div class="reply-box__reply-line" />
+        <div class="reply-box__replies">
+          {#each comment.replies as reply (reply.id)}
+            <Comment
+              commentID={comment.id}
+              replyID={reply.id}
+              commentOrReply="comment reply"
+              score={reply.score}
+              username={reply.user.username}
+              userImage={reply.user.image.png}
+              createdAt={reply.createdAt}
+              replyTo={reply.replyingTo}
+              content={reply.content}
+              isCurrentUser={reply.user.username === $currentUser[0].username}
+            />
+          {/each}
+        </div>
       </div>
     {/if}
   {/each}
 </section>
+
+<style>
+  #comment-box {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .reply-box {
+    display: flex;
+    flex-direction: row;
+  }
+  .reply-box__reply-line {
+    margin-top: 1rem;
+    margin-left: 4rem;
+    border-left: 3px solid hsl(223, 19%, 93%);
+    height: auto;
+  }
+  .reply-box__replies {
+    display: flex;
+    flex-direction: column;
+    margin-left: 4rem;
+  }
+</style>

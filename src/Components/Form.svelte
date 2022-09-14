@@ -1,6 +1,7 @@
 <script>
   import { currentUser, comments } from "../comments-store";
-
+  
+  export let className;
   export let context = null;
   export let formMode;
   export let id = null;
@@ -13,6 +14,8 @@
 
   let replyText = "Add a reply...";
   let commentText = "Add a comment...";
+
+
 
   //CRUD Library
 
@@ -115,7 +118,7 @@
 </script>
 
 <!-- Comments and Replies -->
-<form on:submit|preventDefault>
+<form class={className} on:submit|preventDefault>
   {#if formMode === "new-reply" || formMode === "new-comment"}
     <img src={$currentUser[0].image.png} alt={$currentUser[0].username} />
   {/if}
@@ -159,3 +162,15 @@
   </div>
 </form>
 {/if}
+
+<style>
+  .new-comment{
+    background-color: white;
+    border-radius: .5rem;
+    padding: 1.5rem;
+    margin-top: 1rem;
+
+    display: grid;
+    
+  }
+</style>

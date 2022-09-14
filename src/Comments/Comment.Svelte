@@ -80,3 +80,16 @@
     id={commentOrReply === "comment" ? commentID : replyID}
   />
 {/if}
+
+<style>
+  .comment {
+    background-color: white;
+    border-radius: .5rem;
+    padding: 1.5rem;
+    margin-top: 1rem;
+
+    display: grid;
+    
+  }
+  
+</style>
