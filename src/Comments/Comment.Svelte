@@ -74,7 +74,7 @@
   {/if}
 </div>
 {#if showReplyForm}
-<Form id={commentID} username={username} formMode="new-reply"/>
+<Form formMode="new-reply" id={commentID} username={username} />
 {/if}
 {#if showDeleteForm}
 <Form formMode="delete" context={commentOrReply === 'comment' ? 'comment' : 'comment reply'}  id={commentOrReply === 'comment' ? commentID : replyID}/>

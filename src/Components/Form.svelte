@@ -13,6 +13,8 @@
   let replyText = "Add a reply...";
   let commentText = "Add a comment...";
 
+  //CRUD Library
+
   //Retrieves reply index
   const getReplyIndex = () => {
     for (let comment of $comments) {
@@ -95,7 +97,7 @@
     return [...$comments];
   };
 
-  const deleteComment = (id, context) => {
+  const deleteData = (id, context) => {
     if (context === "comment") {
       const results = $comments.filter((comment) => comment.id !== id);
       $comments = results;
@@ -136,7 +138,7 @@
   <section id="delete">
     <form action="" on:submit|preventDefault>
       <h1>DELETE</h1>
-      <button type="button" on:click={deleteComment(id, context)}>YES</button>
+      <button type="button" on:click={deleteData(id, context)}>YES</button>
       <button type="button">NO</button>
     </form>
   </section>
