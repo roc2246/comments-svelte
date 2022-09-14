@@ -7,7 +7,7 @@
   export let content = null;
   export let replyTo = null;
   export let username = null;
-  export let score
+  export let score = null;
 
   let editReplyTxt = "@" + replyTo + " " + content;
 

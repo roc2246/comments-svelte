@@ -20,19 +20,14 @@
 
 <div class={commentOrReply}>
   <Form formMode="vote" {score} />
-
   <div class="comment_user-image">
     <img src={userImage} alt={username} />
   </div>
-
   <span class="comment__username">{username}</span>
-
   {#if isCurrentUser === true}
     <span class="comment__you--icon">YOU</span>
   {/if}
-
   <span class="comment__post-date">{createdAt}</span>
-
   <div class="comment_CRUD">
     {#if isCurrentUser === true}
       <div
@@ -42,7 +37,6 @@
       >
         <img src="images/icon-edit.svg" alt="edit" /> Edit
       </div>
-
       <div
         class="comment__CRUD--delete"
         on:click={() =>
@@ -60,7 +54,6 @@
       </div>
     {/if}
   </div>
-
   {#if showEditForm}
     <Form
       formMode="edit-content"
@@ -77,7 +70,6 @@
     </p>
   {/if}
 </div>
-
 {#if showReplyForm}
   <Form formMode="new-reply" id={commentID} {username} />
 {/if}
