@@ -7,6 +7,7 @@
   export let content = null;
   export let replyTo = null;
   export let username = null;
+  export let score
 
   let editReplyTxt = "@" + replyTo + " " + content;
 
@@ -113,6 +114,7 @@
   };
 </script>
 
+<!-- Comments and Replies -->
 <form on:submit|preventDefault>
   {#if formMode === "new-reply" || formMode === "new-comment"}
     <img src={$currentUser[0].image.png} alt={$currentUser[0].username} />
@@ -134,6 +136,7 @@
   {/if}
 </form>
 
+<!-- Delete -->
 {#if formMode === "delete"}
   <section id="delete">
     <form action="" on:submit|preventDefault>
@@ -142,4 +145,17 @@
       <button type="button">NO</button>
     </form>
   </section>
+{/if}
+
+<!-- Votes -->
+{#if formMode === 'vote'}
+<form on:submit|preventDefault class="comment__vote">
+  <div class="comment__vote--upvote" on:click={()=> {score++}}>
+    <img src="images/icon-plus.svg" alt="upvote" />
+  </div>
+  <span class="comment__vote--score">{score}</span>
+  <div class="comment__vote--downvote" on:click={()=> {score--}}>
+    <img src="images/icon-minus.svg" alt="downvote" />
+  </div>
+</form>
 {/if}

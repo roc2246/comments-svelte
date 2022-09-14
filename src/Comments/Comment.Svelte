@@ -4,14 +4,13 @@
   export let commentOrReply;
 
   export let commentID = null;
-  export let replyID = null; 
+  export let replyID = null;
   export let score;
   export let username;
   export let userImage;
   export let createdAt;
   export let content;
   export let replyTo = null;
-
   export let isCurrentUser;
 
   let showReplyForm = false;
@@ -20,24 +19,20 @@
 </script>
 
 <div class={commentOrReply}>
-  <span class="comment__id" style="display:none;">{commentOrReply === "comment reply" ? replyID : commentID}</span>
-  <form on:submit|preventDefault class="comment__vote">
-    <div class="comment__vote--upvote" on:click={()=> {score++}}>
-      <img src="images/icon-plus.svg" alt="upvote" />
-    </div>
-    <span class="comment__vote--score">{score}</span>
-    <div class="comment__vote--downvote" on:click={()=> {score--}}>
-      <img src="images/icon-minus.svg" alt="downvote" />
-    </div>
-  </form>
+  <Form formMode="vote" {score} />
+
   <div class="comment_user-image">
     <img src={userImage} alt={username} />
   </div>
+
   <span class="comment__username">{username}</span>
+
   {#if isCurrentUser === true}
     <span class="comment__you--icon">YOU</span>
   {/if}
+
   <span class="comment__post-date">{createdAt}</span>
+
   <div class="comment_CRUD">
     {#if isCurrentUser === true}
       <div
@@ -47,9 +42,12 @@
       >
         <img src="images/icon-edit.svg" alt="edit" /> Edit
       </div>
-      <div class="comment__CRUD--delete"  on:click={() =>
-        !showDeleteForm ? (showDeleteForm = true) : (showDeleteForm = false)}
-    >
+
+      <div
+        class="comment__CRUD--delete"
+        on:click={() =>
+          !showDeleteForm ? (showDeleteForm = true) : (showDeleteForm = false)}
+      >
         <img src="images/icon-delete.svg" alt="delete" /> Delete
       </div>
     {:else}
@@ -62,8 +60,14 @@
       </div>
     {/if}
   </div>
+
   {#if showEditForm}
-    <Form formMode="edit-content" replyTo={replyTo} content={content}  id={replyTo !== null ? replyID : commentID}/>
+    <Form
+      formMode="edit-content"
+      {replyTo}
+      {content}
+      id={replyTo !== null ? replyID : commentID}
+    />
   {:else}
     <p class="comment__content">
       {#if replyTo !== null}
@@ -73,9 +77,14 @@
     </p>
   {/if}
 </div>
+
 {#if showReplyForm}
-<Form formMode="new-reply" id={commentID} username={username} />
+  <Form formMode="new-reply" id={commentID} {username} />
 {/if}
 {#if showDeleteForm}
-<Form formMode="delete" context={commentOrReply === 'comment' ? 'comment' : 'comment reply'}  id={commentOrReply === 'comment' ? commentID : replyID}/>
+  <Form
+    formMode="delete"
+    context={commentOrReply === "comment" ? "comment" : "comment reply"}
+    id={commentOrReply === "comment" ? commentID : replyID}
+  />
 {/if}
