@@ -1,6 +1,7 @@
 <script>
   import { currentUser, comments } from "../comments-store";
 
+  export let context = null;
   export let formMode;
   export let id = null;
   export let content = null;
@@ -28,22 +29,22 @@
 
   // Retrieves comment index
   const getCommentIndex = () => {
-    let replyIndex = getReplyIndex()
-   let commentIndex = $comments.findIndex(
-        (comment) =>
-          comment.replies.length !== 0 && comment.replies[replyIndex].id === id
-      );
-      return  commentIndex;
-  }
+    let replyIndex = getReplyIndex();
+    let commentIndex = $comments.findIndex(
+      (comment) =>
+        comment.replies.length !== 0 && comment.replies[replyIndex].id === id
+    );
+    return commentIndex;
+  };
 
   // Creates new id for comment or reply
   const generateID = () => {
-      let id = $comments.length + 1;
-      for (let i = 0; i < $comments.length; i++) {
-        id = id + $comments[i].replies.length;
-      }
-      return id;
-    };
+    let id = $comments.length + 1;
+    for (let i = 0; i < $comments.length; i++) {
+      id = id + $comments[i].replies.length;
+    }
+    return id;
+  };
 
   const addData = (text, commentID, username) => {
     comments.update((comment) => {
@@ -94,15 +95,18 @@
     return [...$comments];
   };
 
-  const deleteComment = (id) => {
-    let commentIndex = getCommentIndex()
-    const replyResults = $comments[commentIndex].replies.filter(reply=>reply.id !==id )
-    console.log(replyResults)
-    $comments[commentIndex].replies = replyResults
-
-    // const results = $comments.filter((comment) => comment.id !== id);
-    // $comments = results;
-
+  const deleteComment = (id, context) => {
+    if (context === "comment") {
+      const results = $comments.filter((comment) => comment.id !== id);
+      $comments = results;
+    } else {
+      let commentIndex = getCommentIndex();
+      const replyResults = $comments[commentIndex].replies.filter(
+        (reply) => reply.id !== id
+      );
+      console.log(replyResults);
+      $comments[commentIndex].replies = replyResults;
+    }
     return [...$comments];
   };
 </script>
@@ -132,7 +136,7 @@
   <section id="delete">
     <form action="" on:submit|preventDefault>
       <h1>DELETE</h1>
-      <button type="button" on:click={deleteComment(id)}>YES</button>
+      <button type="button" on:click={deleteComment(id, context)}>YES</button>
       <button type="button">NO</button>
     </form>
   </section>
