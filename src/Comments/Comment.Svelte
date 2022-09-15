@@ -91,5 +91,7 @@
     display: grid;
     
   }
-  
+  /* .reply{
+    width: 1000rem;
+  } */
 </style>

@@ -44,21 +44,26 @@
   #comment-box {
     display: flex;
     flex-direction: column;
+    width: 100%;
   }
 
   .reply-box {
     display: flex;
     flex-direction: row;
+    width: 100%;
+
   }
   .reply-box__reply-line {
     margin-top: 1rem;
     margin-left: 4rem;
     border-left: 3px solid hsl(223, 19%, 93%);
     height: auto;
+    width: 20%;
   }
   .reply-box__replies {
     display: flex;
     flex-direction: column;
     margin-left: 4rem;
+    width: 80%;
   }
 </style>
