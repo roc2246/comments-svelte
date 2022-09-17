@@ -39,14 +39,18 @@
         on:click={() =>
           !showEditForm ? (showEditForm = true) : (showEditForm = false)}
       >
-        <img src="images/icon-edit.svg" alt="edit" /> Edit
+        <div>
+          <img src="images/icon-edit.svg" alt="edit" />
+        </div>
+        <span>Edit</span>
       </div>
       <div
         class="comment__CRUD--delete"
         on:click={() =>
           !showDeleteForm ? (showDeleteForm = true) : (showDeleteForm = false)}
       >
-        <img src="images/icon-delete.svg" alt="delete" /> Delete
+        <div><img src="images/icon-delete.svg" alt="delete" /></div>
+        <span>Delete</span>
       </div>
     {:else}
       <div
@@ -54,7 +58,10 @@
         on:click={() =>
           !showReplyForm ? (showReplyForm = true) : (showReplyForm = false)}
       >
-        <img src="images/icon-reply.svg" alt="reply" /> Reply
+        <div>
+          <img src="images/icon-reply.svg" alt="reply" />
+        </div>
+        <span>Reply</span>
       </div>
     {/if}
   </div>
@@ -95,7 +102,7 @@
   .comment {
     display: grid;
     grid-gap: 1rem;
-    grid-template-columns: repeat(auto-fit, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(1rem, auto));
     grid-auto-rows: minmax(1rem, auto);
 
     background-color: white;
@@ -107,7 +114,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    grid-column: 2;
+    grid-column: 2/ span 3;
     grid-row: 1;
   }
 
@@ -126,7 +133,17 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    grid-column: 4;
+    margin-left: auto;
+    grid-column: 5/ span 2;
+    grid-row: 1;
+  }
+
+  .comment__CRUD--reply,
+  .comment__CRUD--edit,
+  .comment__CRUD--delete {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
   }
 
   .comment__CRUD--delete {
@@ -136,14 +153,14 @@
   .comment__content,
   .comment__edit-content {
     margin: 0;
-    grid-column: 2 / span 2;
+    grid-column: 2 / span 4;
   }
 
-  .comment__content{
+  .comment__content {
     max-width: 100%;
     min-width: 0;
     min-height: 0;
-word-wrap: break-word;
+    word-wrap: break-word;
   }
 
   .comment__username--name,
@@ -155,7 +172,14 @@ word-wrap: break-word;
     .comment__top-row {
       grid-column: 1/4;
       grid-row: 1;
+      flex-wrap: nowrap;
+    justify-content: space-between;
+
     }
+    .comment__post-date,
+  .comment__username {
+    margin-left: 0;
+  }
     .comment__content,
     .comment__edit-content {
       margin: 0;
@@ -163,9 +187,8 @@ word-wrap: break-word;
       grid-column: 1/4;
     }
     .comment__CRUD {
-      grid-column: 3;
+      grid-column: 2/5;
       grid-row: 3;
-      margin-left: auto;
     }
   }
 </style>
