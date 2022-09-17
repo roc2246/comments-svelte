@@ -125,6 +125,7 @@
   .comment__CRUD {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     grid-column: 4;
   }
 
@@ -136,6 +137,13 @@
   .comment__edit-content {
     margin: 0;
     grid-column: 2 / span 2;
+  }
+
+  .comment__content{
+    max-width: 100%;
+    min-width: 0;
+    min-height: 0;
+word-wrap: break-word;
   }
 
   .comment__username--name,

@@ -55,7 +55,8 @@
   }
   .reply-box__reply-line {
     margin-top: 1rem;
-    margin-right: 2rem;
+    margin-left: 3rem;
+    margin-right: 3rem;
     border-left: 3px solid hsl(223, 19%, 93%);
     height: auto;
     /* width: 5%; */
@@ -63,7 +64,17 @@
   .reply-box__replies {
     display: flex;
     flex-direction: column;
-    /* margin-left: 4rem; */
-    width: 98%;
+    width: auto;
+  }
+  @media (max-width: 375px){
+    .reply-box__reply-line{
+    margin-right: 2rem;
+      margin-left: 0;
+    }
+
+    .reply-box__replies{
+      width: auto;
+
+    }
   }
 </style>
