@@ -95,7 +95,8 @@
   .comment {
     display: grid;
     grid-gap: 1rem;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, 1fr);
+    grid-auto-rows: minmax(1rem, auto);
 
     background-color: white;
     border-radius: 0.5rem;
@@ -105,20 +106,26 @@
   .comment__top-row{
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
     flex-wrap: wrap;
     grid-column: 2;
+grid-row: 1;
+  }
+
+  .comment__user-image > img{
+    max-width:2rem;
+max-height:2rem;
 
   }
 
-  .comment__user-image{
-    transform: scale(50%);
+  .comment__post-date, .comment__username{
+    margin-left: 1rem;
+    line-height: 2rem;
   }
 
   .comment__CRUD {
     display: flex;
     flex-direction: row;
-    grid-column: 3;
+    grid-column: 4;
   } 
 
   .comment__CRUD--delete{
@@ -136,14 +143,14 @@
 
 @media (max-width: 375px) {
   .comment__top-row{
-    grid-column: 1/3;
+    grid-column: 1/4;
     grid-row: 1;
 
   }
   .comment__content,  .comment__edit-content {
     margin: 0; 
     grid-row: 2;
-    grid-column: 1/3;
+    grid-column: 1/4;
   }
   .comment__CRUD {
     grid-column: 3;
