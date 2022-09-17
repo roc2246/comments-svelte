@@ -20,15 +20,19 @@
 
 <div class={commentOrReply}>
   <Form formMode="vote" {score} />
-  <div class="comment_user-image">
-    <img src={userImage} alt={username} />
+  <div class="comment__top-row">
+    <div class="comment__user-image">
+      <img src={userImage} alt={username} />
+    </div>
+    <div class="comment__username">
+      <span class="comment__username--name">{username}</span>
+      {#if isCurrentUser === true}
+        <span class="comment__username--you-icon">YOU</span>
+      {/if}
+    </div>
+    <span class="comment__post-date">{createdAt}</span>
   </div>
-  <span class="comment__username">{username}</span>
-  {#if isCurrentUser === true}
-    <span class="comment__you--icon">YOU</span>
-  {/if}
-  <span class="comment__post-date">{createdAt}</span>
-  <div class="comment_CRUD">
+  <div class="comment__CRUD">
     {#if isCurrentUser === true}
       <div
         class="comment__CRUD--edit"
@@ -56,6 +60,7 @@
   </div>
   {#if showEditForm}
     <Form
+      className="comment__edit-content"
       formMode="edit-content"
       {replyTo}
       {content}
@@ -71,7 +76,12 @@
   {/if}
 </div>
 {#if showReplyForm}
-  <Form formMode="new-reply" id={commentID} {username} />
+  <Form
+    className="comment__add-reply"
+    formMode="new-reply"
+    id={commentID}
+    {username}
+  />
 {/if}
 {#if showDeleteForm}
   <Form
@@ -83,15 +93,61 @@
 
 <style>
   .comment {
-    background-color: white;
-    border-radius: .5rem;
-    padding: 1.5rem;
-    margin-top: 1rem;
-
     display: grid;
-    
+    grid-gap: 1rem;
+    grid-template-columns: repeat(3, 1fr);
+
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-top: 1rem;  
   }
-  /* .reply{
-    width: 1000rem;
-  } */
+  .comment__top-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    grid-column: 2;
+
+  }
+
+  .comment__user-image{
+    transform: scale(50%);
+  }
+
+  .comment__CRUD {
+    display: flex;
+    flex-direction: row;
+    grid-column: 3;
+  } 
+
+  .comment__CRUD--delete{
+    margin-left: 1rem;
+  }
+
+  .comment__content,  .comment__edit-content {
+    margin: 0; 
+    grid-column: 2/ span 2;
+  }
+
+.comment__username--name, .comment__username--you-icon{
+  font-weight: 700;
+}
+
+@media (max-width: 375px) {
+  .comment__top-row{
+    grid-column: 1/3;
+    grid-row: 1;
+
+  }
+  .comment__content,  .comment__edit-content {
+    margin: 0; 
+    grid-row: 2;
+    grid-column: 1/3;
+  }
+  .comment__CRUD {
+    grid-column: 3;
+    grid-row: 3;
+  } 
+  }
 </style>

@@ -58,12 +58,12 @@
     margin-left: 4rem;
     border-left: 3px solid hsl(223, 19%, 93%);
     height: auto;
-    width: 20%;
+    width: 5%;
   }
   .reply-box__replies {
     display: flex;
     flex-direction: column;
     margin-left: 4rem;
-    width: 80%;
+    width: 95%;
   }
 </style>

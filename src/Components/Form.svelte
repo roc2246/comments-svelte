@@ -1,7 +1,7 @@
 <script>
   import { currentUser, comments } from "../comments-store";
-  
-  export let className;
+
+  export let className = null;
   export let context = null;
   export let formMode;
   export let id = null;
@@ -14,8 +14,6 @@
 
   let replyText = "Add a reply...";
   let commentText = "Add a comment...";
-
-
 
   //CRUD Library
 
@@ -151,26 +149,66 @@
 {/if}
 
 <!-- Votes -->
-{#if formMode === 'vote'}
-<form on:submit|preventDefault class="comment__vote">
-  <div class="comment__vote--upvote" on:click={()=> {score++}}>
-    <img src="images/icon-plus.svg" alt="upvote" />
-  </div>
-  <span class="comment__vote--score">{score}</span>
-  <div class="comment__vote--downvote" on:click={()=> {score--}}>
-    <img src="images/icon-minus.svg" alt="downvote" />
-  </div>
-</form>
+{#if formMode === "vote"}
+  <form on:submit|preventDefault class="comment__vote">
+    <div
+      class="comment__vote--upvote"
+      on:click={() => {
+        score++;
+      }}
+    >
+      <img src="images/icon-plus.svg" alt="upvote" />
+    </div>
+    <span class="comment__vote--score">{score}</span>
+    <div
+      class="comment__vote--downvote"
+      on:click={() => {
+        score--;
+      }}
+    >
+      <img src="images/icon-minus.svg" alt="downvote" />
+    </div>
+  </form>
 {/if}
 
 <style>
-  .new-comment{
+  .new-comment,
+  .comment__add-reply {
     background-color: white;
-    border-radius: .5rem;
+    border-radius: 0.5rem;
     padding: 1.5rem;
     margin-top: 1rem;
 
     display: grid;
-    
+  }
+
+  .comment__vote {
+    grid-column: 1;
+    grid-row: 1/3;
+
+    padding: 1rem;
+
+    height: 4rem;
+    width: 0.75rem;
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: hsl(223, 19%, 93%);
+    border-radius: 0.5rem;
+  }
+  @media (max-width: 375px) {
+    .comment__vote {
+      display: flex;
+      flex-direction: row;
+
+      grid-column: 1;
+      grid-row: 3;
+
+      padding: 1rem;
+
+      height: 0.75rem;
+      width: 4rem;
+    }
   }
 </style>
