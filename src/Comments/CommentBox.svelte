@@ -55,15 +55,15 @@
   }
   .reply-box__reply-line {
     margin-top: 1rem;
-    margin-left: 4rem;
+    margin-right: 2rem;
     border-left: 3px solid hsl(223, 19%, 93%);
     height: auto;
-    width: 5%;
+    /* width: 5%; */
   }
   .reply-box__replies {
     display: flex;
     flex-direction: column;
-    margin-left: 4rem;
-    width: 95%;
+    /* margin-left: 4rem; */
+    width: 98%;
   }
 </style>

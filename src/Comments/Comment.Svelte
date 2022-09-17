@@ -101,23 +101,23 @@
     background-color: white;
     border-radius: 0.5rem;
     padding: 1.5rem;
-    margin-top: 1rem;  
+    margin-top: 1rem;
   }
-  .comment__top-row{
+  .comment__top-row {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     grid-column: 2;
-grid-row: 1;
+    grid-row: 1;
   }
 
-  .comment__user-image > img{
-    max-width:2rem;
-max-height:2rem;
-
+  .comment__user-image > img {
+    max-width: 2rem;
+    max-height: 2rem;
   }
 
-  .comment__post-date, .comment__username{
+  .comment__post-date,
+  .comment__username {
     margin-left: 1rem;
     line-height: 2rem;
   }
@@ -126,35 +126,38 @@ max-height:2rem;
     display: flex;
     flex-direction: row;
     grid-column: 4;
-  } 
+  }
 
-  .comment__CRUD--delete{
+  .comment__CRUD--delete {
     margin-left: 1rem;
   }
 
-  .comment__content,  .comment__edit-content {
-    margin: 0; 
-    grid-column: 2/ span 2;
+  .comment__content,
+  .comment__edit-content {
+    margin: 0;
+    grid-column: 2 / span 2;
   }
 
-.comment__username--name, .comment__username--you-icon{
-  font-weight: 700;
-}
-
-@media (max-width: 375px) {
-  .comment__top-row{
-    grid-column: 1/4;
-    grid-row: 1;
-
+  .comment__username--name,
+  .comment__username--you-icon {
+    font-weight: 700;
   }
-  .comment__content,  .comment__edit-content {
-    margin: 0; 
-    grid-row: 2;
-    grid-column: 1/4;
-  }
-  .comment__CRUD {
-    grid-column: 3;
-    grid-row: 3;
-  } 
+
+  @media (max-width: 375px) {
+    .comment__top-row {
+      grid-column: 1/4;
+      grid-row: 1;
+    }
+    .comment__content,
+    .comment__edit-content {
+      margin: 0;
+      grid-row: 2;
+      grid-column: 1/4;
+    }
+    .comment__CRUD {
+      grid-column: 3;
+      grid-row: 3;
+      margin-left: auto;
+    }
   }
 </style>
