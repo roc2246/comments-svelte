@@ -39,18 +39,18 @@
         on:click={() =>
           !showEditForm ? (showEditForm = true) : (showEditForm = false)}
       >
-        <div>
+        <div class="comment__CRUD--img">
           <img src="images/icon-edit.svg" alt="edit" />
         </div>
-        <span>Edit</span>
+        <span class="comment__CRUD--text">Edit</span>
       </div>
       <div
         class="comment__CRUD--delete"
         on:click={() =>
           !showDeleteForm ? (showDeleteForm = true) : (showDeleteForm = false)}
       >
-        <div><img src="images/icon-delete.svg" alt="delete" /></div>
-        <span>Delete</span>
+        <div class="comment__CRUD--img"><img src="images/icon-delete.svg" alt="delete" /></div>
+        <span class="comment__CRUD--text">Delete</span>
       </div>
     {:else}
       <div
@@ -58,10 +58,10 @@
         on:click={() =>
           !showReplyForm ? (showReplyForm = true) : (showReplyForm = false)}
       >
-        <div>
+        <div class="comment__CRUD--img">
           <img src="images/icon-reply.svg" alt="reply" />
         </div>
-        <span>Reply</span>
+        <span class="comment__CRUD--text">Reply</span>
       </div>
     {/if}
   </div>
@@ -138,6 +138,10 @@
     grid-row: 1;
   }
 
+  .comment__CRUD--text{
+    margin-left: .25rem;
+  }
+
   .comment__CRUD--reply,
   .comment__CRUD--edit,
   .comment__CRUD--delete {
@@ -187,6 +191,7 @@
       grid-column: 1/4;
     }
     .comment__CRUD {
+      margin-top: 1rem;
       grid-column: 2/5;
       grid-row: 3;
     }

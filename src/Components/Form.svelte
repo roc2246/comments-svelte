@@ -123,10 +123,10 @@
   </div>  
   {/if}
   {#if formMode === "new-reply"}
-    <textarea name="" id="" cols="30" rows="3" placeholder="Add a reply..." bind:value={replyText} />
+    <textarea class="new-content" cols="30" rows="3" placeholder="Add a reply..." bind:value={replyText} />
     <button class="btn--submit" on:click={() => addData(replyText, id, username)}>Submit</button>
   {:else if formMode === "new-comment"}
-    <textarea name="" id="" cols="30" rows="3" placeholder="Add a comment..." bind:value={commentText} />
+    <textarea class="new-content" cols="30" rows="3" placeholder="Add a comment..." bind:value={commentText} />
     <button class="btn--submit" on:click={() => addData(commentText)}>Submit</button>
   {:else if formMode === "edit-content"}
     {#if replyTo !== null}
@@ -204,7 +204,7 @@
     border-radius: 0.5rem;
   }
 
-  textarea {
+  .new-content {
     resize: none;
     width: 75%;
     margin-left: .75rem;
@@ -230,7 +230,7 @@
     display: grid;
     grid-template-columns: 2rem auto 4rem;
   }
-  textarea {
+  .new-content {
     width: 100%;
     margin-left: 0;
     margin-right: 0;
