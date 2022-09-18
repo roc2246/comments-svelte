@@ -12,8 +12,8 @@
 
   let editReplyTxt = "@" + replyTo + " " + content;
 
-  let replyText = "Add a reply...";
-  let commentText = "Add a comment...";
+  let replyText = null;
+  let commentText = null;
 
   //CRUD Library
 
@@ -118,21 +118,23 @@
 <!-- Comments and Replies -->
 <form class={className} on:submit|preventDefault>
   {#if formMode === "new-reply" || formMode === "new-comment"}
+  <div class="img--user">
     <img src={$currentUser[0].image.png} alt={$currentUser[0].username} />
+  </div>  
   {/if}
   {#if formMode === "new-reply"}
-    <textarea name="" id="" cols="30" rows="10" bind:value={replyText} />
-    <button on:click={() => addData(replyText, id, username)}>Submit</button>
+    <textarea name="" id="" cols="30" rows="3" placeholder="Add a reply..." bind:value={replyText} />
+    <button class="btn--submit" on:click={() => addData(replyText, id, username)}>Submit</button>
   {:else if formMode === "new-comment"}
-    <textarea name="" id="" cols="30" rows="10" bind:value={commentText} />
-    <button on:click={() => addData(commentText)}>Submit</button>
+    <textarea name="" id="" cols="30" rows="3" placeholder="Add a comment..." bind:value={commentText} />
+    <button class="btn--submit" on:click={() => addData(commentText)}>Submit</button>
   {:else if formMode === "edit-content"}
     {#if replyTo !== null}
-      <textarea name="" id="" cols="30" rows="10" bind:value={editReplyTxt} />
-      <button on:click={() => updateData(id, editReplyTxt)}>Submit</button>
+      <textarea name="" id="" cols="30" rows="3" bind:value={editReplyTxt} />
+      <button class="btn--submit" on:click={() => updateData(id, editReplyTxt)}>Submit</button>
     {:else}
-      <textarea name="" id="" cols="30" rows="10" bind:value={content} />
-      <button on:click={() => updateData(id, content)}>Submit</button>
+      <textarea name="" id="" cols="30" rows="3" bind:value={content} />
+      <button class="btn--submit" on:click={() => updateData(id, content)}>Submit</button>
     {/if}
   {/if}
 </form>
@@ -174,13 +176,17 @@
 <style>
   .new-comment,
   .comment__add-reply {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
     background-color: white;
     border-radius: 0.5rem;
     padding: 1.5rem;
     margin-top: 1rem;
-
-    display: grid;
   }
+
+  
 
   .comment__vote {
     grid-column: 1;
@@ -197,7 +203,55 @@
     background-color: hsl(223, 19%, 93%);
     border-radius: 0.5rem;
   }
+
+  textarea {
+    resize: none;
+    width: 75%;
+    margin-left: .75rem;
+    margin-right: .75rem;
+  }
+
+  .img--user > img{
+    max-width: 2rem;
+    max-height: 2rem;
+  }
+
+  .btn--submit{
+    border-radius: .5rem;
+    background-color: hsl(238, 40%, 52%);
+    color: white;
+    font-weight: 700;
+    height: 3rem;
+    width: 6rem;
+  }
   @media (max-width: 375px) {
+    .new-comment,
+  .comment__add-reply {
+    display: grid;
+    grid-template-columns: 2rem auto 4rem;
+  }
+  textarea {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+
+    grid-row: 1;
+    grid-column: 1/6;
+  }
+
+  .img--user > img{
+    margin-top: 1.25rem;
+    grid-row: 2;
+    grid-column: 1;
+  }
+
+  .btn--submit{
+    margin-top: 1rem;
+    grid-row: 2;
+    grid-column: 5;
+  }
+
+
     .comment__vote {
       display: flex;
       flex-direction: row;
