@@ -161,7 +161,7 @@
         >Submit</button
       >
     {:else}
-      <textarea name="" id="" cols="30" rows="3" bind:value={content} />
+      <textarea cols="30" rows="3" bind:value={content} />
       <button class="btn--submit" on:click={() => updateData(id, content)}
         >Submit</button
       >
@@ -207,7 +207,7 @@
     >
       <img src="images/icon-plus.svg" alt="upvote" />
     </div>
-    <span class="comment__vote--score">{score}</span>
+    <p class="comment__vote--score">{score}</p>
     <div
       class="comment__vote--downvote"
       on:click={() => {
@@ -234,7 +234,7 @@
   }
 
   #delete-content {
-    border-radius: .5rem;
+    border-radius: 0.5rem;
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
@@ -270,24 +270,36 @@
   }
 
   .comment__vote {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
     grid-column: 1;
     grid-row: 1/3;
 
-    padding: 1rem;
+    padding: .75rem;
 
     height: 4rem;
     width: 0.75rem;
-
-    display: flex;
-    flex-direction: column;
 
     background-color: hsl(223, 19%, 93%);
     border-radius: 0.5rem;
   }
 
+  .comment__vote > *{
+    flex: 1;
+  }
+
   .comment__vote--score {
     color: hsl(238, 40%, 52%);
     font-weight: 700;
+    margin-top: .5rem;
+    margin-bottom: .05rem;
+    text-align: center;
+  }
+
+  .comment__vote--upvote, .comment__vote--downvote{
+    cursor: pointer;
   }
 
   .new-content {
@@ -320,18 +332,18 @@
     font-weight: 700;
   }
 
-  .btn--close{
+  .btn--close {
     border-radius: 0.5rem;
-padding: 1rem;
-background-color: hsl(211, 10%, 45%);
-color: white;
-font-weight: 700;
+    padding: 1rem;
+    background-color: hsl(211, 10%, 45%);
+    color: white;
+    font-weight: 700;
   }
 
   @media (max-width: 375px) {
-  #delete-content{
-    width: 18rem;
-  }
+    #delete-content {
+      width: 18rem;
+    }
 
     .new-comment,
     .comment__add-reply {
@@ -362,14 +374,28 @@ font-weight: 700;
     .comment__vote {
       display: flex;
       flex-direction: row;
+      justify-content: space-evenly;
 
       grid-column: 1;
       grid-row: 3;
 
-      padding: 1rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      padding-top: 1rem;
+      padding-bottom: 1.25rem;
 
       height: 0.75rem;
       width: 4rem;
+    }
+
+    .comment__vote--score{
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .comment__vote--downvote > img{
+      padding-bottom: .25rem;
+      padding-left: .55rem;
     }
   }
 </style>
