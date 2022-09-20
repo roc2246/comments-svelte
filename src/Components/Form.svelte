@@ -113,28 +113,60 @@
     }
     return [...$comments];
   };
+
+
+  const hideModal = () => {
+    document.getElementById("delete").style.display="none"
+  }
+
 </script>
 
 <!-- Comments and Replies -->
 <form class={className} on:submit|preventDefault>
   {#if formMode === "new-reply" || formMode === "new-comment"}
-  <div class="img--user">
-    <img src={$currentUser[0].image.png} alt={$currentUser[0].username} />
-  </div>  
+    <div class="img--user">
+      <img src={$currentUser[0].image.png} alt={$currentUser[0].username} />
+    </div>
   {/if}
   {#if formMode === "new-reply"}
-    <textarea class="new-content" cols="30" rows="3" placeholder="Add a reply..." bind:value={replyText} />
-    <button class="btn--submit" on:click={() => addData(replyText, id, username)}>Submit</button>
+    <textarea
+      class="new-content"
+      cols="30"
+      rows="3"
+      placeholder="Add a reply..."
+      bind:value={replyText}
+    />
+    <button
+      class="btn--submit"
+      on:click={() => addData(replyText, id, username)}>Submit</button
+    >
   {:else if formMode === "new-comment"}
-    <textarea class="new-content" cols="30" rows="3" placeholder="Add a comment..." bind:value={commentText} />
-    <button class="btn--submit" on:click={() => addData(commentText)}>Submit</button>
+    <textarea
+      class="new-content"
+      cols="30"
+      rows="3"
+      placeholder="Add a comment..."
+      bind:value={commentText}
+    />
+    <button class="btn--submit" on:click={() => addData(commentText)}
+      >Submit</button
+    >
   {:else if formMode === "edit-content"}
     {#if replyTo !== null}
-      <textarea name="" id="" cols="30" rows="3" bind:value={editReplyTxt} />
-      <button class="btn--submit" on:click={() => updateData(id, editReplyTxt)}>Submit</button>
+      <textarea
+        class="updated-content"
+        cols="30"
+        rows="3"
+        bind:value={editReplyTxt}
+      />
+      <button class="btn--submit" on:click={() => updateData(id, editReplyTxt)}
+        >Submit</button
+      >
     {:else}
       <textarea name="" id="" cols="30" rows="3" bind:value={content} />
-      <button class="btn--submit" on:click={() => updateData(id, content)}>Submit</button>
+      <button class="btn--submit" on:click={() => updateData(id, content)}
+        >Submit</button
+      >
     {/if}
   {/if}
 </form>
@@ -142,11 +174,13 @@
 <!-- Delete -->
 {#if formMode === "delete"}
   <section id="delete">
-    <form action="" on:submit|preventDefault>
-      <h1>DELETE</h1>
-      <button type="button" on:click={deleteData(id, context)}>YES</button>
-      <button type="button">NO</button>
-    </form>
+    <div id="delete-content">
+      <form action="" on:submit|preventDefault>
+        <h1>DELETE</h1>
+        <button type="button" on:click={deleteData(id, context)}>YES</button>
+        <button type="button" on:click={()=>{hideModal()}}>NO</button>
+      </form>
+    </div>
   </section>
 {/if}
 
@@ -174,6 +208,27 @@
 {/if}
 
 <style>
+  #delete {
+  position: fixed; 
+  z-index: 1; 
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+
+  #delete-content{
+    background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  }
+
   .new-comment,
   .comment__add-reply {
     display: flex;
@@ -186,7 +241,20 @@
     margin-top: 1rem;
   }
 
-  
+  .comment__edit-content {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    grid-column: 2 / span 4;
+  }
+
+  .comment__edit-content > button {
+    margin-left: auto;
+  }
+
+  .updated-content {
+    resize: none;
+  }
 
   .comment__vote {
     grid-column: 1;
@@ -204,20 +272,25 @@
     border-radius: 0.5rem;
   }
 
+  .comment__vote--score {
+    color: hsl(238, 40%, 52%);
+    font-weight: 700;
+  }
+
   .new-content {
     resize: none;
     width: 75%;
-    margin-left: .75rem;
-    margin-right: .75rem;
+    margin-left: 0.75rem;
+    margin-right: 0.75rem;
   }
 
-  .img--user > img{
+  .img--user > img {
     max-width: 2rem;
     max-height: 2rem;
   }
 
-  .btn--submit{
-    border-radius: .5rem;
+  .btn--submit {
+    border-radius: 0.5rem;
     background-color: hsl(238, 40%, 52%);
     color: white;
     font-weight: 700;
@@ -226,31 +299,30 @@
   }
   @media (max-width: 375px) {
     .new-comment,
-  .comment__add-reply {
-    display: grid;
-    grid-template-columns: 2rem auto 4rem;
-  }
-  .new-content {
-    width: 100%;
-    margin-left: 0;
-    margin-right: 0;
+    .comment__add-reply {
+      display: grid;
+      grid-template-columns: 2rem auto 4rem;
+    }
+    .new-content {
+      width: 100%;
+      margin-left: 0;
+      margin-right: 0;
 
-    grid-row: 1;
-    grid-column: 1/6;
-  }
+      grid-row: 1;
+      grid-column: 1/6;
+    }
 
-  .img--user > img{
-    margin-top: 1.25rem;
-    grid-row: 2;
-    grid-column: 1;
-  }
+    .img--user > img {
+      margin-top: 1.25rem;
+      grid-row: 2;
+      grid-column: 1;
+    }
 
-  .btn--submit{
-    margin-top: 1rem;
-    grid-row: 2;
-    grid-column: 5;
-  }
-
+    .btn--submit {
+      margin-top: 1rem;
+      grid-row: 2;
+      grid-column: 5;
+    }
 
     .comment__vote {
       display: flex;

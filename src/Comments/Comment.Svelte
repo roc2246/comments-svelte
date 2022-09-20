@@ -154,8 +154,7 @@
     margin-left: 1rem;
   }
 
-  .comment__content,
-  .comment__edit-content {
+  .comment__content {
     margin: 0;
     grid-column: 2 / span 4;
   }
@@ -165,6 +164,11 @@
     min-width: 0;
     min-height: 0;
     word-wrap: break-word;
+  }
+
+  .reply-to{
+    color: hsl(238, 40%, 52%);
+    font-weight: 700;
   }
 
   .comment__username--name,
