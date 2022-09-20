@@ -1,19 +1,27 @@
 <script>
   import { currentUser, comments } from "../comments-store";
 
-  export let className = null;
-  export let context = null;
+  //For Most Or All Forms
   export let formMode;
-  export let id = null;
+  export let className = null;
+
+  // Stores Content of Form or Reply
   export let content = null;
   export let replyTo = null;
   export let username = null;
   export let score = null;
 
-  let editReplyTxt = "@" + replyTo + " " + content;
+  // Arguement for Delete Functions
+  export let context = null;
 
+  // Arguement for Update and Delete Functions
+  export let id = null;
+
+  // Bind Values
+  let editReplyTxt = "@" + replyTo + " " + content;
   let replyText = null;
   let commentText = null;
+  
 
   //CRUD Library
 
@@ -50,6 +58,7 @@
     return id;
   };
 
+  // Adds Comment or Reply
   const addData = (text, commentID, username) => {
     comments.update((comment) => {
       const newData = {
@@ -85,6 +94,7 @@
     });
   };
 
+  // Updates Comment or Reply
   const updateData = (id, text) => {
     if (text === content) {
       let index = $comments.findIndex((comment) => comment.id === id);
@@ -99,6 +109,7 @@
     return [...$comments];
   };
 
+  // Deletes Comment or Reply
   const deleteData = (id, context) => {
     if (context === "comment") {
       const results = $comments.filter((comment) => comment.id !== id);
@@ -114,10 +125,13 @@
     return [...$comments];
   };
 
+  // Hides Delete Modal
   const hideModal = () => {
     document.getElementById("delete").style.display = "none";
   };
 </script>
+
+<!-- FORMS -->
 
 <!-- Comments and Replies -->
 <form class={className} on:submit|preventDefault>
@@ -198,7 +212,7 @@
 
 <!-- Votes -->
 {#if formMode === "vote"}
-  <form on:submit|preventDefault class="comment__vote">
+  <form on:submit|preventDefault class={className}>
     <div
       class="comment__vote--upvote"
       on:click={() => {
@@ -220,21 +234,17 @@
 {/if}
 
 <style>
-  button{
-    cursor: pointer;
-  }
-
+  /* Delete Modal - Desktop*/
   #delete {
     position: fixed;
     z-index: 1;
-    padding-top: 100px; /* Location of the box */
+    padding-top: 100px; 
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0, 0, 0); /* Fallback color */
-    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 0, 0); 
+    background-color: rgba(0, 0, 0, 0.4); 
   }
 
   #delete-content {
@@ -246,6 +256,7 @@
     width: 20rem;
   }
 
+  /* New Comments and New Replies - Desktop */
   .new-comment,
   .comment__add-reply {
     display: flex;
@@ -258,6 +269,14 @@
     margin-top: 1rem;
   }
 
+  .new-content {
+    resize: none;
+    width: 75%;
+    margin-left: 0.75rem;
+    margin-right: 0.75rem;
+  }
+
+  /* Edit Content */
   .comment__edit-content {
     display: flex;
     flex-direction: column;
@@ -273,6 +292,7 @@
     resize: none;
   }
 
+  /* Vote Form - Desktop */
   .comment__vote {
     display: flex;
     flex-direction: column;
@@ -281,7 +301,7 @@
     grid-column: 1;
     grid-row: 1/3;
 
-    padding: .75rem;
+    padding: 0.75rem;
 
     height: 4rem;
     width: 0.75rem;
@@ -290,32 +310,32 @@
     border-radius: 0.5rem;
   }
 
-  .comment__vote > *{
+  .comment__vote > * {
     flex: 1;
   }
 
   .comment__vote--score {
     color: hsl(238, 40%, 52%);
     font-weight: 700;
-    margin-top: .5rem;
-    margin-bottom: .05rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.05rem;
     text-align: center;
   }
 
-  .comment__vote--upvote, .comment__vote--downvote{
+  .comment__vote--upvote,
+  .comment__vote--downvote {
     cursor: pointer;
   }
 
-  .new-content {
-    resize: none;
-    width: 75%;
-    margin-left: 0.75rem;
-    margin-right: 0.75rem;
-  }
-
+  /* Images - Desktop */
   .img--user > img {
     max-width: 2rem;
     max-height: 2rem;
+  }
+
+  /* Buttons - Desktop */
+  button {
+    cursor: pointer;
   }
 
   .btn--submit {
@@ -327,7 +347,7 @@
     width: 6rem;
   }
 
-  .btn--submit:hover{
+  .btn--submit:hover {
     background-color: hsl(239, 57%, 85%);
   }
 
@@ -340,7 +360,7 @@
     font-weight: 700;
   }
 
-  .btn--delete:hover{
+  .btn--delete:hover {
     background-color: hsl(357, 100%, 86%);
   }
 
@@ -357,10 +377,12 @@
   }
 
   @media (max-width: 375px) {
+    /* Delete Modal - Mobile */
     #delete-content {
       width: 18rem;
     }
 
+    /* New Comments and New Replies - Mobile */
     .new-comment,
     .comment__add-reply {
       display: grid;
@@ -375,18 +397,7 @@
       grid-column: 1/6;
     }
 
-    .img--user > img {
-      margin-top: 1.25rem;
-      grid-row: 2;
-      grid-column: 1;
-    }
-
-    .btn--submit {
-      margin-top: 1rem;
-      grid-row: 2;
-      grid-column: 5;
-    }
-
+    /* Vote Form - Mobile */
     .comment__vote {
       display: flex;
       flex-direction: row;
@@ -395,23 +406,34 @@
       grid-column: 1;
       grid-row: 3;
 
-      padding-left: 1rem;
-      padding-right: 1rem;
-      padding-top: 1rem;
-      padding-bottom: 1.25rem;
+      padding: 1rem 1rem 1.25rem 1rem;
 
       height: 0.75rem;
       width: 4rem;
     }
 
-    .comment__vote--score{
+    .comment__vote--score {
       margin-top: 0;
       margin-bottom: 0;
     }
 
-    .comment__vote--downvote > img{
-      padding-bottom: .25rem;
-      padding-left: .55rem;
+    .comment__vote--downvote > img {
+      padding-bottom: 0.25rem;
+      padding-left: 0.55rem;
+    }
+
+    /* Images - Mobile */
+    .img--user > img {
+      margin-top: 1.25rem;
+      grid-row: 2;
+      grid-column: 1;
+    }
+
+    /* Buttons - Mobile */
+    .btn--submit {
+      margin-top: 1rem;
+      grid-row: 2;
+      grid-column: 5;
     }
   }
 </style>

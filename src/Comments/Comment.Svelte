@@ -13,13 +13,14 @@
   export let replyTo = null;
   export let isCurrentUser;
 
+  // Stpres Toggle Values
   let showReplyForm = false;
   let showEditForm = false;
   let showDeleteForm = false;
 </script>
 
 <div class={commentOrReply}>
-  <Form formMode="vote" {score} />
+  <Form className="comment__vote" formMode="vote" {score} />
   <div class="comment__top-row">
     <div class="comment__user-image">
       <img src={userImage} alt={username} />
