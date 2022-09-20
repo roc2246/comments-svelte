@@ -50,7 +50,9 @@
         on:click={() =>
           !showDeleteForm ? (showDeleteForm = true) : (showDeleteForm = false)}
       >
-        <div class="comment__CRUD--img"><img src="images/icon-delete.svg" alt="delete" /></div>
+        <div class="comment__CRUD--img">
+          <img src="images/icon-delete.svg" alt="delete" />
+        </div>
         <span class="comment__CRUD--text">Delete</span>
       </div>
     {:else}
@@ -115,7 +117,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    grid-column: 2/ span 3;
+    grid-column: 2 / span 3;
     grid-row: 1;
   }
 
@@ -130,12 +132,12 @@
     line-height: 2rem;
   }
 
-  .comment__username--you-icon{
-    border-radius: .25rem;
-    padding: .25rem;
+  .comment__username--you-icon {
+    border-radius: 0.25rem;
+    padding: 0.25rem;
     background-color: hsl(238, 40%, 52%);
     color: white;
-    margin-bottom: .25rem;
+    margin-bottom: 0.25rem;
   }
 
   .comment__CRUD {
@@ -143,12 +145,12 @@
     flex-direction: row;
     flex-wrap: nowrap;
     margin-left: auto;
-    grid-column: 5/ span 2;
+    grid-column: 5 / span 2;
     grid-row: 1;
   }
 
-  .comment__CRUD--text{
-    margin-left: .25rem;
+  .comment__CRUD--text {
+    margin-left: 0.25rem;
   }
 
   .comment__CRUD--reply,
@@ -169,7 +171,6 @@
     color: hsl(239, 57%, 85%);
   }
 
-
   .comment__CRUD--edit > .comment__CRUD--text {
     color: hsl(238, 40%, 52%);
     font-weight: 700;
@@ -188,7 +189,6 @@
     color: hsl(357, 100%, 86%);
   }
 
-
   .comment__CRUD--delete {
     margin-left: 1rem;
   }
@@ -205,7 +205,7 @@
     word-wrap: break-word;
   }
 
-  .reply-to{
+  .reply-to {
     color: hsl(238, 40%, 52%);
     font-weight: 700;
   }
@@ -220,14 +220,12 @@
       grid-column: 1/4;
       grid-row: 1;
       flex-wrap: nowrap;
-    justify-content: space-between;
-
     }
     .comment__post-date,
-  .comment__username {
-    margin-left: 0;
-    white-space: nowrap;
-  }
+    .comment__username {
+      margin-left: 0.75rem;
+      white-space: nowrap;
+    }
     .comment__content,
     .comment__edit-content {
       margin: 0;
