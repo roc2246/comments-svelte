@@ -114,11 +114,9 @@
     return [...$comments];
   };
 
-
   const hideModal = () => {
-    document.getElementById("delete").style.display="none"
-  }
-
+    document.getElementById("delete").style.display = "none";
+  };
 </script>
 
 <!-- Comments and Replies -->
@@ -176,9 +174,23 @@
   <section id="delete">
     <div id="delete-content">
       <form action="" on:submit|preventDefault>
-        <h1>DELETE</h1>
-        <button type="button" on:click={deleteData(id, context)}>YES</button>
-        <button type="button" on:click={()=>{hideModal()}}>NO</button>
+        <h1>Delete comment</h1>
+        <p>
+          Are you sure you want to delete this comment? This will remove the
+          comment and can't be undone.
+        </p>
+        <button
+          class="btn--close"
+          type="button"
+          on:click={() => {
+            hideModal();
+          }}>NO, CANCEL</button
+        >
+        <button
+          class="btn--delete"
+          type="button"
+          on:click={deleteData(id, context)}>YES, DELETE</button
+        >
       </form>
     </div>
   </section>
@@ -209,24 +221,25 @@
 
 <style>
   #delete {
-  position: fixed; 
-  z-index: 1; 
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
   }
 
-  #delete-content{
+  #delete-content {
+    border-radius: .5rem;
     background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 20rem;
   }
 
   .new-comment,
@@ -297,7 +310,29 @@
     height: 3rem;
     width: 6rem;
   }
+
+  .btn--delete {
+    border-radius: 0.5rem;
+    padding: 1rem;
+
+    background-color: hsl(358, 79%, 66%);
+    color: white;
+    font-weight: 700;
+  }
+
+  .btn--close{
+    border-radius: 0.5rem;
+padding: 1rem;
+background-color: hsl(211, 10%, 45%);
+color: white;
+font-weight: 700;
+  }
+
   @media (max-width: 375px) {
+  #delete-content{
+    width: 18rem;
+  }
+
     .new-comment,
     .comment__add-reply {
       display: grid;
