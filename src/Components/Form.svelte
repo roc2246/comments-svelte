@@ -220,6 +220,10 @@
 {/if}
 
 <style>
+  button{
+    cursor: pointer;
+  }
+
   #delete {
     position: fixed;
     z-index: 1;
@@ -323,6 +327,10 @@
     width: 6rem;
   }
 
+  .btn--submit:hover{
+    background-color: hsl(239, 57%, 85%);
+  }
+
   .btn--delete {
     border-radius: 0.5rem;
     padding: 1rem;
@@ -332,12 +340,20 @@
     font-weight: 700;
   }
 
+  .btn--delete:hover{
+    background-color: hsl(357, 100%, 86%);
+  }
+
   .btn--close {
     border-radius: 0.5rem;
     padding: 1rem;
     background-color: hsl(211, 10%, 45%);
     color: white;
     font-weight: 700;
+  }
+
+  .btn--close:hover {
+    background-color: hsl(223, 19%, 93%);
   }
 
   @media (max-width: 375px) {
