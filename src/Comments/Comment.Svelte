@@ -147,8 +147,38 @@
   .comment__CRUD--delete {
     display: flex;
     flex-direction: row;
+    cursor: pointer;
     flex-wrap: nowrap;
   }
+
+  .comment__CRUD--reply > .comment__CRUD--text {
+    color: hsl(238, 40%, 52%);
+    font-weight: 700;
+  }
+
+  .comment__CRUD--reply > .comment__CRUD--text:hover {
+    color: hsl(239, 57%, 85%);
+  }
+
+
+  .comment__CRUD--edit > .comment__CRUD--text {
+    color: hsl(238, 40%, 52%);
+    font-weight: 700;
+  }
+
+  .comment__CRUD--edit > .comment__CRUD--text:hover {
+    color: hsl(239, 57%, 85%);
+  }
+
+  .comment__CRUD--delete > .comment__CRUD--text {
+    color: hsl(358, 79%, 66%);
+    font-weight: 700;
+  }
+
+  .comment__CRUD--delete > .comment__CRUD--text:hover {
+    color: hsl(357, 100%, 86%);
+  }
+
 
   .comment__CRUD--delete {
     margin-left: 1rem;
