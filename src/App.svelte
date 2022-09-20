@@ -10,8 +10,14 @@ import Form from "./Components/Form.svelte";
 
 <style>
 main{
-	width: max(20rem, 40%);
+	max-width: 45rem;
     margin-left: auto;
     margin-right: auto;
+}
+
+@media(max-width: 375px){
+	main{
+		width: 20rem;
+	}
 }
 </style>
