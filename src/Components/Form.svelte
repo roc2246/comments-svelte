@@ -145,7 +145,7 @@
       class="new-content"
       cols="30"
       rows="3"
-      placeholder="Add a reply..."
+      placeholder="  Add a reply..."
       bind:value={replyText}
     />
     <button
@@ -157,7 +157,7 @@
       class="new-content"
       cols="30"
       rows="3"
-      placeholder="Add a comment..."
+      placeholder="  Add a comment..."
       bind:value={commentText}
     />
     <button class="btn--submit" on:click={() => addData(commentText)}
