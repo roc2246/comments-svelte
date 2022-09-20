@@ -28,7 +28,7 @@
     <div class="comment__username">
       <span class="comment__username--name">{username}</span>
       {#if isCurrentUser === true}
-        <span class="comment__username--you-icon">YOU</span>
+        <span class="comment__username--you-icon">you</span>
       {/if}
     </div>
     <span class="comment__post-date">{createdAt}</span>
@@ -130,10 +130,18 @@
     line-height: 2rem;
   }
 
+  .comment__username--you-icon{
+    border-radius: .25rem;
+    padding: .25rem;
+    background-color: hsl(238, 40%, 52%);
+    color: white;
+    margin-bottom: .25rem;
+  }
+
   .comment__CRUD {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     margin-left: auto;
     grid-column: 5/ span 2;
     grid-row: 1;
@@ -218,6 +226,7 @@
     .comment__post-date,
   .comment__username {
     margin-left: 0;
+    white-space: nowrap;
   }
     .comment__content,
     .comment__edit-content {
