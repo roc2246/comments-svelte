@@ -107,7 +107,7 @@
   .comment {
     display: grid;
     grid-gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(1rem, auto));
+    grid-template-columns: 2.25rem repeat(auto-fit, minmax(1rem, auto));
     grid-auto-rows: minmax(1rem, auto);
 
     background-color: white;
