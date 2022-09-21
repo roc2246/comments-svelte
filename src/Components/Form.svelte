@@ -74,19 +74,24 @@
         },
       };
 
-      if (text === commentText) {
+      if(text === null){
+        alert("Please enter text.")
+      }
+
+      if (text === commentText && text !== null) {
         commentID = null;
         username = null;
         newData.replies = [];
         comment = [...comment, newData];
       }
 
-      if (text === replyText) {
+      if (text === replyText && text !== null) {
         newData.replyingTo = username;
         comment[commentID - 1].replies = [
           ...comment[commentID - 1].replies,
           newData,
         ];
+        console.log(replyText)
       }
 
       return [...comment];
