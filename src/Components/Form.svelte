@@ -281,7 +281,7 @@
     display: flex;
     flex-direction: column;
     margin: 0;
-    grid-column: 2 / span 4;
+    grid-column: 2 / span 5;
   }
 
   .comment__edit-content > button {
@@ -289,6 +289,7 @@
   }
 
   .updated-content {
+    overflow: hidden;
     resize: none;
   }
 
