@@ -1,5 +1,9 @@
 <script>
   import { currentUser, comments } from "../comments-store";
+  import TimeAgo from 'javascript-time-ago'
+  import en from 'javascript-time-ago/locale/en'
+  TimeAgo.addLocale(en)
+ 
 
   //For Most Or All Forms
   export let formMode;
@@ -59,11 +63,12 @@
 
   // Adds Comment or Reply
   const addData = (text, commentID, username) => {
+  const timeAgo = new TimeAgo('en-US')
     comments.update((comment) => {
       const newData = {
         id: generateID(),
         content: text,
-        createdAt: "DATE",
+        createdAt: timeAgo.format(new Date()),
         score: 0,
         user: {
           image: {
@@ -155,12 +160,22 @@
       placeholder="  Add a reply..."
       bind:value={replyText}
     />
+    {#if replyText !== null}
     <button
       class="btn--submit"
       type="button"
       on:click={() => addData(replyText, id, username)}
-      on:click>Submit</button
+      on:click
+      >Submit</button
     >
+    {:else}
+    <button
+    class="btn--submit"
+    type="button"
+    on:click={() => addData(replyText, id, username)}
+    >Submit</button
+  >
+    {/if}
   {:else if formMode === "new-comment"}
     <textarea
       class="new-content"
