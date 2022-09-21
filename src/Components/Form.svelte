@@ -118,7 +118,6 @@
       const replyResults = $comments[commentIndex].replies.filter(
         (reply) => reply.id !== id
       );
-      console.log(replyResults);
       $comments[commentIndex].replies = replyResults;
     }
     return [...$comments];
