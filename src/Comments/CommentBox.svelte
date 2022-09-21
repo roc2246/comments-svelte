@@ -51,12 +51,9 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-
   }
   .reply-box__reply-line {
     margin-top: 1rem;
-    /* margin-left: 3rem;
-    margin-right: 3rem; */
     border-left: 3px solid hsl(223, 19%, 93%);
     height: auto;
     width: 5%;
@@ -66,15 +63,10 @@
     flex-direction: column;
     width: 95%;
   }
-  @media (max-width: 375px){
-    .reply-box__reply-line{
-    margin-right: .5rem;
+  @media (max-width: 375px) {
+    .reply-box__reply-line {
+      margin-right: 0.5rem;
       margin-left: 0;
-    }
-
-    .reply-box__replies{
-      width: auto;
-
     }
   }
 </style>
