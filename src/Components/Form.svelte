@@ -21,7 +21,6 @@
   let editReplyTxt = "@" + replyTo + " " + content;
   let replyText = null;
   let commentText = null;
-  
 
   //CRUD Library
 
@@ -238,13 +237,13 @@
   #delete {
     position: fixed;
     z-index: 1;
-    padding-top: 100px; 
+    padding-top: 100px;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgb(0, 0, 0); 
-    background-color: rgba(0, 0, 0, 0.4); 
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
   }
 
   #delete-content {
@@ -276,7 +275,7 @@
     margin-right: 0.75rem;
   }
 
-  /* Edit Content */
+  /* Edit Content - Desktop*/
   .comment__edit-content {
     display: flex;
     flex-direction: column;
@@ -396,6 +395,11 @@
 
       grid-row: 1;
       grid-column: 1/6;
+    }
+
+    /* Edit Content - Mobile */
+    .comment__edit-content {
+      grid-column:1 / span 5;
     }
 
     /* Vote Form - Mobile */

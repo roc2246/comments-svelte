@@ -230,12 +230,16 @@
     .comment__edit-content {
       margin: 0;
       grid-row: 2;
-      grid-column: 1/4;
+      grid-column: 1/5;
     }
     .comment__CRUD {
       margin-top: 1rem;
       grid-column: 2/5;
       grid-row: 3;
+    }
+
+    .comment__CRUD--edit{
+      margin-left: 4.25rem;
     }
   }
 </style>
