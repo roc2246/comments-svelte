@@ -192,18 +192,20 @@
           Are you sure you want to delete this comment? This will remove the
           comment and can't be undone.
         </p>
-        <button
-          class="btn--close"
-          type="button"
-          on:click={() => {
-            hideModal();
-          }}>NO, CANCEL</button
-        >
-        <button
-          class="btn--delete"
-          type="button"
-          on:click={deleteData(id, context)}>YES, DELETE</button
-        >
+        <div id="delete-content__btns">
+          <button
+            class="btn--close"
+            type="button"
+            on:click={() => {
+              hideModal();
+            }}>NO, CANCEL</button
+          >
+          <button
+            class="btn--delete"
+            type="button"
+            on:click={deleteData(id, context)}>YES, DELETE</button
+          >
+        </div>
       </form>
     </div>
   </section>
@@ -253,6 +255,12 @@
     padding: 20px;
     border: 1px solid #888;
     width: 20rem;
+  }
+
+  #delete-content__btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
   }
 
   /* New Comments and New Replies - Desktop */
@@ -328,8 +336,8 @@
   }
 
   /* Textarea */
-  textarea{
-    border-radius: .5rem;
+  textarea {
+    border-radius: 0.5rem;
   }
 
   textarea:focus {
@@ -354,7 +362,7 @@
     color: white;
     font-weight: 700;
     height: 3rem;
-    width: 6rem;
+    width: auto;
   }
 
   .btn--submit:hover {
@@ -364,10 +372,11 @@
   .btn--delete {
     border-radius: 0.5rem;
     padding: 1rem;
-
     background-color: hsl(358, 79%, 66%);
     color: white;
     font-weight: 700;
+    width: 48%;
+    height: 3.25rem;
   }
 
   .btn--delete:hover {
@@ -380,6 +389,8 @@
     background-color: hsl(211, 10%, 45%);
     color: white;
     font-weight: 700;
+    width: 48%;
+    height: 3.25rem;
   }
 
   .btn--close:hover {
@@ -388,6 +399,10 @@
 
   @media (max-width: 375px) {
     /* Delete Modal - Mobile */
+    /* #delete {
+      padding-top: 200px;
+    } */
+
     #delete-content {
       width: 18rem;
     }
