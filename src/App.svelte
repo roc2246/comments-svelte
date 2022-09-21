@@ -5,7 +5,7 @@ import Form from "./Components/Form.svelte";
 
 <main>
 	<CommentBox/>
-	<Form className="new-comment" formMode="new-comment"/>
+	<Form className="new-comment" formMode="new-comment" />
 </main>
 
 <style>

@@ -149,7 +149,9 @@
     />
     <button
       class="btn--submit"
-      on:click={() => addData(replyText, id, username)}>Submit</button
+      type="button"
+      on:click={() => addData(replyText, id, username)}
+      on:click>Submit</button
     >
   {:else if formMode === "new-comment"}
     <textarea
@@ -159,8 +161,10 @@
       placeholder="  Add a comment..."
       bind:value={commentText}
     />
-    <button class="btn--submit" on:click={() => addData(commentText)}
-      >Submit</button
+    <button
+      class="btn--submit"
+      type="button"
+      on:click={() => addData(commentText)}>Submit</button
     >
   {:else if formMode === "edit-content"}
     {#if replyTo !== null}
@@ -170,13 +174,17 @@
         rows="3"
         bind:value={editReplyTxt}
       />
-      <button class="btn--submit" on:click={() => updateData(id, editReplyTxt)}
-        >Submit</button
+      <button
+        class="btn--submit"
+        type="button"
+        on:click={() => updateData(id, editReplyTxt)} on:click>Submit</button
       >
     {:else}
       <textarea cols="30" rows="3" bind:value={content} />
-      <button class="btn--submit" on:click={() => updateData(id, content)}
-        >Submit</button
+      <button
+        class="btn--submit"
+        type="button"
+        on:click={() => updateData(id, content)}>Submit</button
       >
     {/if}
   {/if}

@@ -75,6 +75,7 @@
       {replyTo}
       {content}
       id={replyTo !== null ? replyID : commentID}
+      on:click={()=> showEditForm = false}
     />
   {:else}
     <p class="comment__content">
@@ -91,6 +92,7 @@
     formMode="new-reply"
     id={commentID}
     {username}
+    on:click={()=> showReplyForm = false}
   />
 {/if}
 {#if showDeleteForm}
