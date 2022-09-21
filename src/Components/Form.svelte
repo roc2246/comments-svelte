@@ -112,7 +112,6 @@
     if (text === content && text.length !== 0) {
       let index = $comments.findIndex((comment) => comment.id === id);
       $comments[index].content = text;
-      console.log(index);
     } else if (text === editReplyTxt && text.length !== 0) {
       let replyIndex = getReplyIndex();
       let commentIndex = getCommentIndex();
@@ -199,18 +198,34 @@
         rows="3"
         bind:value={editReplyTxt}
       />
+      {#if editReplyTxt.length !== 0}
       <button
         class="btn--submit"
         type="button"
         on:click={() => updateData(id, editReplyTxt)} on:click>Submit</button
       >
+      {:else}
+      <button
+        class="btn--submit"
+        type="button"
+        on:click={() => updateData(id, editReplyTxt)}>Submit</button
+      >
+      {/if}
     {:else}
       <textarea cols="30" rows="3" bind:value={content} />
+      {#if content.length !== 0}
+      <button
+        class="btn--submit"
+        type="button"
+        on:click={() => updateData(id, content)} on:click>Submit</button
+      >
+      {:else}
       <button
         class="btn--submit"
         type="button"
         on:click={() => updateData(id, content)}>Submit</button
       >
+      {/if}
     {/if}
   {/if}
 </form>
