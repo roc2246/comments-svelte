@@ -327,6 +327,16 @@
     cursor: pointer;
   }
 
+  /* Textarea */
+  textarea{
+    border-radius: .5rem;
+  }
+
+  textarea:focus {
+    outline: none !important;
+    border-color: hsl(238, 40%, 52%);
+  }
+
   /* Images - Desktop */
   .img--user > img {
     max-width: 2rem;
@@ -399,7 +409,7 @@
 
     /* Edit Content - Mobile */
     .comment__edit-content {
-      grid-column:1 / span 5;
+      grid-column: 1 / span 5;
     }
 
     /* Vote Form - Mobile */
