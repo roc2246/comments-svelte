@@ -100,11 +100,15 @@
 
   // Updates Comment or Reply
   const updateData = (id, text) => {
-    if (text === content) {
+    if(text.length === 0){
+        alert("Please enter text.")
+      }
+
+    if (text === content && text.length !== 0) {
       let index = $comments.findIndex((comment) => comment.id === id);
       $comments[index].content = text;
       console.log(index);
-    } else if (text === editReplyTxt) {
+    } else if (text === editReplyTxt && text.length !== 0) {
       let replyIndex = getReplyIndex();
       let commentIndex = getCommentIndex();
 
