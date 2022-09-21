@@ -163,7 +163,9 @@
     <button
       class="btn--submit"
       type="button"
-      on:click={() => addData(commentText)}>Submit</button
+      on:click={() => addData(commentText)}
+      on:click={() => commentText = null}
+      >Submit</button
     >
   {:else if formMode === "edit-content"}
     {#if replyTo !== null}
