@@ -239,7 +239,7 @@
   #delete {
     position: fixed;
     z-index: 1;
-    padding-top: 100px;
+    padding-top: 20rem;
     left: 0;
     top: 0;
     width: 100%;
@@ -399,9 +399,9 @@
 
   @media (max-width: 375px) {
     /* Delete Modal - Mobile */
-    /* #delete {
-      padding-top: 200px;
-    } */
+    #delete {
+      padding-top: 14rem;
+    }
 
     #delete-content {
       width: 18rem;
