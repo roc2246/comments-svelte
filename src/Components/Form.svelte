@@ -367,39 +367,13 @@
 
   .btn {
     &--submit {
-      border-radius: 0.5rem;
-      background-color: $purple;
-      color: white;
-      font-weight: 700;
-      height: 3rem;
-      width: auto;
-      &:hover {
-        background-color: $pale-purple;
-      }
+      @include button('submit');
     }
     &--delete {
-      border-radius: 0.5rem;
-      padding: 1rem;
-      background-color: $red;
-      color: white;
-      font-weight: 700;
-      width: 48%;
-      height: 3.25rem;
-      &:hover {
-        background-color: $pale-red;
-      }
+      @include button('delete');
     }
     &--close {
-      border-radius: 0.5rem;
-      padding: 1rem;
-      background-color: $grey;
-      color: white;
-      font-weight: 700;
-      width: 48%;
-      height: 3.25rem;
-      &:hover {
-        background-color: $pale-grey;
-      }
+      @include button('close');
     }
   }
 
