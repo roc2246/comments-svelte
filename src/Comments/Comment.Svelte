@@ -80,7 +80,7 @@
   {:else}
     <p class="comment__content">
       {#if replyTo !== null}
-        <span class="reply-to">@{replyTo}</span>
+        <span class="comment__content--reply-to">@{replyTo}</span>
       {/if}
       {content}
     </p>
@@ -110,112 +110,104 @@
     grid-gap: 1rem;
     grid-template-columns: 2.25rem repeat(auto-fit, minmax(1rem, auto));
     grid-auto-rows: minmax(1rem, auto);
-
     background-color: white;
     border-radius: 0.5rem;
     padding: 1.5rem;
     margin-top: 1rem;
-  }
-  .comment__top-row {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    grid-column: 2 / span 3;
-    grid-row: 1;
-  }
+    &__top-row {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      grid-column: 2 / span 3;
+      grid-row: 1;
+    }
+    &__user-image {
+      & > img {
+        max-width: 2rem;
+        max-height: 2rem;
+      }
+    }
+    &__post-date {
+      margin-left: 1rem;
+      line-height: 2rem;
+    }
+    &__username {
+      margin-left: 1rem;
+      line-height: 2rem;
+      &--name,
+      &--you-icon {
+        font-weight: 700;
+      }
+      &--you-icon {
+        border-radius: 0.25rem;
+        padding: 0.25rem;
+        background-color: $purple;
+        color: white;
+        margin-bottom: 0.25rem;
+      }
+    }
+    &__content {
+      margin: 0;
+      grid-column: 2 / span 4;
+      max-width: 100%;
+      min-width: 0;
+      min-height: 0;
+      word-wrap: break-word;
+      &--reply-to {
+        color: $purple;
+        font-weight: 700;
+      }
+    }
+    &__CRUD {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      margin-left: auto;
+      grid-column: 5 / span 2;
+      grid-row: 1;
+      &--text {
+        margin-left: 0.25rem;
+        font-weight: 700;
+      }
+      &--reply {
+        display: flex;
+        flex-direction: row;
+        cursor: pointer;
+        flex-wrap: nowrap;
+        & > .comment__CRUD--text {
+          color: $purple;
+          &:hover {
+            color: $pale-purple;
+          }
+        }
+      }
 
-  .comment__user-image > img {
-    max-width: 2rem;
-    max-height: 2rem;
-  }
-
-  .comment__post-date,
-  .comment__username {
-    margin-left: 1rem;
-    line-height: 2rem;
-  }
-
-  .comment__username--you-icon {
-    border-radius: 0.25rem;
-    padding: 0.25rem;
-    background-color: $purple;
-    color: white;
-    margin-bottom: 0.25rem;
-  }
-
-  .comment__CRUD {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    margin-left: auto;
-    grid-column: 5 / span 2;
-    grid-row: 1;
-  }
-
-  .comment__CRUD--text {
-    margin-left: 0.25rem;
-  }
-
-  .comment__CRUD--reply,
-  .comment__CRUD--edit,
-  .comment__CRUD--delete {
-    display: flex;
-    flex-direction: row;
-    cursor: pointer;
-    flex-wrap: nowrap;
-  }
-
-  .comment__CRUD--reply > .comment__CRUD--text {
-    color: $purple;
-    font-weight: 700;
-  }
-
-  .comment__CRUD--reply > .comment__CRUD--text:hover {
-    color: $pale-purple;
-  }
-
-  .comment__CRUD--edit > .comment__CRUD--text {
-    color: $purple;
-    font-weight: 700;
-  }
-
-  .comment__CRUD--edit > .comment__CRUD--text:hover {
-    color: $pale-purple;
-  }
-
-  .comment__CRUD--delete > .comment__CRUD--text {
-    color: $red;
-    font-weight: 700;
-  }
-
-  .comment__CRUD--delete > .comment__CRUD--text:hover {
-    color: hsl(357, 100%, 86%);
-  }
-
-  .comment__CRUD--delete {
-    margin-left: 1rem;
-  }
-
-  .comment__content {
-    margin: 0;
-    grid-column: 2 / span 4;
-  }
-
-  .comment__content {
-    max-width: 100%;
-    min-width: 0;
-    min-height: 0;
-    word-wrap: break-word;
-  }
-
-  .reply-to {
-    color: $purple;
-    font-weight: 700;
-  }
-
-  .comment__username--name,
-  .comment__username--you-icon {
-    font-weight: 700;
+      &--edit {
+        display: flex;
+        flex-direction: row;
+        cursor: pointer;
+        flex-wrap: nowrap;
+        & > .comment__CRUD--text {
+          color: $purple;
+          &:hover {
+            color: $pale-purple;
+          }
+        }
+      }
+      &--delete {
+        display: flex;
+        flex-direction: row;
+        cursor: pointer;
+        flex-wrap: nowrap;
+        margin-left: 1rem;
+        & > .comment__CRUD--text {
+          color: $red;
+          &:hover {
+            color: $pale-red;
+          }
+        }
+      }
+    }
   }
 
   @media (max-width: 375px) {
