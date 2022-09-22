@@ -189,7 +189,7 @@
   {:else if formMode === "edit-content"}
     {#if replyTo !== null}
       <textarea
-        class="updated-content"
+        class="comment__edit-content--content"
         cols="30"
         rows="3"
         bind:value={editReplyTxt}
@@ -284,95 +284,70 @@
   @import "../global";
   /* Delete Modal - Desktop*/
   .delete {
-    position: fixed;
-    z-index: 1;
-    padding-top: 20rem;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4);
-    &__content {
-      border-radius: 0.5rem;
-      background-color: #fefefe;
-      margin: auto;
-      padding: 20px;
-      border: 1px solid #888;
-      width: 20rem;
-      &--btns {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-      }
-    }
+    @include deleteDesktop();
   }
 
   /* New Comments and New Replies - Desktop */
-  .new-comment, .new-reply {
+  .new-comment,
+  .new-reply {
     @include formUIDesktop();
   }
 
-  /* Edit Content - Desktop*/
-  .comment__edit-content {
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    grid-column: 2 / span 5;
-  }
+  .comment {
+    /* Vote Form - Desktop */
+    &__vote {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
 
-  .comment__edit-content > button {
-    margin-left: auto;
-  }
+      grid-column: 1;
+      grid-row: 1/3;
 
-  .updated-content {
-    overflow: hidden;
-    resize: none;
-  }
+      padding: 0.75rem;
 
-  /* Vote Form - Desktop */
-  .comment__vote {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+      height: 4rem;
+      width: 0.75rem;
 
-    grid-column: 1;
-    grid-row: 1/3;
-
-    padding: 0.75rem;
-
-    height: 4rem;
-    width: 0.75rem;
-
-    background-color: hsl(223, 19%, 93%);
-    border-radius: 0.5rem;
-  }
-
-  .comment__vote > * {
-    flex: 1;
-  }
-
-  .comment__vote--score {
-    color: hsl(238, 40%, 52%);
-    font-weight: 700;
-    margin-top: 0.5rem;
-    margin-bottom: 0.05rem;
-    text-align: center;
-  }
-
-  .comment__vote--upvote,
-  .comment__vote--downvote {
-    cursor: pointer;
+      background-color: hsl(223, 19%, 93%);
+      border-radius: 0.5rem;
+      &--score {
+        color: hsl(238, 40%, 52%);
+        font-weight: 700;
+        margin-top: 0.5rem;
+        margin-bottom: 0.05rem;
+        text-align: center;
+      }
+      &--upvote,
+      &--downvote {
+        cursor: pointer;
+      }
+      & > * {
+        flex: 1;
+      }
+    }
+    /* Edit Content - Desktop*/
+    &__edit-content {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      grid-column: 2 / span 5;
+      &--content {
+        overflow: hidden;
+        resize: none;
+      }
+      & > button {
+        margin-left: auto;
+      }
+    }
   }
 
   /* Textarea */
   textarea {
     border-radius: 0.5rem;
-  }
-
-  textarea:focus {
-    outline: none !important;
-    border-color: hsl(238, 40%, 52%);
+    &:focus {
+      outline: none !important;
+      border-color: hsl(238, 40%, 52%);
+    }
   }
 
   /* Images - Desktop */
@@ -442,34 +417,35 @@
       @include formUIMobile();
     }
 
-    /* Edit Content - Mobile */
-    .comment__edit-content {
-      grid-column: 1 / span 5;
-    }
+    .comment {
+      /* Vote Form - Mobile */
+      &__vote {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
 
-    /* Vote Form - Mobile */
-    .comment__vote {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-evenly;
+        grid-column: 1;
+        grid-row: 3;
 
-      grid-column: 1;
-      grid-row: 3;
+        padding: 1rem 1rem 1.25rem 1rem;
 
-      padding: 1rem 1rem 1.25rem 1rem;
-
-      height: 0.75rem;
-      width: 4rem;
-    }
-
-    .comment__vote--score {
-      margin-top: 0;
-      margin-bottom: 0;
-    }
-
-    .comment__vote--downvote > img {
-      padding-bottom: 0.25rem;
-      padding-left: 0.55rem;
+        height: 0.75rem;
+        width: 4rem;
+        &--score {
+          margin-top: 0;
+          margin-bottom: 0;
+        }
+        &--downvote {
+          & > img {
+            padding-bottom: 0.25rem;
+            padding-left: 0.55rem;
+          }
+        }
+      }
+      /* Edit Content - Mobile */
+      &__edit-content {
+        grid-column: 1 / span 5;
+      }
     }
 
     /* Images - Mobile */
