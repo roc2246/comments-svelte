@@ -88,7 +88,7 @@
 </div>
 {#if showReplyForm}
   <Form
-    className="comment__add-reply"
+    className="new-reply"
     formMode="new-reply"
     id={commentID}
     {username}

@@ -1,9 +1,8 @@
 <script>
   import { currentUser, comments } from "../comments-store";
-  import TimeAgo from 'javascript-time-ago'
-  import en from 'javascript-time-ago/locale/en'
-  TimeAgo.addLocale(en)
- 
+  import TimeAgo from "javascript-time-ago";
+  import en from "javascript-time-ago/locale/en";
+  TimeAgo.addLocale(en);
 
   //For Most Or All Forms
   export let formMode;
@@ -63,7 +62,7 @@
 
   // Adds Comment or Reply
   const addData = (text, commentID, username) => {
-  const timeAgo = new TimeAgo('en-US')
+    const timeAgo = new TimeAgo("en-US");
     comments.update((comment) => {
       const newData = {
         id: generateID(),
@@ -79,8 +78,8 @@
         },
       };
 
-      if(text === null){
-        alert("Please enter text.")
+      if (text === null) {
+        alert("Please enter text.");
       }
 
       if (text === commentText && text !== null) {
@@ -96,7 +95,7 @@
           ...comment[commentID - 1].replies,
           newData,
         ];
-        console.log(replyText)
+        console.log(replyText);
       }
 
       return [...comment];
@@ -105,9 +104,9 @@
 
   // Updates Comment or Reply
   const updateData = (id, text) => {
-    if(text.length === 0){
-        alert("Please enter text.")
-      }
+    if (text.length === 0) {
+      alert("Please enter text.");
+    }
 
     if (text === content && text.length !== 0) {
       let index = $comments.findIndex((comment) => comment.id === id);
@@ -138,7 +137,7 @@
 
   // Hides Delete Modal
   const hideModal = () => {
-    document.getElementById("delete").style.display = "none";
+    document.getElementsByClassName("delete")[0].style.display = "none";
   };
 </script>
 
@@ -153,31 +152,29 @@
   {/if}
   {#if formMode === "new-reply"}
     <textarea
-      class="new-content"
+      class="new-reply__content"
       cols="30"
       rows="3"
       placeholder="  Add a reply..."
       bind:value={replyText}
     />
     {#if replyText !== null}
-    <button
-      class="btn--submit"
-      type="button"
-      on:click={() => addData(replyText, id, username)}
-      on:click
-      >Submit</button
-    >
+      <button
+        class="btn--submit"
+        type="button"
+        on:click={() => addData(replyText, id, username)}
+        on:click>Submit</button
+      >
     {:else}
-    <button
-    class="btn--submit"
-    type="button"
-    on:click={() => addData(replyText, id, username)}
-    >Submit</button
-  >
+      <button
+        class="btn--submit"
+        type="button"
+        on:click={() => addData(replyText, id, username)}>Submit</button
+      >
     {/if}
   {:else if formMode === "new-comment"}
     <textarea
-      class="new-content"
+      class="new-comment__content"
       cols="30"
       rows="3"
       placeholder="  Add a comment..."
@@ -187,8 +184,7 @@
       class="btn--submit"
       type="button"
       on:click={() => addData(commentText)}
-      on:click={() => commentText = null}
-      >Submit</button
+      on:click={() => (commentText = null)}>Submit</button
     >
   {:else if formMode === "edit-content"}
     {#if replyTo !== null}
@@ -199,32 +195,34 @@
         bind:value={editReplyTxt}
       />
       {#if editReplyTxt.length !== 0}
-      <button
-        class="btn--submit"
-        type="button"
-        on:click={() => updateData(id, editReplyTxt)} on:click>Submit</button
-      >
+        <button
+          class="btn--submit"
+          type="button"
+          on:click={() => updateData(id, editReplyTxt)}
+          on:click>Submit</button
+        >
       {:else}
-      <button
-        class="btn--submit"
-        type="button"
-        on:click={() => updateData(id, editReplyTxt)}>Submit</button
-      >
+        <button
+          class="btn--submit"
+          type="button"
+          on:click={() => updateData(id, editReplyTxt)}>Submit</button
+        >
       {/if}
     {:else}
       <textarea cols="30" rows="3" bind:value={content} />
       {#if content.length !== 0}
-      <button
-        class="btn--submit"
-        type="button"
-        on:click={() => updateData(id, content)} on:click>Submit</button
-      >
+        <button
+          class="btn--submit"
+          type="button"
+          on:click={() => updateData(id, content)}
+          on:click>Submit</button
+        >
       {:else}
-      <button
-        class="btn--submit"
-        type="button"
-        on:click={() => updateData(id, content)}>Submit</button
-      >
+        <button
+          class="btn--submit"
+          type="button"
+          on:click={() => updateData(id, content)}>Submit</button
+        >
       {/if}
     {/if}
   {/if}
@@ -232,15 +230,15 @@
 
 <!-- Delete -->
 {#if formMode === "delete"}
-  <section id="delete">
-    <div id="delete-content">
+  <section class="delete">
+    <div class="delete__content">
       <form action="" on:submit|preventDefault>
         <h1>Delete comment</h1>
         <p>
           Are you sure you want to delete this comment? This will remove the
           comment and can't be undone.
         </p>
-        <div id="delete-content__btns">
+        <div class="delete__content--btns">
           <button
             class="btn--close"
             type="button"
@@ -282,9 +280,10 @@
   </form>
 {/if}
 
-<style>
+<style lang="scss">
+  @import "../global";
   /* Delete Modal - Desktop*/
-  #delete {
+  .delete {
     position: fixed;
     z-index: 1;
     padding-top: 20rem;
@@ -294,41 +293,24 @@
     height: 100%;
     background-color: rgb(0, 0, 0);
     background-color: rgba(0, 0, 0, 0.4);
-  }
-
-  #delete-content {
-    border-radius: 0.5rem;
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 20rem;
-  }
-
-  #delete-content__btns {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    &__content {
+      border-radius: 0.5rem;
+      background-color: #fefefe;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 20rem;
+      &--btns {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
   }
 
   /* New Comments and New Replies - Desktop */
-  .new-comment,
-  .comment__add-reply {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-
-    background-color: white;
-    border-radius: 0.5rem;
-    padding: 1.5rem;
-    margin-top: 1rem;
-  }
-
-  .new-content {
-    resize: none;
-    width: 75%;
-    margin-left: 0.75rem;
-    margin-right: 0.75rem;
+  .new-comment, .new-reply {
+    @include formUIDesktop();
   }
 
   /* Edit Content - Desktop*/
@@ -447,27 +429,17 @@
 
   @media (max-width: 375px) {
     /* Delete Modal - Mobile */
-    #delete {
+    .delete {
       padding-top: 14rem;
-    }
-
-    #delete-content {
-      width: 18rem;
+      &__content {
+        width: 18rem;
+      }
     }
 
     /* New Comments and New Replies - Mobile */
     .new-comment,
-    .comment__add-reply {
-      display: grid;
-      grid-template-columns: 2rem auto 4rem;
-    }
-    .new-content {
-      width: 100%;
-      margin-left: 0;
-      margin-right: 0;
-
-      grid-row: 1;
-      grid-column: 1/6;
+    .new-reply {
+      @include formUIMobile();
     }
 
     /* Edit Content - Mobile */

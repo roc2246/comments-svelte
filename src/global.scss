@@ -1,0 +1,30 @@
+// Mixins
+@mixin formUIDesktop() {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  &__content {
+    resize: none;
+    width: 75%;
+    margin-left: 0.75rem;
+    margin-right: 0.75rem;
+  }
+}
+
+@mixin formUIMobile() {
+  display: grid;
+  grid-template-columns: 2rem auto 4rem;
+  &__content {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+
+    grid-row: 1;
+    grid-column: 1/6;
+  }
+}
