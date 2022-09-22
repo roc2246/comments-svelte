@@ -1,3 +1,13 @@
+// Variables
+
+// Colors
+$grey: hsl(211, 10%, 45%);
+$pale-grey: hsl(223, 19%, 93%);
+$purple: hsl(238, 40%, 52%);
+$pale-purple: hsl(239, 57%, 85%);
+$red: hsl(358, 79%, 66%);
+$pale-red: hsl(357, 100%, 86%);
+
 // Mixins
 @mixin formUIDesktop() {
   display: flex;

@@ -287,7 +287,7 @@
     border-radius: 0.5rem;
     &:focus {
       outline: none !important;
-      border-color: hsl(238, 40%, 52%);
+      border-color: $purple;
     }
   }
 
@@ -317,10 +317,10 @@
       height: 4rem;
       width: 0.75rem;
 
-      background-color: hsl(223, 19%, 93%);
+      background-color: $pale-grey;
       border-radius: 0.5rem;
       &--score {
-        color: hsl(238, 40%, 52%);
+        color: $purple;
         font-weight: 700;
         margin-top: 0.5rem;
         margin-bottom: 0.05rem;
@@ -368,37 +368,37 @@
   .btn {
     &--submit {
       border-radius: 0.5rem;
-      background-color: hsl(238, 40%, 52%);
+      background-color: $purple;
       color: white;
       font-weight: 700;
       height: 3rem;
       width: auto;
       &:hover {
-        background-color: hsl(239, 57%, 85%);
+        background-color: $pale-purple;
       }
     }
     &--delete {
       border-radius: 0.5rem;
       padding: 1rem;
-      background-color: hsl(358, 79%, 66%);
+      background-color: $red;
       color: white;
       font-weight: 700;
       width: 48%;
       height: 3.25rem;
       &:hover {
-        background-color: hsl(357, 100%, 86%);
+        background-color: $pale-red;
       }
     }
     &--close {
       border-radius: 0.5rem;
       padding: 1rem;
-      background-color: hsl(211, 10%, 45%);
+      background-color: $grey;
       color: white;
       font-weight: 700;
       width: 48%;
       height: 3.25rem;
       &:hover {
-        background-color: hsl(223, 19%, 93%);
+        background-color: $pale-grey;
       }
     }
   }

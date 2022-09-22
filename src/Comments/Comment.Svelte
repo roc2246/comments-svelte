@@ -103,7 +103,8 @@
   />
 {/if}
 
-<style>
+<style lang="scss">
+  @import "../global";
   .comment {
     display: grid;
     grid-gap: 1rem;
@@ -137,7 +138,7 @@
   .comment__username--you-icon {
     border-radius: 0.25rem;
     padding: 0.25rem;
-    background-color: hsl(238, 40%, 52%);
+    background-color: $purple;
     color: white;
     margin-bottom: 0.25rem;
   }
@@ -165,25 +166,25 @@
   }
 
   .comment__CRUD--reply > .comment__CRUD--text {
-    color: hsl(238, 40%, 52%);
+    color: $purple;
     font-weight: 700;
   }
 
   .comment__CRUD--reply > .comment__CRUD--text:hover {
-    color: hsl(239, 57%, 85%);
+    color: $pale-purple;
   }
 
   .comment__CRUD--edit > .comment__CRUD--text {
-    color: hsl(238, 40%, 52%);
+    color: $purple;
     font-weight: 700;
   }
 
   .comment__CRUD--edit > .comment__CRUD--text:hover {
-    color: hsl(239, 57%, 85%);
+    color: $pale-purple;
   }
 
   .comment__CRUD--delete > .comment__CRUD--text {
-    color: hsl(358, 79%, 66%);
+    color: $red;
     font-weight: 700;
   }
 
@@ -208,7 +209,7 @@
   }
 
   .reply-to {
-    color: hsl(238, 40%, 52%);
+    color: $purple;
     font-weight: 700;
   }
 

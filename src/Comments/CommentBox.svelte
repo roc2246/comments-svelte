@@ -40,7 +40,8 @@
   {/each}
 </section>
 
-<style>
+<style lang="scss">
+  @import "../global";
   #comment-box {
     display: flex;
     flex-direction: column;
@@ -54,7 +55,7 @@
   }
   .reply-box__reply-line {
     margin-top: 1rem;
-    border-left: 3px solid hsl(223, 19%, 93%);
+    border-left: 3px solid $pale-grey;
     height: auto;
     width: 5%;
   }
