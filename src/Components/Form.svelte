@@ -6,7 +6,7 @@
 
   //For Most Or All Forms
   export let formMode;
-  export let className;
+  export let className = null;
 
   // Stores Content of Form or Reply
   export let content = null;
@@ -137,7 +137,8 @@
 
   // Hides Delete Modal
   const hideModal = () => {
-    document.getElementsByClassName("delete")[0].style.display = "none";
+    const deleteModal = document.getElementsByClassName("delete")[0];
+    deleteModal.style.display = "none";
   };
 </script>
 
@@ -230,7 +231,7 @@
 
 <!-- Delete -->
 {#if formMode === "delete"}
-  <section class={className}>
+  <section class="delete">
     <div class="delete__content">
       <form action="" on:submit|preventDefault>
         <h1>Delete comment</h1>
@@ -293,7 +294,7 @@
 
   /* Delete Modal - Desktop*/
   .delete {
-    @include deleteDesktop();
+    @include delete('desktop');
   }
 
   /* New Comments and New Replies - Desktop */
@@ -380,10 +381,7 @@
   @media (max-width: 375px) {
     /* Delete Modal - Mobile */
     .delete {
-      padding-top: 14rem;
-      &__content {
-        width: 18rem;
-      }
+     @include delete('mobile');
     }
 
     /* New Comments and New Replies - Mobile */

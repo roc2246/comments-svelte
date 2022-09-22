@@ -97,7 +97,6 @@
 {/if}
 {#if showDeleteForm}
   <Form
-    className="delete"
     formMode="delete"
     context={commentOrReply === "comment" ? "comment" : "comment reply"}
     id={commentOrReply === "comment" ? commentID : replyID}

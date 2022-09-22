@@ -39,10 +39,9 @@ $pale-red: hsl(357, 100%, 86%);
   }
 }
 
-@mixin deleteDesktop() {
+@mixin delete($mode) {
   position: fixed;
   z-index: 1;
-  padding-top: 20rem;
   left: 0;
   top: 0;
   width: 100%;
@@ -55,11 +54,22 @@ $pale-red: hsl(357, 100%, 86%);
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 20rem;
     &--btns {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+    }
+  }
+
+  @if ($mode == 'desktop') {
+    padding-top: 20rem;
+    &__content {
+      width: 20rem;
+    }
+  } @else if ($mode == 'mobile') {
+    padding-top: 14rem;
+    &__content {
+      width: 18rem;
     }
   }
 }
