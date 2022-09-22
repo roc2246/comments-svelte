@@ -52,22 +52,25 @@
     display: flex;
     flex-direction: row;
     width: 100%;
+    &__reply-line {
+      margin-top: 1rem;
+      border-left: 3px solid $pale-grey;
+      height: auto;
+      width: 5%;
+    }
+    &__replies {
+      display: flex;
+      flex-direction: column;
+      width: 95%;
+    }
   }
-  .reply-box__reply-line {
-    margin-top: 1rem;
-    border-left: 3px solid $pale-grey;
-    height: auto;
-    width: 5%;
-  }
-  .reply-box__replies {
-    display: flex;
-    flex-direction: column;
-    width: 95%;
-  }
+
   @media (max-width: 375px) {
-    .reply-box__reply-line {
-      margin-right: 0.5rem;
-      margin-left: 0;
+    .reply-box {
+      &__reply-line {
+        margin-right: 0.5rem;
+        margin-left: 0;
+      }
     }
   }
 </style>
