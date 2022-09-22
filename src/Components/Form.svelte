@@ -95,7 +95,6 @@
           ...comment[commentID - 1].replies,
           newData,
         ];
-        console.log(replyText);
       }
 
       return [...comment];
