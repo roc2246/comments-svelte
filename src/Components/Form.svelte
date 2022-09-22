@@ -306,34 +306,7 @@
   .comment {
     /* Vote Form - Desktop */
     &__vote {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-
-      grid-column: 1;
-      grid-row: 1/3;
-
-      padding: 0.75rem;
-
-      height: 4rem;
-      width: 0.75rem;
-
-      background-color: $pale-grey;
-      border-radius: 0.5rem;
-      &--score {
-        color: $purple;
-        font-weight: 700;
-        margin-top: 0.5rem;
-        margin-bottom: 0.05rem;
-        text-align: center;
-      }
-      &--upvote,
-      &--downvote {
-        cursor: pointer;
-      }
-      & > * {
-        flex: 1;
-      }
+     @include vote('desktop');
     }
     /* Edit Content - Desktop*/
     &__edit-content {
@@ -393,27 +366,7 @@
     .comment {
       /* Vote Form - Mobile */
       &__vote {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-evenly;
-
-        grid-column: 1;
-        grid-row: 3;
-
-        padding: 1rem 1rem 1.25rem 1rem;
-
-        height: 0.75rem;
-        width: 4rem;
-        &--score {
-          margin-top: 0;
-          margin-bottom: 0;
-        }
-        &--downvote {
-          & > img {
-            padding-bottom: 0.25rem;
-            padding-left: 0.55rem;
-          }
-        }
+       @include vote('mobile');
       }
       /* Edit Content - Mobile */
       &__edit-content {
