@@ -6,7 +6,7 @@
 
   //For Most Or All Forms
   export let formMode;
-  export let className = null;
+  export let className;
 
   // Stores Content of Form or Reply
   export let content = null;
@@ -230,7 +230,7 @@
 
 <!-- Delete -->
 {#if formMode === "delete"}
-  <section class="delete">
+  <section class={className}>
     <div class="delete__content">
       <form action="" on:submit|preventDefault>
         <h1>Delete comment</h1>

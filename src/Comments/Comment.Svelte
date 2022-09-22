@@ -75,7 +75,7 @@
       {replyTo}
       {content}
       id={replyTo !== null ? replyID : commentID}
-      on:click={()=> showEditForm = false}
+      on:click={() => (showEditForm = false)}
     />
   {:else}
     <p class="comment__content">
@@ -92,11 +92,12 @@
     formMode="new-reply"
     id={commentID}
     {username}
-    on:click={()=> showReplyForm = false}
+    on:click={() => (showReplyForm = false)}
   />
 {/if}
 {#if showDeleteForm}
   <Form
+    className="delete"
     formMode="delete"
     context={commentOrReply === "comment" ? "comment" : "comment reply"}
     id={commentOrReply === "comment" ? commentID : replyID}
@@ -241,7 +242,7 @@
       grid-row: 3;
     }
 
-    .comment__CRUD--edit{
+    .comment__CRUD--edit {
       margin-left: 4.25rem;
     }
   }
