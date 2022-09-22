@@ -282,6 +282,15 @@
 
 <style lang="scss">
   @import "../global";
+  /* Textarea */
+  textarea {
+    border-radius: 0.5rem;
+    &:focus {
+      outline: none !important;
+      border-color: hsl(238, 40%, 52%);
+    }
+  }
+
   /* Delete Modal - Desktop*/
   .delete {
     @include deleteDesktop();
@@ -341,19 +350,14 @@
     }
   }
 
-  /* Textarea */
-  textarea {
-    border-radius: 0.5rem;
-    &:focus {
-      outline: none !important;
-      border-color: hsl(238, 40%, 52%);
-    }
-  }
-
   /* Images - Desktop */
-  .img--user > img {
-    max-width: 2rem;
-    max-height: 2rem;
+  .img {
+    &--user {
+      & > img {
+        max-width: 2rem;
+        max-height: 2rem;
+      }
+    }
   }
 
   /* Buttons - Desktop */
@@ -361,45 +365,42 @@
     cursor: pointer;
   }
 
-  .btn--submit {
-    border-radius: 0.5rem;
-    background-color: hsl(238, 40%, 52%);
-    color: white;
-    font-weight: 700;
-    height: 3rem;
-    width: auto;
-  }
-
-  .btn--submit:hover {
-    background-color: hsl(239, 57%, 85%);
-  }
-
-  .btn--delete {
-    border-radius: 0.5rem;
-    padding: 1rem;
-    background-color: hsl(358, 79%, 66%);
-    color: white;
-    font-weight: 700;
-    width: 48%;
-    height: 3.25rem;
-  }
-
-  .btn--delete:hover {
-    background-color: hsl(357, 100%, 86%);
-  }
-
-  .btn--close {
-    border-radius: 0.5rem;
-    padding: 1rem;
-    background-color: hsl(211, 10%, 45%);
-    color: white;
-    font-weight: 700;
-    width: 48%;
-    height: 3.25rem;
-  }
-
-  .btn--close:hover {
-    background-color: hsl(223, 19%, 93%);
+  .btn {
+    &--submit {
+      border-radius: 0.5rem;
+      background-color: hsl(238, 40%, 52%);
+      color: white;
+      font-weight: 700;
+      height: 3rem;
+      width: auto;
+      &:hover {
+        background-color: hsl(239, 57%, 85%);
+      }
+    }
+    &--delete {
+      border-radius: 0.5rem;
+      padding: 1rem;
+      background-color: hsl(358, 79%, 66%);
+      color: white;
+      font-weight: 700;
+      width: 48%;
+      height: 3.25rem;
+      &:hover {
+        background-color: hsl(357, 100%, 86%);
+      }
+    }
+    &--close {
+      border-radius: 0.5rem;
+      padding: 1rem;
+      background-color: hsl(211, 10%, 45%);
+      color: white;
+      font-weight: 700;
+      width: 48%;
+      height: 3.25rem;
+      &:hover {
+        background-color: hsl(223, 19%, 93%);
+      }
+    }
   }
 
   @media (max-width: 375px) {
@@ -449,17 +450,23 @@
     }
 
     /* Images - Mobile */
-    .img--user > img {
-      margin-top: 1.25rem;
-      grid-row: 2;
-      grid-column: 1;
+    .img {
+      &--user {
+        & > img {
+          margin-top: 1.25rem;
+          grid-row: 2;
+          grid-column: 1;
+        }
+      }
     }
 
     /* Buttons - Mobile */
-    .btn--submit {
-      margin-top: 1rem;
-      grid-row: 2;
-      grid-column: 5;
+    .btn {
+      &--submit {
+        margin-top: 1rem;
+        grid-row: 2;
+        grid-column: 5;
+      }
     }
   }
 </style>
