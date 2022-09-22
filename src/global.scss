@@ -8,7 +8,6 @@ $pale-purple: hsl(239, 57%, 85%);
 $red: hsl(358, 79%, 66%);
 $pale-red: hsl(357, 100%, 86%);
 
-
 // ----Mixins----
 
 // Forms
@@ -161,5 +160,31 @@ $pale-red: hsl(357, 100%, 86%);
     &:hover {
       background-color: $pale-grey;
     }
+  }
+}
+
+@mixin CRUD($mode) {
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+  flex-wrap: nowrap;
+
+  @if $mode == "reply" or $mode == "edit" {
+    & > .comment__CRUD--text {
+      color: $purple;
+      &:hover {
+        color: $pale-purple;
+      }
+    }
+  }
+
+  @if $mode=='delete' {
+    margin-left: 1rem;
+        & > .comment__CRUD--text {
+          color: $red;
+          &:hover {
+            color: $pale-red;
+          }
+        }
   }
 }

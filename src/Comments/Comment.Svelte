@@ -170,42 +170,14 @@
         font-weight: 700;
       }
       &--reply {
-        display: flex;
-        flex-direction: row;
-        cursor: pointer;
-        flex-wrap: nowrap;
-        & > .comment__CRUD--text {
-          color: $purple;
-          &:hover {
-            color: $pale-purple;
-          }
-        }
+        @include CRUD('reply');
       }
 
       &--edit {
-        display: flex;
-        flex-direction: row;
-        cursor: pointer;
-        flex-wrap: nowrap;
-        & > .comment__CRUD--text {
-          color: $purple;
-          &:hover {
-            color: $pale-purple;
-          }
-        }
+        @include CRUD('edit');
       }
       &--delete {
-        display: flex;
-        flex-direction: row;
-        cursor: pointer;
-        flex-wrap: nowrap;
-        margin-left: 1rem;
-        & > .comment__CRUD--text {
-          color: $red;
-          &:hover {
-            color: $pale-red;
-          }
-        }
+        @include CRUD('delete');
       }
     }
   }
