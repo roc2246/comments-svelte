@@ -299,7 +299,7 @@
   /* New Comments and New Replies - Desktop */
   .new-comment,
   .new-reply {
-    @include formUIDesktop();
+    @include formUI('desktop');
   }
 
   .comment {
@@ -389,7 +389,7 @@
     /* New Comments and New Replies - Mobile */
     .new-comment,
     .new-reply {
-      @include formUIMobile();
+      @include formUI('mobile');
     }
 
     .comment {
