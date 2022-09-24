@@ -150,6 +150,7 @@
       <img src={$currentUser[0].image.png} alt={$currentUser[0].username} />
     </div>
   {/if}
+  <!-- Checks for new reply form -->
   {#if formMode === "new-reply"}
     <textarea
       class="new-reply__content"
@@ -158,6 +159,7 @@
       placeholder="  Add a reply..."
       bind:value={replyText}
     />
+    <!-- Checks if new reply form is empty -->
     {#if replyText !== null}
       <button
         class="btn--submit"
@@ -172,6 +174,7 @@
         on:click={() => addData(replyText, id, username)}>Submit</button
       >
     {/if}
+    <!-- Checks for new comment form -->
   {:else if formMode === "new-comment"}
     <textarea
       class="new-comment__content"
@@ -186,6 +189,7 @@
       on:click={() => addData(commentText)}
       on:click={() => (commentText = null)}>Submit</button
     >
+    <!-- Checks for edit content form -->
   {:else if formMode === "edit-content"}
     {#if replyTo !== null}
       <textarea
@@ -194,6 +198,7 @@
         rows="3"
         bind:value={editReplyTxt}
       />
+      <!-- Checks if edit reply content form is empty -->
       {#if editReplyTxt.length !== 0}
         <button
           class="btn--submit"
@@ -210,6 +215,7 @@
       {/if}
     {:else}
       <textarea cols="30" rows="3" bind:value={content} />
+      <!-- Checks if edit comment content is empty -->
       {#if content.length !== 0}
         <button
           class="btn--submit"
@@ -293,19 +299,19 @@
 
   /* Delete Modal - Desktop*/
   .delete {
-    @include delete('desktop');
+    @include delete("desktop");
   }
 
   /* New Comments and New Replies - Desktop */
   .new-comment,
   .new-reply {
-    @include formUI('desktop');
+    @include formUI("desktop");
   }
 
   .comment {
     /* Vote Form - Desktop */
     &__vote {
-     @include vote('desktop');
+      @include vote("desktop");
     }
     /* Edit Content - Desktop*/
     &__edit-content {
@@ -340,32 +346,32 @@
 
   .btn {
     &--submit {
-      @include button('submit');
+      @include button("submit");
     }
     &--delete {
-      @include button('delete');
+      @include button("delete");
     }
     &--close {
-      @include button('close');
+      @include button("close");
     }
   }
 
   @media (max-width: 375px) {
     /* Delete Modal - Mobile */
     .delete {
-     @include delete('mobile');
+      @include delete("mobile");
     }
 
     /* New Comments and New Replies - Mobile */
     .new-comment,
     .new-reply {
-      @include formUI('mobile');
+      @include formUI("mobile");
     }
 
     .comment {
       /* Vote Form - Mobile */
       &__vote {
-       @include vote('mobile');
+        @include vote("mobile");
       }
       /* Edit Content - Mobile */
       &__edit-content {
