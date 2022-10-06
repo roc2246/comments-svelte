@@ -356,7 +356,7 @@
     }
   }
 
-  @media (max-width: 375px) {
+  @media (max-width: $mobile) {
     /* Delete Modal - Mobile */
     .delete {
       @include delete("mobile");

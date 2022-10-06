@@ -182,7 +182,7 @@
     }
   }
 
-  @media (max-width: 375px) {
+  @media (max-width: $mobile) {
     .comment {
       &__top-row {
         grid-column: 1/4;
