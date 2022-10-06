@@ -1,6 +1,6 @@
 <script>
   import Comment from "./Comment.svelte";
-  import { comments, currentUser } from "../comments-store";
+  import { comments, currentUser } from "../js/comments-store";
 </script>
 
 <section id="comment-box">
