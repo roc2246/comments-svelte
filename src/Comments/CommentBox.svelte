@@ -65,7 +65,7 @@
     }
   }
 
-  @media (max-width: #{$mobile}) {
+  @media (max-width: $mobile) {
     .reply-box {
       &__reply-line {
         margin-right: 0.5rem;
