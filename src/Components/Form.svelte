@@ -1,5 +1,5 @@
 <script>
-  import { currentUser, comments } from "../comments-store";
+  import { currentUser, comments } from "../js/comments-store";
   import TimeAgo from "javascript-time-ago";
   import en from "javascript-time-ago/locale/en";
   TimeAgo.addLocale(en);
