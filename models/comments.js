@@ -12,7 +12,7 @@ const commentSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     required: true,
-    default : Date.now
+    default: Date.now,
   },
   score: {
     type: Number,
@@ -20,7 +20,7 @@ const commentSchema = new mongoose.Schema({
   },
   user: {
     image: {
-      png:  {
+      png: {
         type: String,
         required: true,
       },
@@ -30,11 +30,53 @@ const commentSchema = new mongoose.Schema({
       },
     },
     username: {
+      type: String,
+      required: true,
+    },
+  },
+  // Replies
+  replies: [
+    {
+      id: {
+        type: Number,
+        required: true,
+      },
+      content: {
         type: String,
         required: true,
       },
-  },
-//   replies: [replySchema],
+      createdAt: {
+        type: Date,
+        required: true,
+        default: Date.now,
+      },
+      score: {
+        type: Number,
+        required: true,
+      },
+      replyingTo: {
+        type: String,
+        required: true,
+      },
+      user: {
+        image: {
+          png: {
+            type: String,
+            required: true,
+          },
+          webp: {
+            type: String,
+            required: true,
+          },
+        },
+        username: {
+          type: String,
+          required: true,
+        },
+      },
+    },
+  ],
+  required: false
 });
 
-module.exports = mongoose.model('Comment', commentSchema)
+module.exports = mongoose.model("Comment", commentSchema);
