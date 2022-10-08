@@ -5,6 +5,9 @@
 	fetch('/comments').then(response => response.json())
 	.then((data) => console.log(data))
 
+  fetch('/user').then(response => response.json())
+	.then((data) => console.log(data))
+
 </script>
 
 <section id="comment-box">

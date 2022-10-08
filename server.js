@@ -11,6 +11,7 @@ const port = process.env.PORT || 5000;
 const app = express();
 
 // Routes
+const userRouter = require('./routes/user')
 const commentsRouter = require('./routes/comments')
 const pageRouter = require('./routes/page')
 
@@ -19,6 +20,7 @@ app.use(express.static('public'));
 app.use(express.json())
 
 // NOTE: pageRouter MUST come after all other routers
+app.use(userRouter)
 app.use(commentsRouter)
 app.use(pageRouter)
 
