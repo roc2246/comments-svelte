@@ -3,8 +3,10 @@ const path = require('path');
 const dbPath = 'mongodb://127.0.0.1:27017/comments-section'
 const express = require('express');
 const app = express();
-const commentsRouter = require('./routes/comments')
-const pageRouter = require('./routes/page')
+
+const commentsRouter = require('routes/comments')
+const pageRouter = require('routes/page')
+
 const port = process.env.PORT || 5000;
 const mongoose = require("mongoose");
 
