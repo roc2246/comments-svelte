@@ -3,14 +3,12 @@ const router = express.Router();
 const Comment = require('../models/comments')
 
 // Retrieves comments
-router.get('/', async (req, res) => {
-   try{
-    const comments = await Comment.find()
-    console.log(comments)
-   } catch(err){
-    res.status(500).json({ message: err.message })
-   }
+router.get('/comments',  (req, res) => {
+     Comment.find().then((result) => {
+      res.send(result)
+     }).catch((err) => {
+      console.log(err)
+     })
 })
-
 
 module.exports = router
