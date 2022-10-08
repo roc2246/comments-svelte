@@ -11,9 +11,10 @@ const commentSchema = new mongoose.Schema({
     required: true,
   },
   createdAt: {
-    type: Date,
+    type: String,
+    // type: Date,
     required: true,
-    default: Date.now,
+    // default: Date.now,
   },
   score: {
     type: Number,
@@ -47,9 +48,11 @@ const commentSchema = new mongoose.Schema({
         required: true,
       },
       createdAt: {
-        type: Date,
+        type: String,
+        // type: Date,
+
         required: true,
-        default: Date.now,
+        // default: Date.now,
       },
       score: {
         type: Number,
@@ -77,8 +80,8 @@ const commentSchema = new mongoose.Schema({
       },
     },
   ],
-  required: false
+  required: false,
 });
 
-const Comment =  mongoose.model("Comment", commentSchema);
+const Comment = mongoose.model("Comment", commentSchema);
 module.exports = Comment;
