@@ -10,6 +10,16 @@ export const currentUser = writable([
   },
 ]);
 
+
+export const userStore = writable(null);
+
+export async function getUser() {
+  let response = await fetch("/user");
+  return response.ok ? await response.json() : null;
+}
+
+
+
 export const comments = writable([
   {
     id: 1,

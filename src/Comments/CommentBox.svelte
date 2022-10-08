@@ -1,21 +1,20 @@
 <script>
   import Comment from "./Comment.svelte";
-  import { comments, commentsStore, getComments, currentUser } from "../js/comments-store";
+  import { comments, commentsStore, getComments, currentUser, userStore, getUser } from "../js/comments-store";
   import { onMount } from "svelte";
 
-  fetch("/user")
-    .then((response) => response.json())
-    .then((data) => console.log(data));
-
-
+  // Assigns MongoDB data to stores
   onMount(async () => {
     let comments = await getComments();
+    let user = await getUser();
+
     if (comments) commentsStore.update((data) => comments);
+    if (user) userStore.update((data) => user);
   });
 </script>
 
 <section id="comment-box">
-  {#if $commentsStore}
+  {#if $commentsStore && $userStore}
     {#each $commentsStore as comment (comment.id)}
       <Comment
         commentID={comment.id}
@@ -25,7 +24,7 @@
         userImage={comment.user.image.png}
         createdAt={comment.createdAt}
         content={comment.content}
-        isCurrentUser={comment.user.username === $currentUser[0].username}
+        isCurrentUser={comment.user.username === $userStore[0].username}
       />
       {#if comment.replies.length !== 0}
         <div class="reply-box">
@@ -42,7 +41,7 @@
                 createdAt={reply.createdAt}
                 replyTo={reply.replyingTo}
                 content={reply.content}
-                isCurrentUser={reply.user.username === $currentUser[0].username}
+                isCurrentUser={reply.user.username === $userStore[0].username}
               />
             {/each}
           </div>
