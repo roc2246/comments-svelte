@@ -4,7 +4,7 @@ import Form from "./Components/Form.svelte";
 
 const comments = ()=> {
 	fetch('/comments').then(response => response.json())
-	.then((data) => console.log(data))
+	.then((data) => console.log(data[0].content))
 }
 
 comments();
