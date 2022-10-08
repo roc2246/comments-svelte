@@ -74,3 +74,10 @@ export const comments = writable([
   },
 ]);
 
+
+export const commentsStore = writable(null);
+
+export async function getComments() {
+  let response = await fetch("/comments");
+  return response.ok ? await response.json() : null;
+}

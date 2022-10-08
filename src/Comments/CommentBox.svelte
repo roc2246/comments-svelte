@@ -1,22 +1,13 @@
 <script>
   import Comment from "./Comment.svelte";
-  import { comments, currentUser } from "../js/comments-store";
-
-  fetch("/comments")
-    .then((response) => response.json())
-    .then((data) => console.log(data));
+  import { comments, commentsStore, getComments, currentUser } from "../js/comments-store";
+  import { onMount } from "svelte";
 
   fetch("/user")
     .then((response) => response.json())
     .then((data) => console.log(data));
 
-  import { writable } from "svelte/store";
-  import { onMount } from "svelte";
-  const commentsStore = writable(null);
-  async function getComments() {
-    let response = await fetch("/comments");
-    return response.ok ? await response.json() : null;
-  }
+
   onMount(async () => {
     let comments = await getComments();
     if (comments) commentsStore.update((data) => comments);
