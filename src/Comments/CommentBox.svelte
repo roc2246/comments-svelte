@@ -1,6 +1,10 @@
 <script>
   import Comment from "./Comment.svelte";
   import { comments, currentUser } from "../js/comments-store";
+
+	fetch('/comments').then(response => response.json())
+	.then((data) => console.log(data))
+
 </script>
 
 <section id="comment-box">

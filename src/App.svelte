@@ -2,12 +2,6 @@
 import CommentBox from "./Comments/CommentBox.svelte";
 import Form from "./Components/Form.svelte";
 
-const comments = ()=> {
-	fetch('/comments').then(response => response.json())
-	.then((data) => console.log(data[0].content))
-}
-
-comments();
 </script>
 
 <main>
