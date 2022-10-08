@@ -34,7 +34,7 @@ const commentSchema = new mongoose.Schema({
         required: true,
       },
   },
-  replies: [replySchema],
+//   replies: [replySchema],
 });
 
 module.exports = mongoose.model('Comment', commentSchema)
