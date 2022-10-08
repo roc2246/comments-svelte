@@ -1,8 +1,13 @@
 const express = require('express')
-const router = express.Router()
+const router = express.Router();
+const Comment = require('../models/comment')
 
-router.get('/', (req, res) => {
-    res.send('TEst12')
+router.get('/', async (req, res) => {
+   try{
+    const comments = await Comment.find()
+   } catch(err){
+    res.status(500).json({ message: err.message })
+   }
 })
 
 

@@ -22,40 +22,6 @@ app.listen(port, () => {
   console.log(`http://localhost:${port}`)
 });
 
-// const path = require('path');
-// const mongodb = require('mongodb');
-
-// // MongoDB
-
-
-// const commentSchema = new mongoose.Schema({
-//   id: Number,
-//   content:
-//     String,
-//   createdAt: String,
-//   score: Number,
-//   user: {
-//     image: {
-//       png: String,
-//       webp: String,
-//     },
-//     username: String,
-//   },
-//   replies: Array,
-// }
-// )
-
-// const Comment = mongoose.model('Comment', commentSchema);
-
-// app.get('/comments', (req, res) => {
-//   Comment.find({}, (err, found) => {
-//       if (!err) {
-//           res.send(found);
-//       }
-//       console.log(err);
-//       res.send("Some error occured!")
-//   }).catch(err => console.log("Error occured, " + err));
-// });
 
 // // Routing
 // app.use(express.static('public'));
