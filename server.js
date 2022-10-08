@@ -1,5 +1,4 @@
 // Libraries
-const path = require('path');
 require("dotenv").config(); 
 const express = require('express');
 const mongoose = require("mongoose");
@@ -18,8 +17,10 @@ const pageRouter = require('./routes/page')
 // Set up routes
 app.use(express.static('public'));
 app.use(express.json())
-app.use(pageRouter)
+
+// NOTE: pageRouter MUST come after all other routers
 app.use(commentsRouter)
+app.use(pageRouter)
 
 // Set up MongoDB
 mongoose.connect(dbPath, {
@@ -36,12 +37,8 @@ const db = mongoose.connection
 db.on('error', (error) => console.log(error))
 db.once('open', () => console.log('Connected to DB'))
 
-
 // Set up server
 app.listen(port, () => {
   console.log(`Server is up at port ${port}`);
   console.log(`http://localhost:${port}`)
 });
-
-
-
