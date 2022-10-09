@@ -25,6 +25,9 @@
   let replyText = null;
   let commentText = null;
 
+  // TEST
+  let result = null;
+
   //CRUD Library
 
   //Retrieves reply index
@@ -61,10 +64,12 @@
   };
 
   // Adds Comment or Reply
-  const addData = (text, commentID, username) => {
+  const addData = async (text, commentID, username) => {
     const timeAgo = new TimeAgo("en-US");
-    comments.update((comment) => {
-      const newData = {
+    const res = await fetch('/newComment', {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
         id: generateID(),
         content: text,
         createdAt: timeAgo.format(new Date()),
@@ -76,7 +81,9 @@
           },
           username: $currentUser[0].username,
         },
-      };
+      })
+    });
+     
 
       if (text === null) {
         alert("Please enter text.");
@@ -86,20 +93,57 @@
         commentID = null;
         username = null;
         newData.replies = [];
-        comment = [...comment, newData];
       }
 
       if (text === replyText && text !== null) {
         newData.replyingTo = username;
-        comment[commentID - 1].replies = [
-          ...comment[commentID - 1].replies,
-          newData,
-        ];
+      
       }
-
-      return [...comment];
-    });
+      const json = await res.json()
+		result = JSON.stringify(json)
+    
   };
+
+
+  // const addData = (text, commentID, username) => {
+  //   const timeAgo = new TimeAgo("en-US");
+  //   comments.update((comment) => {
+  //     const newData = {
+  //       id: generateID(),
+  //       content: text,
+  //       createdAt: timeAgo.format(new Date()),
+  //       score: 0,
+  //       user: {
+  //         image: {
+  //           png: $currentUser[0].image.png,
+  //           webp: $currentUser[0].image.webp,
+  //         },
+  //         username: $currentUser[0].username,
+  //       },
+  //     };
+
+  //     if (text === null) {
+  //       alert("Please enter text.");
+  //     }
+
+  //     if (text === commentText && text !== null) {
+  //       commentID = null;
+  //       username = null;
+  //       newData.replies = [];
+  //       comment = [...comment, newData];
+  //     }
+
+  //     if (text === replyText && text !== null) {
+  //       newData.replyingTo = username;
+  //       comment[commentID - 1].replies = [
+  //         ...comment[commentID - 1].replies,
+  //         newData,
+  //       ];
+  //     }
+
+  //     return [...comment];
+  //   });
+  // };
 
   // Updates Comment or Reply
   const updateData = (id, text) => {
@@ -178,6 +222,7 @@
   {:else if formMode === "new-comment"}
     <textarea
       class="new-comment__content"
+      name="newcomment"
       cols="30"
       rows="3"
       placeholder="  Add a comment..."
