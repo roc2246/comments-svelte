@@ -19,7 +19,7 @@ router.get("/comments", (req, res) => {
 router.post("/newComment", async (req, res) => {
   const comment = new Comment({
     id: 88,
-    content: "TERST!1",
+    content: req.body.newcomment,
     createdAt: "TEST",
     score: 0,
     user: {

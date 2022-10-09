@@ -71,7 +71,8 @@
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         id: generateID(),
-        content: text,
+        // content: text,
+       newcomment: commentText,
         createdAt: timeAgo.format(new Date()),
         score: 0,
         user: {
