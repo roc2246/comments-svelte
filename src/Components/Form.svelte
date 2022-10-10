@@ -69,10 +69,9 @@
     return id;
   };
 
-  // Adds Comment or Reply
-  const addData = async (text, commentID, username) => {
+  const newData = (text, username) => {
     const timeAgo = new TimeAgo("en-US");
-    let response = await fetch("/newComment", {
+    let response = fetch("/newComment", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -80,6 +79,7 @@
         newcomment: text,
         createdat: timeAgo.format(new Date()),
         score: 0,
+        replyingto: username,
         user: {
           image: {
             png: $userStore[0].image.png,
@@ -89,7 +89,13 @@
         },
       }),
     });
+    return response
+  }
 
+  // Adds Comment or Reply
+  const addData = async (text, commentID, username) => {
+   
+    let response = await newData(text, username)
     const json = await response.json();
 
     if (text === null) {
@@ -100,16 +106,13 @@
       commentID = null;
       username = null;
       json.replies = [];
-      console.log("COMMENT")
     }
 
     if (text === replyText && text !== null) {
-      json.replyingTo = username;
       $commentsStore[commentID - 1].replies = [
         ...$commentsStore[commentID - 1].replies,
         json,
       ];
-      console.log("REPLY")
     }
 
     console.log(json);

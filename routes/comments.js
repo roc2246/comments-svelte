@@ -22,12 +22,13 @@ router.post("/newComment", async (req, res) => {
     content: req.body.newcomment,
     createdAt: req.body.createdat,
     score: 0,
+    replyingTo: req.body.replyingto,
     user: {
       image: {
         png: req.body.user.image.png,
         webp: req.body.user.image.webp,
       },
-      username: req.body.yuser.username
+      username: req.body.user.username
     },
     replies: [],
   });

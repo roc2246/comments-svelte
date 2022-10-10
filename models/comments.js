@@ -60,7 +60,7 @@ const commentSchema = new mongoose.Schema({
       },
       replyingTo: {
         type: String,
-        required: true,
+        required: false,
       },
       user: {
         image: {
