@@ -71,16 +71,15 @@
   };
 
   // Sets fetch request for new comment or new reply
-  const setRequest = (text, username) => {
+  const setRequest = (text, method) => {
     return {
-      method: "POST",
+      method: method,
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         id: generateID(),
         newcomment: text,
         createdat: timeAgo.format(new Date()),
         score: 0,
-        replyingto: username,
         user: {
           image: {
             png: $userStore[0].image.png,
@@ -92,10 +91,13 @@
     };
   };
 
-  const newData = (route) => {
+  const fetchData = (route) => {
     let request;
     if (route === "newComment") {
-      request = setRequest(commentText, "");
+      request = setRequest(commentText,  "POST");
+    } else if (route === "newReply") {
+      request = setRequest(replyText,  "PATCH");
+      request.replyingTo = ''
     }
     let response = fetch(`/${route}`, request);
     console.log(request);
@@ -112,7 +114,7 @@
     }
 
     if (text === commentText && text !== null) {
-      response = await newData("newComment");
+      response = await fetchData("newComment");
       json = await response.json();
       commentID = null;
       username = null;
