@@ -20,14 +20,14 @@ router.post("/newComment", async (req, res) => {
   const comment = new Comment({
     id: req.body.id,
     content: req.body.newcomment,
-    createdAt: "TEST",
+    createdAt: req.body.createdat,
     score: 0,
     user: {
       image: {
-        png: "./images/avatars/image-juliusomo.png",
-        webp: "./images/avatars/image-juliusomo.webp",
+        png: req.body.user.image.png,
+        webp: req.body.user.image.webp,
       },
-      username: "juliusomo"
+      username: req.body.yuser.username
     },
     replies: [],
   });

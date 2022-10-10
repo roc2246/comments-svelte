@@ -78,14 +78,14 @@
       body: JSON.stringify({
         id: generateID(),
         newcomment: text,
-        createdAt: timeAgo.format(new Date()),
+        createdat: timeAgo.format(new Date()),
         score: 0,
         user: {
           image: {
-            png: $currentUser[0].image.png,
-            webp: $currentUser[0].image.webp,
+            png: $userStore[0].image.png,
+            webp: $userStore[0].image.webp,
           },
-          username: $currentUser[0].username,
+          username: $userStore[0].username,
         },
       }),
     });
