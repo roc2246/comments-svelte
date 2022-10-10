@@ -62,9 +62,9 @@
 
   // Creates new id for comment or reply
   const generateID = () => {
-    let id = $comments.length + 1;
-    for (let i = 0; i < $comments.length; i++) {
-      id = id + $comments[i].replies.length;
+    let id = $commentsStore.length + 1;
+    for (let i = 0; i < $commentsStore.length; i++) {
+      id = id + $commentsStore[i].replies.length;
     }
     return id;
   };
@@ -100,6 +100,7 @@
       commentID = null;
       username = null;
       json.replies = [];
+      console.log("COMMENT")
     }
 
     if (text === replyText && text !== null) {
@@ -108,6 +109,7 @@
         ...$commentsStore[commentID - 1].replies,
         json,
       ];
+      console.log("REPLY")
     }
 
     console.log(json);
