@@ -1,5 +1,14 @@
 <script>
-  import { currentUser, comments } from "../js/comments-store";
+  import {
+    comments,
+    commentsStore,
+    getComments,
+    currentUser,
+    userStore,
+    getUser,
+  } from "../js/comments-store";
+  import { onMount } from "svelte";
+
   import TimeAgo from "javascript-time-ago";
   import en from "javascript-time-ago/locale/en";
   TimeAgo.addLocale(en);
@@ -24,9 +33,6 @@
   let editReplyTxt = "@" + replyTo + " " + content;
   let replyText = null;
   let commentText = null;
-
-  // TEST
-  let result = null;
 
   //CRUD Library
 
@@ -62,17 +68,16 @@
     }
     return id;
   };
-
+  let result = null
   // Adds Comment or Reply
   const addData = async (text, commentID, username) => {
     const timeAgo = new TimeAgo("en-US");
-    const res = await fetch('/newComment', {
-      method: 'POST',
+    let response = await fetch("/newComment", {
+      method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         id: generateID(),
-        // content: text,
-       newcomment: commentText,
+        newcomment: text,
         createdAt: timeAgo.format(new Date()),
         score: 0,
         user: {
@@ -82,29 +87,12 @@
           },
           username: $currentUser[0].username,
         },
-      })
-    });
-     
+      }),
+    })
 
-      if (text === null) {
-        alert("Please enter text.");
-      }
-
-      if (text === commentText && text !== null) {
-        commentID = null;
-        username = null;
-        newData.replies = [];
-      }
-
-      if (text === replyText && text !== null) {
-        newData.replyingTo = username;
-      
-      }
-      const json = await res.json()
-		result = JSON.stringify(json)
-    
+    const json = await response.json()
+    $commentsStore = [...$commentsStore, json]
   };
-
 
   // const addData = (text, commentID, username) => {
   //   const timeAgo = new TimeAgo("en-US");
