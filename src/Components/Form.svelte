@@ -35,6 +35,7 @@
   let commentText = null;
 
   //CRUD Library
+  const timeAgo = new TimeAgo("en-US");
 
   //Retrieves reply index
   const getReplyIndex = () => {
@@ -69,9 +70,9 @@
     return id;
   };
 
-  const newData = (text, username) => {
-    const timeAgo = new TimeAgo("en-US");
-    let response = fetch("/newComment", {
+  // Sets fetch request for new comment or new reply
+  const setRequest = (text, username) => {
+    return {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -88,33 +89,42 @@
           username: $userStore[0].username,
         },
       }),
-    });
-    return response
-  }
+    };
+  };
+
+  const newData = (route) => {
+    let request;
+    if (route === "newComment") {
+      request = setRequest(commentText, "");
+    }
+    let response = fetch(`/${route}`, request);
+    console.log(request);
+    return response;
+  };
 
   // Adds Comment or Reply
   const addData = async (text, commentID, username) => {
-   
-    let response = await newData(text, username)
-    const json = await response.json();
+    let response;
+    let json;
 
     if (text === null) {
       alert("Please enter text.");
     }
 
     if (text === commentText && text !== null) {
+      response = await newData("newComment");
+      json = await response.json();
       commentID = null;
       username = null;
-      json.replies = [];
     }
 
     if (text === replyText && text !== null) {
+      json = await response.json();
       $commentsStore[commentID - 1].replies = [
         ...$commentsStore[commentID - 1].replies,
         json,
       ];
     }
-
     console.log(json);
     $commentsStore = [...$commentsStore, json];
   };
