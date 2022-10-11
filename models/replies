@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const crepliesSchema = new mongoose.Schema({
+const replySchema = new mongoose.Schema({
   id: {
     type: Number,
     required: true,

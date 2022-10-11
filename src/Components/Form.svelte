@@ -95,7 +95,7 @@
     let request;
     if (route === "newComment") {
       request = setRequest(commentText,  "POST");
-    } else if (route === "newReply") {
+    } else if (route === "test") {
       request = setRequest(replyText,  "PATCH");
       request.replyingTo = ''
     }
@@ -121,6 +121,7 @@
     }
 
     if (text === replyText && text !== null) {
+      response = await fetchData("test");
       json = await response.json();
       $commentsStore[commentID - 1].replies = [
         ...$commentsStore[commentID - 1].replies,

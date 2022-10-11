@@ -2,10 +2,6 @@ const express = require("express");
 const router = express.Router();
 const Comment = require("../models/comments");
 
-// import TimeAgo from "javascript-time-ago";
-// import en from "javascript-time-ago/locale/en";
-// TimeAgo.addLocale(en);
-
 router.get("/comments", (req, res) => {
   Comment.find()
     .then((result) => {
