@@ -45,9 +45,8 @@ router.post("/comments/:id", async (req, res) => {
   try {
     const myId = JSON.parse(req.params.id);
 
-    const comment = await Comment.findOne({ id: myId });
-    console.log(req.params)
-    comment.replies.push({
+    let comment = await Comment.findOne({ id: myId });
+    const reply = {
       id: 20,
       content: "TEST",
       createdAt: "TEST",
@@ -60,7 +59,8 @@ router.post("/comments/:id", async (req, res) => {
         },
         username: "juliusomo",
       },
-    });
+    }
+    comment.replies = [...comment.replies, reply]
 
     const newReply = await comment.save();
     res.status(201).json(newReply);
