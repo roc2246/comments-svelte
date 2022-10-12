@@ -16,3 +16,20 @@ POST http://localhost:5000/newComment
           },
           "replies": []
 }
+
+###
+POST http://localhost:5000/comments/1
+
+{
+           "id": 20,
+          "content": "TEST",
+          "createdAt": "TEST",
+          "score": 0,
+          "user": {
+            "image": {
+              "png": "TEST",
+              "webp": "TEST",
+            },
+            "username": "TEST",
+          },
+}

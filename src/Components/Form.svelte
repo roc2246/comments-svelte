@@ -87,25 +87,29 @@
           },
           username: $userStore[0].username,
         },
+        replies: [],
       }),
     };
   };
 
-  const fetchData = (route) => {
+  const fetchData = (route, id) => {
     let request;
+    let response;
     if (route === "newComment") {
-      request = setRequest(commentText,  "POST");
-    } else if (route === "test") {
-      request = setRequest(replyText,  "PATCH");
-      request.replyingTo = ''
+      request = setRequest(commentText, "POST");
+      id = null;
+      response = fetch(`/${route}`, request);
+    } else if (route === `comments/${id}/`) {
+      request = setRequest(replyText, "POST");
+      response = fetch(`/${route}/:${id}`, request);
     }
-    let response = fetch(`/${route}`, request);
-    console.log(request);
+    console.log(request)
+
     return response;
   };
 
   // Adds Comment or Reply
-  const addData = async (text, commentID, username) => {
+  const addData = async (text, commentID) => {
     let response;
     let json;
 
@@ -117,18 +121,16 @@
       response = await fetchData("newComment");
       json = await response.json();
       commentID = null;
-      username = null;
     }
 
     if (text === replyText && text !== null) {
-      response = await fetchData("test");
+      response = await fetchData(`comments/${commentID}`);
       json = await response.json();
       $commentsStore[commentID - 1].replies = [
         ...$commentsStore[commentID - 1].replies,
         json,
       ];
     }
-    console.log(json);
     $commentsStore = [...$commentsStore, json];
   };
 
