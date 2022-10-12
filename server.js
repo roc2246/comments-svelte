@@ -13,7 +13,6 @@ const app = express();
 // Routes
 const userRouter = require('./routes/user')
 const commentsRouter = require('./routes/comments')
-const repliesRouter = require('./routes/replies')
 const pageRouter = require('./routes/page')
 
 // Set up routes
@@ -23,7 +22,6 @@ app.use(express.json())
 // NOTE: pageRouter MUST come after all other routers
 app.use(userRouter)
 app.use(commentsRouter)
-app.use(repliesRouter)
 app.use(pageRouter)
 
 // Set up MongoDB

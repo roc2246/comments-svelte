@@ -17,22 +17,23 @@ const commentSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  // user: {
-  //   image: {
-  //     png: {
-  //       type: String,
-  //       required: true,
-  //     },
-  //     webp: {
-  //       type: String,
-  //       required: true,
-  //     },
-  //   },
-  //   username: {
-  //     type: String,
-  //     required: true,
-  //   },
-  // },
+  user: {
+    image: {
+      png: {
+        type: String,
+        required: true,
+      },
+      webp: {
+        type: String,
+        required: true,
+      },
+    },
+    username: {
+      type: String,
+      required: true,
+    },
+  },
+  // Replies
   replies: {
     type: Array,
     required: false,

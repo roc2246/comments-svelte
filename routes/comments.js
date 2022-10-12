@@ -53,13 +53,13 @@ router.post("/comments/:id", async (req, res) => {
       createdAt: req.body.createdat,
       score: 0,
       replyingTo: req.body.replyingto,
-      // user: {
-      //   image: {
-      //     png: req.body.user.image.png,
-      //     webp: req.body.user.image.webp,
-      //   },
-      //   username: req.body.user.username,
-      // },
+      user: {
+        image: {
+          png: "TEST",
+          webp: "TEST",
+        },
+        username: "TEST",
+      },
     });
 
     const newReply = await comment.save();
