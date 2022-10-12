@@ -25,11 +25,12 @@ POST http://localhost:5000/comments/1
           "content": "TEST",
           "createdAt": "TEST",
           "score": 0,
+          "replyingTo": "maxblagun",
           "user": {
             "image": {
-              "png": "TEST",
-              "webp": "TEST",
+              "png": "./images/avatars/image-juliusomo.png",
+              "webp": "./images/avatars/image-juliusomo.webp",
             },
-            "username": "TEST",
+            "username": "juliusomo",
           },
 }

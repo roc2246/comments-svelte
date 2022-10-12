@@ -48,17 +48,17 @@ router.post("/comments/:id", async (req, res) => {
     const comment = await Comment.findOne({ id: myId });
     console.log(req.params)
     comment.replies.push({
-      id: req.body.id,
-      content: req.body.newcomment,
-      createdAt: req.body.createdat,
+      id: 20,
+      content: "TEST",
+      createdAt: "TEST",
       score: 0,
-      replyingTo: req.body.replyingto,
+      replyingTo: "maxblagun",
       user: {
         image: {
-          png: "TEST",
-          webp: "TEST",
+          png: "./images/avatars/image-juliusomo.png",
+          webp: "./images/avatars/image-juliusomo.webp",
         },
-        username: "TEST",
+        username: "juliusomo",
       },
     });
 
