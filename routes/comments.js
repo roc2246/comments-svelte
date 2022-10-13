@@ -81,9 +81,12 @@ router.patch("/comments/:id", async (req, res) => {
 
 router.delete("/replies/:id", async (req, res) => {
   try {
-    const myId = req.params.id;
+    const myId = JSON.parse(req.params.id);
 
-    const comment = await Comment.replies.findOneAndDelete({ id: myId });
+    const comment = await Comment.findOne({'replies.id': myId });
+
+    console.log(myId)
+    console.log(comment)
 
     res.send(comment);
   } catch (e) {
