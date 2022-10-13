@@ -71,11 +71,8 @@
   };
 
   // Sets fetch request for new comment or new reply
-  const setRequest = (text, method) => {
-    return {
-      method: method,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
+  const setRequest = (text, method, username) => {
+    const body = {
         id: generateID(),
         newcomment: text,
         createdat: timeAgo.format(new Date()),
@@ -87,20 +84,37 @@
           },
           username: $userStore[0].username,
         },
-        replies: [],
-      }),
+      }
+
+      if (method === 'PATCH'){
+        body.replyingto = username
+      }
+
+      if (method==='POST'){
+        body.replies = []
+        username = null
+      }
+
+    const reqObj = {
+      method: method,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
     };
+
+    return reqObj;
   };
 
-  const fetchData = (route, id) => {
+  const fetchData = (route, id, username) => {
     let request;
     let response;
     if (route === "newComment") {
       request = setRequest(commentText, "POST");
+      request.replies = [];
       id = null;
+      username = null
       response = fetch(`/${route}`, request);
     } else {
-      request = setRequest(replyText, "PATCH");
+      request = setRequest(replyText, "PATCH", username);
       response = fetch(`/${route}/${id}`, request);
     }
 
@@ -108,7 +122,7 @@
   };
 
   // Adds Comment or Reply
-  const addData = async (text, commentID) => {
+  const addData = async (text, commentID, username) => {
     let response;
     let json;
 
@@ -120,16 +134,16 @@
       response = await fetchData("newComment");
       json = await response.json();
       commentID = null;
+      username = null;
       $commentsStore = [...$commentsStore, json];
     }
 
     if (text === replyText && text !== null) {
-      response = await fetchData(`comments`, commentID);
+      response = await fetchData(`comments`, commentID, username);
       json = await response.json();
-      console.log(json.replies.length);
       $commentsStore[commentID - 1].replies = [
         ...$commentsStore[commentID - 1].replies,
-        json.replies[json.replies.length-1],
+        json.replies[json.replies.length - 1],
       ];
     }
   };
