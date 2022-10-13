@@ -169,6 +169,18 @@
       let index = $commentsStore.findIndex((comment) => comment.id === id);
       $commentsStore[index].content = text;
     } else if (text === editReplyTxt && text.length !== 0) {
+      console.log(id)
+      fetch(`/updateReply/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-type": "application/json;",
+        },
+        body: JSON.stringify({
+          content: text,
+        })
+      })
+        .then((res) => res.json())
+        .catch((err) => console.log(err));
       let replyIndex = getReplyIndex();
       let commentIndex = getCommentIndex();
 

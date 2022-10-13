@@ -95,6 +95,26 @@ router.patch("/comments/:id", async (req, res) => {
   }
 });
 
+
+// Update Reply
+router.patch("/updateReply/:id", async (req, res) => {
+  try {
+    const replyId = JSON.parse(req.params.id);
+
+    let comment = await Comment.findOne({ "replies.id": replyId });
+    const replyIndex = comment.replies.findIndex((reply) => reply.id === replyId)
+    console.log(replyIndex)
+    console.log(comment.replies[replyIndex])
+    comment.replies[0].content = "TEST"
+
+    const update = await comment.save();
+    res.status(201).json(update);
+  } catch (e) {
+    res.status(400).json(e);
+    console.log(e);
+  }
+})
+
 router.delete("/replies/:id", async (req, res) => {
   try {
     const replyId = JSON.parse(req.params.id);
