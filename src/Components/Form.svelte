@@ -7,7 +7,6 @@
     userStore,
     getUser,
   } from "../js/comments-store";
-  import { onMount } from "svelte";
 
   import TimeAgo from "javascript-time-ago";
   import en from "javascript-time-ago/locale/en";
@@ -86,11 +85,11 @@
         },
       }
 
-      if (method === 'PATCH'){
+      if (text === replyText){
         body.replyingto = username
       }
 
-      if (method==='POST'){
+      if (text === commentText){
         body.replies = []
         username = null
       }
