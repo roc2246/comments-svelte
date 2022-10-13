@@ -179,6 +179,14 @@
       const results = $commentsStore.filter((comment) => comment.id !== id);
       $commentsStore = results;
     } else {
+      fetch(`/replies/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json;",
+        },
+      })
+        .then((res) => res.json())
+        .catch((err) => console.log(err));
       let commentIndex = getCommentIndex();
       const replyResults = $commentsStore[commentIndex].replies.filter(
         (reply) => reply.id !== id

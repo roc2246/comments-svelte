@@ -49,7 +49,6 @@ router.delete("/comments/:id", async (req, res) => {
   }
 });
 
-// Adding Replies
 router.patch("/comments/:id", async (req, res) => {
   try {
     const myId = JSON.parse(req.params.id);
@@ -76,6 +75,19 @@ router.patch("/comments/:id", async (req, res) => {
   } catch (e) {
     res.status(400).json(e);
     console.log(e);
+  }
+});
+
+
+router.delete("/replies/:id", async (req, res) => {
+  try {
+    const myId = req.params.id;
+
+    const comment = await Comment.replies.findOneAndDelete({ id: myId });
+
+    res.send(comment);
+  } catch (e) {
+    res.status(500).send(e);
   }
 });
 
