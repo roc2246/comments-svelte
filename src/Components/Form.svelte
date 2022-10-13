@@ -161,7 +161,7 @@
           "Content-type": "application/json;",
         },
         body: JSON.stringify({
-          content: "1111",
+          content: text,
         })
       })
         .then((res) => res.json())

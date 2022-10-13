@@ -43,7 +43,7 @@ router.patch("/updateComment/:id", async (req, res) => {
     const myId = JSON.parse(req.params.id);
 
     let comment = await Comment.findOne({ id: myId });
-    comment.content = "1111"
+    comment.content = req.body.content
 
     const update = await comment.save();
     res.status(201).json(update);
