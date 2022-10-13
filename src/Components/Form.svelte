@@ -99,11 +99,10 @@
       request = setRequest(commentText, "POST");
       id = null;
       response = fetch(`/${route}`, request);
-    } else if (route === `comments/${id}/`) {
-      request = setRequest(replyText, "POST");
-      response = fetch(`/${route}/:${id}`, request);
+    } else {
+      request = setRequest(replyText, "PATCH");
+      response = fetch(`/${route}/${id}`, request);
     }
-    console.log(request)
 
     return response;
   };
@@ -121,17 +120,18 @@
       response = await fetchData("newComment");
       json = await response.json();
       commentID = null;
+      $commentsStore = [...$commentsStore, json];
     }
 
     if (text === replyText && text !== null) {
-      response = await fetchData(`comments/${commentID}`);
+      response = await fetchData(`comments`, commentID);
       json = await response.json();
+      console.log(json.replies.length);
       $commentsStore[commentID - 1].replies = [
         ...$commentsStore[commentID - 1].replies,
-        json,
+        json.replies[json.replies.length-1],
       ];
     }
-    $commentsStore = [...$commentsStore, json];
   };
 
   // Updates Comment or Reply
