@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Comment = require("../models/comments");
 
+// Retrieve Comments
 router.get("/comments", (req, res) => {
   Comment.find()
     .then((result) => {
@@ -12,6 +13,7 @@ router.get("/comments", (req, res) => {
     });
 });
 
+// New Comment
 router.post("/newComment", async (req, res) => {
   const comment = new Comment({
     id: req.body.id,
@@ -41,9 +43,10 @@ router.post("/newComment", async (req, res) => {
 router.patch("/updateComment/:id", async (req, res) => {
   try {
     const myId = JSON.parse(req.params.id);
-
     let comment = await Comment.findOne({ id: myId });
-    comment.content = req.body.content
+
+    comment.content = "TEST";
+    console.log(req.body.content);
 
     const update = await comment.save();
     res.status(201).json(update);
@@ -51,8 +54,9 @@ router.patch("/updateComment/:id", async (req, res) => {
     res.status(400).json(e);
     console.log(e);
   }
-})
+});
 
+// Delete Comment
 router.delete("/comments/:id", async (req, res) => {
   try {
     const myId = req.params.id;
@@ -95,17 +99,15 @@ router.patch("/comments/:id", async (req, res) => {
   }
 });
 
-
 // Update Reply
 router.patch("/updateReply/:id", async (req, res) => {
   try {
     const replyId = JSON.parse(req.params.id);
 
     let comment = await Comment.findOne({ "replies.id": replyId });
-    const replyIndex = comment.replies.findIndex((reply) => reply.id === replyId)
-    console.log(replyIndex)
-    console.log(comment.replies[replyIndex])
-    comment.replies[0].content = "TEST"
+   const replyIndex = comment.replies.findIndex((reply) => reply.id === replyId)
+    console.log(replyIndex);
+    console.log(req.body.content)
 
     const update = await comment.save();
     res.status(201).json(update);
@@ -113,18 +115,17 @@ router.patch("/updateReply/:id", async (req, res) => {
     res.status(400).json(e);
     console.log(e);
   }
-})
+});
 
+// Delete Reply
 router.delete("/replies/:id", async (req, res) => {
   try {
     const replyId = JSON.parse(req.params.id);
 
     let comment = await Comment.findOne({ "replies.id": replyId });
 
-   const filter = comment.replies.filter(
-      (reply) => reply.id !== replyId
-    );
-    comment.replies = filter
+    const filter = comment.replies.filter((reply) => reply.id !== replyId);
+    comment.replies = filter;
 
     const newReplies = await comment.save();
     res.status(201).json(newReplies);
