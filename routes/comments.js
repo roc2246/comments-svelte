@@ -37,29 +37,12 @@ router.post("/newComment", async (req, res) => {
   }
 });
 
-// https://attacomsian.com/blog/mongoose-push-pull-items-from-array
-// https://www.folkstalk.com/2022/09/mongoose-update-push-with-code-examples.html
-
 // Adding Replies
 router.patch("/comments/:id", async (req, res) => {
   try {
     const myId = JSON.parse(req.params.id);
 
     let comment = await Comment.findOne({ id: myId });
-    // const testReply = {
-    //   id: 20,
-    //   content: "TEST",
-    //   createdAt: "TEST",
-    //   score: 0,
-    //   replyingTo: "maxblagun",
-    //   user: {
-    //     image: {
-    //       png: "./images/avatars/image-juliusomo.png",
-    //       webp: "./images/avatars/image-juliusomo.webp",
-    //     },
-    //     username: "juliusomo",
-    //   },
-    // }
     const reply = {
       id: req.body.id,
       content: req.body.newcomment,
