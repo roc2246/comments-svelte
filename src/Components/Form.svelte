@@ -38,7 +38,7 @@
 
   //Retrieves reply index
   const getReplyIndex = () => {
-    for (let comment of $comments) {
+    for (let comment of $commentsStore) {
       for (let reply of comment.replies) {
         if (reply.id === id) {
           let replyIndex = comment.replies.findIndex(
@@ -53,7 +53,7 @@
   // Retrieves comment index
   const getCommentIndex = () => {
     let replyIndex = getReplyIndex();
-    let commentIndex = $comments.findIndex(
+    let commentIndex = $commentsStore.findIndex(
       (comment) =>
         comment.replies.length !== 0 && comment.replies[replyIndex].id === id
     );
@@ -180,12 +180,12 @@
       $commentsStore = results;
     } else {
       let commentIndex = getCommentIndex();
-      const replyResults = $comments[commentIndex].replies.filter(
+      const replyResults = $commentsStore[commentIndex].replies.filter(
         (reply) => reply.id !== id
       );
-      $comments[commentIndex].replies = replyResults;
+      $commentsStore[commentIndex].replies = replyResults;
     }
-    return [...$comments];
+    return [...$commentsStore];
   };
 
   // Hides Delete Modal
