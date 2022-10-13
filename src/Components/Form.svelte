@@ -72,27 +72,27 @@
   // Sets fetch request for new comment or new reply
   const setRequest = (text, method, username) => {
     const body = {
-        id: generateID(),
-        newcomment: text,
-        createdat: timeAgo.format(new Date()),
-        score: 0,
-        user: {
-          image: {
-            png: $userStore[0].image.png,
-            webp: $userStore[0].image.webp,
-          },
-          username: $userStore[0].username,
+      id: generateID(),
+      newcomment: text,
+      createdat: timeAgo.format(new Date()),
+      score: 0,
+      user: {
+        image: {
+          png: $userStore[0].image.png,
+          webp: $userStore[0].image.webp,
         },
-      }
+        username: $userStore[0].username,
+      },
+    };
 
-      if (text === replyText){
-        body.replyingto = username
-      }
+    if (text === replyText) {
+      body.replyingto = username;
+    }
 
-      if (text === commentText){
-        body.replies = []
-        username = null
-      }
+    if (text === commentText) {
+      body.replies = [];
+      username = null;
+    }
 
     const reqObj = {
       method: method,
@@ -110,7 +110,7 @@
       request = setRequest(commentText, "POST");
       request.replies = [];
       id = null;
-      username = null
+      username = null;
       response = fetch(`/${route}`, request);
     } else {
       request = setRequest(replyText, "PATCH", username);
@@ -168,8 +168,16 @@
   // Deletes Comment or Reply
   const deleteData = (id, context) => {
     if (context === "comment") {
-      const results = $comments.filter((comment) => comment.id !== id);
-      $comments = results;
+      fetch(`/comments/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json;",
+        },
+      })
+        .then((res) => res.json())
+        .catch((err) => console.log(err));
+      const results = $commentsStore.filter((comment) => comment.id !== id);
+      $commentsStore = results;
     } else {
       let commentIndex = getCommentIndex();
       const replyResults = $comments[commentIndex].replies.filter(
