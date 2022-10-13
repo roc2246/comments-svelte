@@ -25,3 +25,6 @@ DELETE http://localhost:5000/comments/8
 
 ###
 DELETE http://localhost:5000/replies/5
+
+###
+PATCH http://localhost:5000/updateComment/6

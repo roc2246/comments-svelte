@@ -148,22 +148,34 @@
   };
 
   // Updates Comment or Reply
-  // const updateData = (id, text) => {
-  //   if (text.length === 0) {
-  //     alert("Please enter text.");
-  //   }
+  const updateData = (id, text) => {
+    if (text.length === 0) {
+      alert("Please enter text.");
+    }
 
-  //   if (text === content && text.length !== 0) {
-  //     let index = $comments.findIndex((comment) => comment.id === id);
-  //     $comments[index].content = text;
-  //   } else if (text === editReplyTxt && text.length !== 0) {
-  //     let replyIndex = getReplyIndex();
-  //     let commentIndex = getCommentIndex();
+    if (text === content && text.length !== 0) {
+      console.log(id)
+      fetch(`/updateComment/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-type": "application/json;",
+        },
+        body: JSON.stringify({
+          content: "1111",
+        })
+      })
+        .then((res) => res.json())
+        .catch((err) => console.log(err));
+      let index = $commentsStore.findIndex((comment) => comment.id === id);
+      $commentsStore[index].content = text;
+    } else if (text === editReplyTxt && text.length !== 0) {
+      let replyIndex = getReplyIndex();
+      let commentIndex = getCommentIndex();
 
-  //     $comments[commentIndex].replies[replyIndex].content = text;
-  //   }
-  //   return [...$comments];
-  // };
+      $commentsStore[commentIndex].replies[replyIndex].content = text;
+    }
+    return [...$commentsStore];
+  };
 
   // Deletes Comment or Reply
   const deleteData = (id, context) => {

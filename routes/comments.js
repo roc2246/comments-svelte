@@ -37,6 +37,22 @@ router.post("/newComment", async (req, res) => {
   }
 });
 
+// Update Comment
+router.patch("/updateComment/:id", async (req, res) => {
+  try {
+    const myId = JSON.parse(req.params.id);
+
+    let comment = await Comment.findOne({ id: myId });
+    comment.content = "1111"
+
+    const update = await comment.save();
+    res.status(201).json(update);
+  } catch (e) {
+    res.status(400).json(e);
+    console.log(e);
+  }
+})
+
 router.delete("/comments/:id", async (req, res) => {
   try {
     const myId = req.params.id;
@@ -49,6 +65,7 @@ router.delete("/comments/:id", async (req, res) => {
   }
 });
 
+// New Reply
 router.patch("/comments/:id", async (req, res) => {
   try {
     const myId = JSON.parse(req.params.id);
