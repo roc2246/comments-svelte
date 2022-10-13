@@ -78,17 +78,19 @@ router.patch("/comments/:id", async (req, res) => {
   }
 });
 
-
 router.delete("/replies/:id", async (req, res) => {
   try {
-    const myId = JSON.parse(req.params.id);
+    const replyId = JSON.parse(req.params.id);
 
-    const comment = await Comment.findOne({'replies.id': myId });
+    let comment = await Comment.findOne({ "replies.id": replyId });
 
-    console.log(myId)
-    console.log(comment)
+   const filter = comment.replies.filter(
+      (reply) => reply.id !== replyId
+    );
+    comment.replies = filter
 
-    res.send(comment);
+    const newReplies = await comment.save();
+    res.status(201).json(newReplies);
   } catch (e) {
     res.status(500).send(e);
   }
