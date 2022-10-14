@@ -5,7 +5,7 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "serverDev": "nodemon server.js"
+    "start": "nodemon index.js"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",

@@ -154,35 +154,31 @@
     }
 
     if (text === content && text.length !== 0) {
-      const body = {
-          content: text,
-        }
       fetch(`/updateComment/${id}`, {
         method: "PATCH",
         headers: {
           "Content-type": "application/json;",
         },
-        body: JSON.stringify(body),
+        body: JSON.stringify({
+          content: text
+        }),
       })
         .then((res) => res.json())
-        .then((data) => console.log(data));
-      console.log(body.content);
+        .then((data) => console.log(data));;
       let index = $commentsStore.findIndex((comment) => comment.id === id);
       $commentsStore[index].content = text;
     } else if (text === editReplyTxt && text.length !== 0) {
-      const body = {
-          content: text,
-        }
       fetch(`/updateReply/${id}`, {
         method: "PATCH",
         headers: {
           "Content-type": "application/json;",
         },
-        body: JSON.stringify(body),
+        body: JSON.stringify({
+          content: text,
+        }),
       })
         .then((res) => res.json())
         .then((data) => console.log(data));
-      console.log(body.content);
       let replyIndex = getReplyIndex();
       let commentIndex = getCommentIndex();
 
