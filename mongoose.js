@@ -6,15 +6,7 @@ const db = mongoose.connection
 
 // Set up MongoDB
 mongoose.connect(dbPath, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  }, (err)=>{
-    if(err) {
-      console.log(err)
-    } else {
-      console.log("Success")
-    }
+    useNewUrlParser: true
   })
 
-db.on('error', (error) => console.log(error))
 db.once('open', () => console.log('Connected to DB'))

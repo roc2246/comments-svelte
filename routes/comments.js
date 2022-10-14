@@ -40,19 +40,23 @@ router.post("/newComment", async (req, res) => {
 });
 
 // Update Comment
-router.patch("/updateComment/:id", async (req, res) => {
+router.patch("/comments/:id", async (req, res) => {
   try {
-    const myId = JSON.parse(req.params.id);
-    let comment = await Comment.findOne({ id: myId });
+    let comment = await Comment.findOne({ id: req.params.id });
+    console.log(comment.content)
+    
 
-    comment.content = "TEST";
+    comment.content = req.body.content;
     console.log(req.body.content);
+    await comment.save();
 
-    const update = await comment.save();
-    res.status(201).json(update);
+    if (!comment) {
+      return res.status(404).send();
+    }
+
+    res.send(comment);
   } catch (e) {
-    res.status(400).json(e);
-    console.log(e);
+    res.status(400).send(e);
   }
 });
 
@@ -100,14 +104,16 @@ router.patch("/comments/:id", async (req, res) => {
 });
 
 // Update Reply
-router.patch("/updateReply/:id", async (req, res) => {
+router.patch("/replies/:id", async (req, res) => {
   try {
     const replyId = JSON.parse(req.params.id);
 
     let comment = await Comment.findOne({ "replies.id": replyId });
-   const replyIndex = comment.replies.findIndex((reply) => reply.id === replyId)
+    const replyIndex = comment.replies.findIndex(
+      (reply) => reply.id === replyId
+    );
     console.log(replyIndex);
-    console.log(req.body.content)
+    console.log(req.body.content);
 
     const update = await comment.save();
     res.status(201).json(update);

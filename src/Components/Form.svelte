@@ -149,41 +149,33 @@
 
   // Updates Comment or Reply
   const updateData = (id, text) => {
-    if (text.length === 0) {
-      alert("Please enter text.");
-    }
-
-    if (text === content && text.length !== 0) {
-      fetch(`/updateComment/${id}`, {
+    let route;
+    if (text.length !== 0) {
+      if (text === content) {
+        route = "comments";
+        let index = $commentsStore.findIndex((comment) => comment.id === id);
+        $commentsStore[index].content = text;
+      } else if (text === editReplyTxt) {
+        route = "replies";
+        let replyIndex = getReplyIndex();
+        let commentIndex = getCommentIndex();
+        $commentsStore[commentIndex].replies[replyIndex].content = text;
+      }
+      fetch(`/${route}/${id}`, {
         method: "PATCH",
         headers: {
-          "Content-type": "application/json;",
-        },
-        body: JSON.stringify({
-          content: text
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => console.log(data));;
-      let index = $commentsStore.findIndex((comment) => comment.id === id);
-      $commentsStore[index].content = text;
-    } else if (text === editReplyTxt && text.length !== 0) {
-      fetch(`/updateReply/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-type": "application/json;",
+          "Content-Type": "application/json;",
         },
         body: JSON.stringify({
           content: text,
         }),
       })
         .then((res) => res.json())
-        .then((data) => console.log(data));
-      let replyIndex = getReplyIndex();
-      let commentIndex = getCommentIndex();
-
-      $commentsStore[commentIndex].replies[replyIndex].content = text;
+        .then((data) => console.log(text));
+    } else {
+      alert("Please enter text.");
     }
+
     return [...$commentsStore];
   };
 
