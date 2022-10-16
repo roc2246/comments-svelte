@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Creating Commet
+// Creating Comment
 router.post("/", async (req, res) => {
   const comment = new Comment({
     id: req.body.id,

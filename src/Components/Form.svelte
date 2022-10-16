@@ -1,8 +1,11 @@
 <script>
   import {
+    comments,
     commentsStore,
+    getComments,
     currentUser,
     userStore,
+    getUser,
   } from "../js/comments-store";
 
   import TimeAgo from "javascript-time-ago";
@@ -66,145 +69,30 @@
     return id;
   };
 
-  // Sets fetch request for new comment or new reply
-  const setRequest = (text, method, username) => {
-    const body = {
+  // Creates New Comment
+  const newComment = () => {
+    const comment = {
       id: generateID(),
-      newcomment: text,
-      createdat: timeAgo.format(new Date()),
+      content: commentText,
+      createdAt: timeAgo.format(new Date()),
       score: 0,
       user: {
         image: {
-          png: $userStore[0].image.png,
-          webp: $userStore[0].image.webp,
+          png: $currentUser[0].image.png,
+          webp: $currentUser[0].image.webp,
         },
-        username: $userStore[0].username,
+        username: $currentUser[0].username,
       },
+      replies: [],
     };
-
-    if (text === replyText) {
-      body.replyingto = username;
-    }
-
-    if (text === commentText) {
-      body.replies = [];
-      username = null;
-    }
-
-    const reqObj = {
-      method: method,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    };
-
-    return reqObj;
-  };
-
-  const fetchData = (route, id, username) => {
-    let request;
-    let response;
-    if (route === `comments`) {
-      request = setRequest(commentText, "POST");
-      request.replies = [];
-      id = null;
-      username = null;
-      response = fetch(`/${route}`, request);
-    } else {
-      request = setRequest(replyText, "PATCH", username);
-      response = fetch(`/${route}/${id}`, request);
-    }
-
-    return response;
-  };
-
-  // Adds Comment or Reply
-  const addData = async (text, commentID, username) => {
-    let response;
-    let json;
-
-    if (text === null) {
-      alert("Please enter text.");
-    }
-
-    if (text === commentText && text !== null) {
-      response = await fetchData("comments");
-      json = await response.json();
-      commentID = null;
-      username = null;
-      $commentsStore = [...$commentsStore, json];
-    }
-
-    if (text === replyText && text !== null) {
-      response = await fetchData(`comments`, commentID, username);
-      json = await response.json();
-      $commentsStore[commentID - 1].replies = [
-        ...$commentsStore[commentID - 1].replies,
-        json.replies[json.replies.length - 1],
-      ];
-    }
-  };
-
-  // Updates Comment or Reply
-  const updateData = (id, text) => {
-    let route;
-    if (text.length !== 0) {
-      if (text === content) {
-        route = "updateComment";
-        let index = $commentsStore.findIndex((comment) => comment.id === id);
-        $commentsStore[index].content = text;
-      } else if (text === editReplyTxt) {
-        route = "replies";
-        let replyIndex = getReplyIndex();
-        let commentIndex = getCommentIndex();
-        $commentsStore[commentIndex].replies[replyIndex].content = text;
-      }
-      fetch(`/${route}/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-type": "application/json;",
-        },
-        body: JSON.stringify({
-          content: text,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => console.log(text));
-    } else {
-      alert("Please enter text.");
-    }
-
-    return [...$commentsStore];
-  };
-
-  // Deletes Comment or Reply
-  const deleteData = (id, context) => {
-    if (context === "comment") {
-      fetch(`/comments/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-type": "application/json;",
-        },
-      })
-        .then((res) => res.json())
-        .catch((err) => console.log(err));
-      const results = $commentsStore.filter((comment) => comment.id !== id);
-      $commentsStore = results;
-    } else {
-      fetch(`/replies/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-type": "application/json;",
-        },
-      })
-        .then((res) => res.json())
-        .catch((err) => console.log(err));
-      let commentIndex = getCommentIndex();
-      const replyResults = $commentsStore[commentIndex].replies.filter(
-        (reply) => reply.id !== id
-      );
-      $commentsStore[commentIndex].replies = replyResults;
-    }
-    return [...$commentsStore];
+    fetch("/comments", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(comment),
+    });
+    $commentsStore = [...$commentsStore, comment];
   };
 
   // Hides Delete Modal
@@ -260,7 +148,7 @@
     <button
       class="btn--submit"
       type="button"
-      on:click={() => addData(commentText)}
+      on:click={() => newComment(commentText)}
       on:click={() => (commentText = null)}>Submit</button
     >
     <!-- Checks for edit content form -->
