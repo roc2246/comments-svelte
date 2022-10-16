@@ -1,11 +1,8 @@
 <script>
   import {
-    comments,
     commentsStore,
-    getComments,
     currentUser,
     userStore,
-    getUser,
   } from "../js/comments-store";
 
   import TimeAgo from "javascript-time-ago";
@@ -106,7 +103,7 @@
   const fetchData = (route, id, username) => {
     let request;
     let response;
-    if (route === "newComment") {
+    if (route === `comments`) {
       request = setRequest(commentText, "POST");
       request.replies = [];
       id = null;
@@ -130,7 +127,7 @@
     }
 
     if (text === commentText && text !== null) {
-      response = await fetchData("newComment");
+      response = await fetchData("comments");
       json = await response.json();
       commentID = null;
       username = null;

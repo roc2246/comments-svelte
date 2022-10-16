@@ -1,6 +1,6 @@
 <script>
   import Comment from "./Comment.svelte";
-  import { comments, commentsStore, getComments, currentUser, userStore, getUser } from "../js/comments-store";
+  import { commentsStore, getComments, userStore, getUser } from "../js/comments-store";
   import { onMount } from "svelte";
 
   // Assigns MongoDB data to stores
