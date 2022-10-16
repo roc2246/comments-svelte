@@ -141,6 +141,32 @@
     $commentsStore[localIndex].content = content
   }
 
+  // Updates reply
+  const updateReply = (id) => {
+    const update = {
+      content: editReplyTxt,
+    };
+    fetch(`comments/reply/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(update),
+    });
+    console.log(editReplyTxt)
+
+    let index
+    for(let x in $commentsStore){
+      for(let y in $commentsStore[x].replies){
+        if ($commentsStore[x].replies[y].id === id) {
+          $commentsStore[x].replies[y].content = editReplyTxt
+        }
+      }
+    }
+
+
+  }
+
   // Deletes Comment or Reply
   const deleteData = (id, context) => {
     if (context === "comment") {
@@ -153,7 +179,7 @@
       const results = $commentsStore.filter((comment) => comment.id !== id);
       $commentsStore = results;
     } else {
-      fetch(`/replies/${id}`, {
+      fetch(`comments/reply/${id}`, {
         method: "DELETE",
         headers: {
           "Content-type": "application/json;",
@@ -165,7 +191,6 @@
       );
       $commentsStore[commentIndex].replies = replyResults;
     }
-    return [...$commentsStore];
   };
 
   // Hides Delete Modal
@@ -238,14 +263,14 @@
         <button
           class="btn--submit"
           type="button"
-          on:click={() => updateData(id, editReplyTxt)}
+          on:click={() => updateReply(id)}
           on:click>Submit</button
         >
       {:else}
         <button
           class="btn--submit"
           type="button"
-          on:click={() => updateData(id, editReplyTxt)}>Submit</button
+          on:click={() => updateReply(id)}>Submit</button
         >
       {/if}
     {:else}

@@ -87,18 +87,21 @@ router.patch("/:id/reply", getComment, async (req, res) => {
 });
 
 // Updating Reply
-router.patch("/reply/:id", async (req, res) => {
-  const replyId = JSON.parse(req.params.id);
-  let comment = await Comment.findOne({ "replies.id": replyId });
-  const replyIndex = comment.replies.findIndex(
-    (reply) => reply.id === replyId
-  );
+router.patch("/reply/:id", getParent, async (req, res) => {
   if (req.body.content != null) {
-    comment.replies[replyIndex].content = req.body.content;
+    const index = res.comment.replies.findIndex(
+      (reply) => reply.id === parseInt(req.params.id)
+    );
+    let reply = res.comment.replies[index];
+    console.log(reply.content);
+    console.log(req.body.content);
+
+    reply.content = req.body.content;
   }
   try {
-    const updatedComment = await comment.save();
-    res.json(updatedComment);
+    const updatedReply = await res.comment.save();
+    res.json(updatedReply);
+    console.log("success")
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -128,6 +131,24 @@ async function getComment(req, res, next) {
 
     if (comment === null) {
       return res.status(400).json({ message: "Cannot find comment" });
+    }
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+  res.comment = comment;
+  next();
+}
+
+async function getParent(req, res, next) {
+  let comment;
+  let reply;
+  try {
+    comment = await Comment.findOne({
+      "replies.id": JSON.parse(req.params.id),
+    });
+
+    if (reply === null) {
+      return res.status(400).json({ message: "Cannot find reply" });
     }
   } catch (err) {
     return res.status(500).json({ message: err.message });
