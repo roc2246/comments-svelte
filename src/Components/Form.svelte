@@ -95,6 +95,34 @@
     $commentsStore = [...$commentsStore, comment];
   };
 
+  // Creates new reply
+  const newReply = (id, username) => {
+    const reply = {
+      id: generateID(),
+      content: replyText,
+      createdAt: timeAgo.format(new Date()),
+      score: 0,
+      replyingTo: username,
+      user: {
+        image: {
+          png: $currentUser[0].image.png,
+          webp: $currentUser[0].image.webp,
+        },
+        username: $currentUser[0].username,
+      },
+    };
+    fetch(`/comments/${id}/reply`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(reply),
+    });
+
+    const localIndex = $commentsStore.findIndex(comment => comment.id === id)
+    $commentsStore[localIndex].replies = [...$commentsStore[localIndex].replies, reply]
+  };
+
   // Updates comment
   const updateComment = (id) => {
     const update = {
@@ -113,7 +141,7 @@
     $commentsStore[localIndex].content = content
   }
 
-  // Deletes Comment 
+  // Deletes Comment or Reply
   const deleteData = (id, context) => {
     if (context === "comment") {
       fetch(`/comments/${id}`, {
@@ -170,14 +198,14 @@
       <button
         class="btn--submit"
         type="button"
-        on:click={() => addData(replyText, id, username)}
+        on:click={() => newReply(id, username)}
         on:click>Submit</button
       >
     {:else}
       <button
         class="btn--submit"
         type="button"
-        on:click={() => addData(replyText, id, username)}>Submit</button
+        on:click={() => newReply(id, username)}>Submit</button
       >
     {/if}
     <!-- Checks for new comment form -->
