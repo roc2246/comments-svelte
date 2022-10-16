@@ -113,6 +113,33 @@
     $commentsStore[localIndex].content = content
   }
 
+  // Deletes Comment 
+  const deleteData = (id, context) => {
+    if (context === "comment") {
+      fetch(`/comments/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json;",
+        },
+      })
+      const results = $commentsStore.filter((comment) => comment.id !== id);
+      $commentsStore = results;
+    } else {
+      fetch(`/replies/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json;",
+        },
+      })
+      let commentIndex = getCommentIndex();
+      const replyResults = $commentsStore[commentIndex].replies.filter(
+        (reply) => reply.id !== id
+      );
+      $commentsStore[commentIndex].replies = replyResults;
+    }
+    return [...$commentsStore];
+  };
+
   // Hides Delete Modal
   const hideModal = () => {
     const deleteModal = document.getElementsByClassName("delete")[0];
