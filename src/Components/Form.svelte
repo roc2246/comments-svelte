@@ -152,7 +152,7 @@
     let route;
     if (text.length !== 0) {
       if (text === content) {
-        route = "comments";
+        route = "updateComment";
         let index = $commentsStore.findIndex((comment) => comment.id === id);
         $commentsStore[index].content = text;
       } else if (text === editReplyTxt) {
@@ -164,7 +164,7 @@
       fetch(`/${route}/${id}`, {
         method: "PATCH",
         headers: {
-          "Content-Type": "application/json;",
+          "Content-type": "application/json;",
         },
         body: JSON.stringify({
           content: text,
