@@ -95,6 +95,24 @@
     $commentsStore = [...$commentsStore, comment];
   };
 
+  // Updates comment
+  const updateComment = (id) => {
+    const update = {
+      content: content,
+   
+    };
+    fetch(`comments/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(update),
+    });
+    
+    const localIndex = $commentsStore.findIndex(comment => comment.id === id)
+    $commentsStore[localIndex].content = content
+  }
+
   // Hides Delete Modal
   const hideModal = () => {
     const deleteModal = document.getElementsByClassName("delete")[0];
@@ -182,14 +200,14 @@
         <button
           class="btn--submit"
           type="button"
-          on:click={() => updateData(id, content)}
+          on:click={() => updateComment(id)}
           on:click>Submit</button
         >
       {:else}
         <button
           class="btn--submit"
           type="button"
-          on:click={() => updateData(id, content)}>Submit</button
+          on:click={() => updateComment(id)}>Submit</button
         >
       {/if}
     {/if}
