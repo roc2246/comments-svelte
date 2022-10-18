@@ -146,8 +146,7 @@ router.patch("/score/:id", async (req, res) => {
   console.log(req.body.score);
   try {
     const updatedScore = !reply ? await comment.save() : " ";
-      res.json(updatedScore);
-    
+    res.json(updatedScore);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }

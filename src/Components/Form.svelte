@@ -176,16 +176,25 @@
 
   // Updates score
   const updateScore = (id, mode) => {
-   
-    let update
+    let update;
+    let newScore;
 
     if (mode === "upvote") {
+      newScore = score + 1;
       update = {
-        score: score++
+        score: newScore,
+      };
+      if (newScore === update.score) {
+        newScore = score++;
       }
     } else if (mode === "downvote") {
+      newScore = score - 1;
+
       update = {
-        score: score--
+        score: newScore,
+      };
+      if (newScore === update.score) {
+        newScore = score--;
       }
     }
 
@@ -196,7 +205,6 @@
       },
       body: JSON.stringify(update),
     });
-
   };
 
   // Hides Delete Modal
