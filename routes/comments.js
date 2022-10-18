@@ -124,8 +124,10 @@ router.delete("/reply/:id", async (req, res) => {
 
 //Update score
 router.patch("/score/:id", async (req, res) => {
+  let reply = false
   let comment = await Comment.findOne({ id: JSON.parse(req.params.id) });
   if (comment === null) {
+    reply = true
     comment = Comment.findOneAndUpdate(
       {
         "replies.id": JSON.parse(req.params.id),
@@ -142,12 +144,13 @@ router.patch("/score/:id", async (req, res) => {
     comment.score = req.body.score;
   }
 
-  try {
-    const updatedScore = await comment.save();
+     try {
+    const updatedScore = !reply ? await comment.save() : comment
     res.json(updatedScore);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
+ 
   
 });
 
