@@ -20,7 +20,12 @@
 </script>
 
 <div class={commentOrReply}>
-  <Form className="comment__vote" formMode="vote" {score} />
+  <Form
+    className="comment__vote"
+    formMode="vote"
+    {score}
+    id={replyTo !== null ? replyID : commentID}
+  />
   <div class="comment__top-row">
     <div class="comment__user-image">
       <img src={userImage} alt={username} />
@@ -170,14 +175,14 @@
         font-weight: 700;
       }
       &--reply {
-        @include CRUD('reply');
+        @include CRUD("reply");
       }
 
       &--edit {
-        @include CRUD('edit');
+        @include CRUD("edit");
       }
       &--delete {
-        @include CRUD('delete');
+        @include CRUD("delete");
       }
     }
   }

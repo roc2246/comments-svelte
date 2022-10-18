@@ -87,9 +87,9 @@ router.patch("/:id/reply", getComment, async (req, res) => {
 });
 
 // Updating Reply
-router.patch("/reply/:id", async (req, res) => {
+router.patch("/reply/:id", (req, res) => {
   try {
-   Comment.findOneAndUpdate(
+    Comment.findOneAndUpdate(
       {
         "replies.id": JSON.parse(req.params.id),
       },
@@ -98,12 +98,9 @@ router.patch("/reply/:id", async (req, res) => {
       (err, doc) => {
         if (err) {
           console.log(err);
-        } else {
-          console.log("Updated");
         }
       }
     );
-
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
@@ -123,6 +120,35 @@ router.delete("/reply/:id", async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
+});
+
+//Update score
+router.patch("/score/:id", async (req, res) => {
+  let comment = await Comment.findOne({ id: JSON.parse(req.params.id) });
+  if (comment === null) {
+    comment = Comment.findOneAndUpdate(
+      {
+        "replies.id": JSON.parse(req.params.id),
+      },
+      { $set: { "replies.$.score": req.body.score } },
+      { upsert: true },
+      (err, doc) => {
+        if (err) {
+          console.log(err);
+        }
+      }
+    );
+  } else {
+    comment.score = req.body.score;
+  }
+
+  try {
+    const updatedScore = await comment.save();
+    res.json(updatedScore);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+  
 });
 
 // Middleware

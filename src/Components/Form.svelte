@@ -107,7 +107,7 @@
     const update = {
       content: content,
     };
-    fetch(`comments/${id}`, {
+    fetch(`/comments/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -124,7 +124,7 @@
     const update = {
       content: editReplyTxt,
     };
-    fetch(`comments/reply/${id}`, {
+    fetch(`/comments/reply/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -153,7 +153,7 @@
       const results = $commentsStore.filter((comment) => comment.id !== id);
       $commentsStore = results;
     } else {
-      fetch(`comments/reply/${id}`, {
+      fetch(`/comments/reply/${id}`, {
         method: "DELETE",
         headers: {
           "Content-type": "application/json;",
@@ -161,16 +161,42 @@
       });
 
       for (let x in $commentsStore) {
-      for (let y in $commentsStore[x].replies) {
-        if ($commentsStore[x].replies[y].id === id) {
-          const results = $commentsStore[x].replies.filter(reply => reply.id !== id)
-          $commentsStore[x].replies = results
-          return
+        for (let y in $commentsStore[x].replies) {
+          if ($commentsStore[x].replies[y].id === id) {
+            const results = $commentsStore[x].replies.filter(
+              (reply) => reply.id !== id
+            );
+            $commentsStore[x].replies = results;
+            return;
+          }
         }
       }
     }
+  };
 
+  // Updates score
+  const updateScore = (id, mode) => {
+   
+    let update
+
+    if (mode === "upvote") {
+      update = {
+        score: score++
+      }
+    } else if (mode === "downvote") {
+      update = {
+        score: score--
+      }
     }
+
+    fetch(`/comments/score/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(update),
+    });
+
   };
 
   // Hides Delete Modal
@@ -309,7 +335,7 @@
     <div
       class="comment__vote--upvote"
       on:click={() => {
-        score++;
+        updateScore(id, "upvote");
       }}
     >
       <img src="images/icon-plus.svg" alt="upvote" />
@@ -318,7 +344,7 @@
     <div
       class="comment__vote--downvote"
       on:click={() => {
-        score--;
+        updateScore(id, "downvote");
       }}
     >
       <img src="images/icon-minus.svg" alt="downvote" />
