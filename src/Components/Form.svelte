@@ -36,30 +36,6 @@
   //CRUD Library
   const timeAgo = new TimeAgo("en-US");
 
-  //Retrieves reply index
-  const getReplyIndex = () => {
-    for (let comment of $commentsStore) {
-      for (let reply of comment.replies) {
-        if (reply.id === id) {
-          let replyIndex = comment.replies.findIndex(
-            (reply) => reply.id === id
-          );
-          return replyIndex;
-        }
-      }
-    }
-  };
-
-  // Retrieves comment index
-  const getCommentIndex = () => {
-    let replyIndex = getReplyIndex();
-    let commentIndex = $commentsStore.findIndex(
-      (comment) =>
-        comment.replies.length !== 0 && comment.replies[replyIndex].id === id
-    );
-    return commentIndex;
-  };
-
   // Creates new id for comment or reply
   const generateID = () => {
     let id = $commentsStore.length + 1;
@@ -119,15 +95,17 @@
       body: JSON.stringify(reply),
     });
 
-    const localIndex = $commentsStore.findIndex(comment => comment.id === id)
-    $commentsStore[localIndex].replies = [...$commentsStore[localIndex].replies, reply]
+    const localIndex = $commentsStore.findIndex((comment) => comment.id === id);
+    $commentsStore[localIndex].replies = [
+      ...$commentsStore[localIndex].replies,
+      reply,
+    ];
   };
 
   // Updates comment
   const updateComment = (id) => {
     const update = {
       content: content,
-   
     };
     fetch(`comments/${id}`, {
       method: "PATCH",
@@ -136,10 +114,10 @@
       },
       body: JSON.stringify(update),
     });
-    
-    const localIndex = $commentsStore.findIndex(comment => comment.id === id)
-    $commentsStore[localIndex].content = content
-  }
+
+    const localIndex = $commentsStore.findIndex((comment) => comment.id === id);
+    $commentsStore[localIndex].content = content;
+  };
 
   // Updates reply
   const updateReply = (id) => {
@@ -154,16 +132,14 @@
       body: JSON.stringify(update),
     });
 
-    for(let x in $commentsStore){
-      for(let y in $commentsStore[x].replies){
+    for (let x in $commentsStore) {
+      for (let y in $commentsStore[x].replies) {
         if ($commentsStore[x].replies[y].id === id) {
-          $commentsStore[x].replies[y].content = editReplyTxt
+          $commentsStore[x].replies[y].content = editReplyTxt;
         }
       }
     }
-
-
-  }
+  };
 
   // Deletes Comment or Reply
   const deleteData = (id, context) => {
@@ -173,7 +149,7 @@
         headers: {
           "Content-type": "application/json;",
         },
-      })
+      });
       const results = $commentsStore.filter((comment) => comment.id !== id);
       $commentsStore = results;
     } else {
@@ -182,12 +158,19 @@
         headers: {
           "Content-type": "application/json;",
         },
-      })
-      let commentIndex = getCommentIndex();
-      const replyResults = $commentsStore[commentIndex].replies.filter(
-        (reply) => reply.id !== id
-      );
-      $commentsStore[commentIndex].replies = replyResults;
+      });
+
+      for (let x in $commentsStore) {
+        for (let y in $commentsStore[x].replies) {
+          if ($commentsStore[x].replies[y].id === id) {
+            const results = $commentsStore[x].replies.filter(
+              (reply) => reply.id !== id
+            );
+            $commentsStore = results
+          }
+        }
+      }
+
     }
   };
 
