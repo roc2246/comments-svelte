@@ -161,15 +161,14 @@
       });
 
       for (let x in $commentsStore) {
-        for (let y in $commentsStore[x].replies) {
-          if ($commentsStore[x].replies[y].id === id) {
-            const results = $commentsStore[x].replies.filter(
-              (reply) => reply.id !== id
-            );
-            $commentsStore = results
-          }
+      for (let y in $commentsStore[x].replies) {
+        if ($commentsStore[x].replies[y].id === id) {
+          const results = $commentsStore[x].replies.filter(reply => reply.id !== id)
+          $commentsStore[x].replies = results
+          return
         }
       }
+    }
 
     }
   };
