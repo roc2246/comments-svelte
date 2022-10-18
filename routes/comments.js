@@ -87,23 +87,18 @@ router.patch("/:id/reply", getComment, async (req, res) => {
 });
 
 // Updating Reply
-router.patch("/reply/:id", getParent, async (req, res) => {
-  if (req.body.content != null) {
-    const index = res.comment.replies.findIndex(
-      (reply) => reply.id === parseInt(req.params.id)
-    );
-    let reply = res.comment.replies[index];
-    console.log(reply.content);
-    console.log(req.body.content);
-
-    reply.content = req.body.content;
-  }
+router.patch("/reply/:id",  async (req, res) => {
   try {
-    const updatedReply = await res.comment.save();
+      let comment = Comment.findOneAndUpdate({
+        "replies.id": JSON.parse(req.params.id),
+      }, {$set: {'replies.$.content': req.body.content}}, {upsert: true}, function(err,doc) {
+        if (err) { throw err; }
+        else { console.log("Updated"); }
+      })
+    const updatedReply = await comment.save();
     res.json(updatedReply);
-    console.log("success")
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(400).json({ message: err.message });
   }
 });
 
@@ -139,22 +134,21 @@ async function getComment(req, res, next) {
   next();
 }
 
-async function getParent(req, res, next) {
-  let comment;
-  let reply;
-  try {
-    comment = await Comment.findOne({
-      "replies.id": JSON.parse(req.params.id),
-    });
+// async function getParent(req, res, next) {
+//   let comment;
+//   try {
+//     comment = await Comment.findOne({
+//       "replies.id": JSON.parse(req.params.id),
+//     });
 
-    if (reply === null) {
-      return res.status(400).json({ message: "Cannot find reply" });
-    }
-  } catch (err) {
-    return res.status(500).json({ message: err.message });
-  }
-  res.comment = comment;
-  next();
-}
+//     if (comment === null) {
+//       return res.status(400).json({ message: "Cannot find comment" });
+//     }
+//   } catch (err) {
+//     return res.status(500).json({ message: err.message });
+//   }
+//   res.comment = comment;
+//   next();
+// }
 
 module.exports = router;

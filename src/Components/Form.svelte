@@ -153,9 +153,7 @@
       },
       body: JSON.stringify(update),
     });
-    console.log(editReplyTxt)
 
-    let index
     for(let x in $commentsStore){
       for(let y in $commentsStore[x].replies){
         if ($commentsStore[x].replies[y].id === id) {
