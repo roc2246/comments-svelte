@@ -87,16 +87,23 @@ router.patch("/:id/reply", getComment, async (req, res) => {
 });
 
 // Updating Reply
-router.patch("/reply/:id",  async (req, res) => {
+router.patch("/reply/:id", async (req, res) => {
   try {
-      let comment = Comment.findOneAndUpdate({
+   Comment.findOneAndUpdate(
+      {
         "replies.id": JSON.parse(req.params.id),
-      }, {$set: {'replies.$.content': req.body.content}}, {upsert: true}, function(err,doc) {
-        if (err) { throw err; }
-        else { console.log("Updated"); }
-      })
-    const updatedReply = await comment.save();
-    res.json(updatedReply);
+      },
+      { $set: { "replies.$.content": req.body.content } },
+      { upsert: true },
+      (err, doc) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log("Updated");
+        }
+      }
+    );
+
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
