@@ -1,10 +1,5 @@
 <script>
-  import {
-    commentsStore,
-    currentUser,
-    userStore,
-    getUser,
-  } from "../js/comments-store";
+  import { commentsStore, userStore } from "../js/comments-store";
 
   import TimeAgo from "javascript-time-ago";
   import en from "javascript-time-ago/locale/en";
@@ -53,10 +48,10 @@
         score: 0,
         user: {
           image: {
-            png: $currentUser[0].image.png,
-            webp: $currentUser[0].image.webp,
+            png: $userStore[0].image.png,
+            webp: $userStore[0].image.webp,
           },
-          username: $currentUser[0].username,
+          username: $userStore[0].username,
         },
         replies: [],
       };
@@ -84,10 +79,10 @@
         replyingTo: username,
         user: {
           image: {
-            png: $currentUser[0].image.png,
-            webp: $currentUser[0].image.webp,
+            png: $userStore[0].image.png,
+            webp: $userStore[0].image.webp,
           },
-          username: $currentUser[0].username,
+          username: $userStore[0].username,
         },
       };
       fetch(`/comments/${id}/reply`, {
@@ -238,7 +233,7 @@
 <form class={className} on:submit|preventDefault>
   {#if formMode === "new-reply" || formMode === "new-comment"}
     <div class="img--user">
-      <img src={$currentUser[0].image.png} alt={$currentUser[0].username} />
+      <img src={$userStore[0].image.png} alt={$userStore[0].username} />
     </div>
   {/if}
   <!-- Checks for new reply form -->

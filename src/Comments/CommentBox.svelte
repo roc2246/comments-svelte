@@ -2,6 +2,8 @@
   import Comment from "./Comment.svelte";
   import { commentsStore, getComments, userStore, getUser } from "../js/comments-store";
   import { onMount } from "svelte";
+import Form from "../Components/Form.svelte";
+
 
   // Assigns MongoDB data to stores
   onMount(async () => {
@@ -12,9 +14,9 @@
     if (user) userStore.update((data) => user);
   });
 </script>
+{#if $commentsStore && $userStore}
 
 <section id="comment-box">
-  {#if $commentsStore && $userStore}
     {#each $commentsStore as comment (comment.id)}
       <Comment
         commentID={comment.id}
@@ -48,8 +50,10 @@
         </div>
       {/if}
     {/each}
-  {/if}
+	<Form className="new-comment" formMode="new-comment"/>
 </section>
+{/if}
+
 
 <style lang="scss">
   @import "../global";
