@@ -1,3 +1,4 @@
 This is the repository for a front-end comments section project. 
 
-COMING SOON: Backend capabilities that will keep any changes made by a user.
+<b>Frontend:</b> Svelte, SASS/SCSS <br>
+<b>Backend:</b> Node, Express, MongoDB
