@@ -1,8 +1,6 @@
 <script>
   import {
-    comments,
     commentsStore,
-    getComments,
     currentUser,
     userStore,
     getUser,
