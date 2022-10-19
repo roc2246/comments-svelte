@@ -47,97 +47,117 @@
 
   // Creates New Comment
   const newComment = () => {
-    const comment = {
-      id: generateID(),
-      content: commentText,
-      createdAt: timeAgo.format(new Date()),
-      score: 0,
-      user: {
-        image: {
-          png: $currentUser[0].image.png,
-          webp: $currentUser[0].image.webp,
+    if (commentText !== null) {
+      const comment = {
+        id: generateID(),
+        content: commentText,
+        createdAt: timeAgo.format(new Date()),
+        score: 0,
+        user: {
+          image: {
+            png: $currentUser[0].image.png,
+            webp: $currentUser[0].image.webp,
+          },
+          username: $currentUser[0].username,
         },
-        username: $currentUser[0].username,
-      },
-      replies: [],
-    };
-    fetch("/comments", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(comment),
-    });
-    $commentsStore = [...$commentsStore, comment];
+        replies: [],
+      };
+      fetch("/comments", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(comment),
+      });
+      $commentsStore = [...$commentsStore, comment];
+    } else {
+      alert("Please Fill Out Text");
+    }
   };
 
   // Creates new reply
   const newReply = (id, username) => {
-    const reply = {
-      id: generateID(),
-      content: replyText,
-      createdAt: timeAgo.format(new Date()),
-      score: 0,
-      replyingTo: username,
-      user: {
-        image: {
-          png: $currentUser[0].image.png,
-          webp: $currentUser[0].image.webp,
+    if (replyText !== null) {
+      const reply = {
+        id: generateID(),
+        content: replyText,
+        createdAt: timeAgo.format(new Date()),
+        score: 0,
+        replyingTo: username,
+        user: {
+          image: {
+            png: $currentUser[0].image.png,
+            webp: $currentUser[0].image.webp,
+          },
+          username: $currentUser[0].username,
         },
-        username: $currentUser[0].username,
-      },
-    };
-    fetch(`/comments/${id}/reply`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(reply),
-    });
+      };
+      fetch(`/comments/${id}/reply`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(reply),
+      });
 
-    const localIndex = $commentsStore.findIndex((comment) => comment.id === id);
-    $commentsStore[localIndex].replies = [
-      ...$commentsStore[localIndex].replies,
-      reply,
-    ];
+      const localIndex = $commentsStore.findIndex(
+        (comment) => comment.id === id
+      );
+      $commentsStore[localIndex].replies = [
+        ...$commentsStore[localIndex].replies,
+        reply,
+      ];
+    } else {
+      alert("Please Fill Out Text");
+    }
   };
 
   // Updates comment
   const updateComment = (id) => {
-    const update = {
-      content: content,
-    };
-    fetch(`/comments/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(update),
-    });
+    if (content.length !== 0) {
+      const update = {
+        content: content,
+      };
+      fetch(`/comments/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(update),
+      });
 
-    const localIndex = $commentsStore.findIndex((comment) => comment.id === id);
-    $commentsStore[localIndex].content = content;
+      const localIndex = $commentsStore.findIndex(
+        (comment) => comment.id === id
+      );
+      $commentsStore[localIndex].content = content;
+    } else {
+      alert("Please Fill Out Text");
+    }
   };
 
   // Updates reply
   const updateReply = (id) => {
-    const update = {
-      content: editReplyTxt,
-    };
-    fetch(`/comments/reply/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(update),
-    });
+    if (editReplyTxt.length !== 0) {
+      const update = {
+        content: editReplyTxt,
+      };
+      fetch(`/comments/reply/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(update),
+      });
 
-    for (let x in $commentsStore) {
-      for (let y in $commentsStore[x].replies) {
-        if ($commentsStore[x].replies[y].id === id) {
-          $commentsStore[x].replies[y].content = editReplyTxt;
+      for (let x in $commentsStore) {
+        for (let y in $commentsStore[x].replies) {
+          if ($commentsStore[x].replies[y].id === id) {
+            $commentsStore[x].replies[y].content = editReplyTxt;
+          }
         }
       }
+    } else {
+      alert("Please Fill Out Text");
     }
   };
 
