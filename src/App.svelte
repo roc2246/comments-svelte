@@ -1,6 +1,5 @@
 <script>
 import CommentBox from "./Comments/CommentBox.svelte";
-import Form from "./Components/Form.svelte";
 
 </script>
 

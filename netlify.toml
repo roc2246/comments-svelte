@@ -1,0 +1,9 @@
+[build]
+    publish = "public/"
+    command = "npm run build"
+    functions = "netlify/functions/"
+    targerPort = 2000
+[dev]
+    command = "npm run dev" 
+    publish = "public"
+    targerPort = 2000
