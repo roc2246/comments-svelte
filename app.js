@@ -5,7 +5,7 @@ const commentsRouter = require('./routes/comments')
 const pageRouter = require('./routes/page')
 
 const app = express();
-app.use('/build', express.static('public/build'))
+
 app.use(express.static('public'));
 app.use(express.json())
 app.use('/user', userRouter)
