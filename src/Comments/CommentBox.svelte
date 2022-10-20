@@ -14,9 +14,14 @@
     let comments = await getComments();
     let user = await getUser();
 
-    if (comments) commentsStore.update((data) => comments);
+    if (comments) commentsStore.update((data) => comments.sort((a, b) => {
+      return b.score-a.score
+    }));
     if (user) userStore.update((data) => user);
+
   });
+
+
 </script>
 
 {#if $commentsStore && $userStore}
