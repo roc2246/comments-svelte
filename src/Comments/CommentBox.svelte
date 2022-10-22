@@ -27,7 +27,7 @@
 {#if $commentsStore && $userStore}
   <section id="comment-box">
     {#each $commentsStore as comment (comment.id)}
-      <Comment
+      <CommentData
         commentID={comment.id}
         commentOrReply="comment"
         score={comment.score}
@@ -42,7 +42,7 @@
           <div class="reply-box__reply-line" />
           <div class="reply-box__replies">
             {#each comment.replies as reply (reply.id)}
-              <Comment
+              <CommentData
                 commentID={comment.id}
                 replyID={reply.id}
                 commentOrReply="comment reply"
