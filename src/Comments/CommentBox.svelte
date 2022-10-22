@@ -1,5 +1,5 @@
 <script>
-  // import Comment from "./Comment.svelte";
+  import Comment from "./Comment.svelte";
   import {
     commentsStore,
     getComments,
@@ -24,7 +24,7 @@
 
 </script>
 
-<!-- {#if $commentsStore && $userStore}
+{#if $commentsStore && $userStore}
   <section id="comment-box">
     {#each $commentsStore as comment (comment.id)}
       <Comment
@@ -61,7 +61,7 @@
     {/each}
     <Form className="new-comment" formMode="new-comment" />
   </section>
-{/if} -->
+{/if}
 
 <style lang="scss">
   @import "../global";
