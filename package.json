@@ -7,7 +7,7 @@
   },
   "private": true,
   "scripts": {
-    "build": "npm install --prefix client && rollup -c --prefix client",
+    "build": "rollup -c",
     "dev": "rollup -c -w",
     "start": "node index.js",
     "heroku-postbuild": "npm run build"
