@@ -1,6 +1,6 @@
 <script>
   import Test from './Test.svelte';
-  import Comment from "./Comment.svelte";
+  // import Comment from "./Comment.svelte";
   import {
     commentsStore,
     getComments,
