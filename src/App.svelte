@@ -4,7 +4,7 @@ import CommentBox from "./Comments/CommentBox.svelte";
 </script>
 
 <main>
-	<CommentBox/>
+	<!-- <CommentBox/> -->
 </main>
 
 <style lang="scss">
