@@ -1,5 +1,5 @@
 <script>
-  import Comment from "../components/Comment.svelte";
+  import Comment from "./Comment.svelte";
   import {
     commentsStore,
     getComments,
