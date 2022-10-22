@@ -19,7 +19,7 @@
   let showDeleteForm = false;
 </script>
 
-<!-- <div class={commentOrReply}>
+<div class={commentOrReply}>
   <Form
     className="comment__vote"
     formMode="vote"
@@ -99,7 +99,7 @@
     {username}
     on:click={() => (showReplyForm = false)}
   />
-{/if} -->
+{/if}
 {#if showDeleteForm}
   <Form
     formMode="delete"
