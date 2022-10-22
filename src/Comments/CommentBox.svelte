@@ -1,6 +1,5 @@
 <script>
-  import Test from './Test.svelte';
-  // import Comment from "./Comment.svelte";
+  import Comment from "./Comment.svelte";
   import {
     commentsStore,
     getComments,
@@ -24,7 +23,7 @@
 
 
 </script>
-<Test></Test>
+
 {#if $commentsStore && $userStore}
   <section id="comment-box">
     {#each $commentsStore as comment (comment.id)}
