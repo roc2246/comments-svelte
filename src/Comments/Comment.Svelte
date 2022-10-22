@@ -13,19 +13,21 @@
   export let replyTo = null;
   export let isCurrentUser;
 
-  // Stpres Toggle Values
+  // Stores Toggle Values
   let showReplyForm = false;
   let showEditForm = false;
   let showDeleteForm = false;
 </script>
 
 <div class={commentOrReply}>
+  <!-- Vote Form -->
   <Form
     className="comment__vote"
     formMode="vote"
     {score}
     id={replyTo !== null ? replyID : commentID}
   />
+  <!-- Top Row -->
   <div class="comment__top-row">
     <div class="comment__user-image">
       <img src={userImage} alt={username} />
@@ -38,6 +40,7 @@
     </div>
     <span class="comment__post-date">{createdAt}</span>
   </div>
+  <!-- CRUD -->
   <div class="comment__CRUD">
     {#if isCurrentUser === true}
       <div
@@ -73,6 +76,7 @@
       </div>
     {/if}
   </div>
+  <!-- Edit Form -->
   {#if showEditForm}
     <Form
       className="comment__edit-content"
@@ -91,6 +95,7 @@
     </p>
   {/if}
 </div>
+<!-- Reply Form -->
 {#if showReplyForm}
   <Form
     className="new-reply"
@@ -100,6 +105,7 @@
     on:click={() => (showReplyForm = false)}
   />
 {/if}
+<!-- Delete Form -->
 {#if showDeleteForm}
   <Form
     formMode="delete"
